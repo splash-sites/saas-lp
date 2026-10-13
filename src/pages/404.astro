@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Página não encontrada · Gradatim" description="Esta página não existe.">
+  <section class="wrap nf">
+    <h1>Esta página não existe.</h1>
+    <p class="lede">O endereço pode ter mudado. Volte para o início e siga de lá.</p>
+    <a href="/" class="btn btn-primary">Ir para o início</a>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    display: grid;
+    justify-items: start;
+    gap: 1.25rem;
+    padding-block: clamp(4rem, 3rem + 6vw, 9rem);
+  }
+  .nf h1 {
+    font-size: var(--step-3);
+  }
+</style>

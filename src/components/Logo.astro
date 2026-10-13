@@ -1,0 +1,37 @@
+---
+// Marca: uma escada de três degraus (gradatim = passo a passo) + nome.
+interface Props {
+  tom?: "escuro" | "claro";
+}
+const { tom = "escuro" } = Astro.props;
+---
+
+<span class:list={["logo", tom]}>
+  <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+    <rect width="32" height="32" rx="7" class="logo-bg"></rect>
+    <path d="M7 24h6v-5h6v-5h6V8" fill="none" class="logo-step" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span class="logo-name">gradatim</span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    padding-bottom: 0.1em;
+  }
+  .escuro .logo-bg { fill: var(--teal); }
+  .escuro .logo-step { stroke: var(--paper); }
+  .escuro .logo-name { color: var(--ink); }
+  .claro .logo-bg { fill: var(--paper); }
+  .claro .logo-step { stroke: var(--teal-deep); }
+  .claro .logo-name { color: var(--paper); }
+</style>

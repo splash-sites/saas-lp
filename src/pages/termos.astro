@@ -1,0 +1,137 @@
+---
+// Copiada de src/app/termos/page.tsx do app (splash-sites/saas-psicologia).
+// Manter as duas versões iguais ao alterar.
+import Legal from "../layouts/Legal.astro";
+import { APP_LOGIN_URL, WHATSAPP_EXIBICAO, WHATSAPP_URL } from "../consts";
+const configuracoes = new URL("/configuracoes", APP_LOGIN_URL).href;
+---
+
+<Legal
+  title="Termos de Uso"
+  description="Condições de uso do Gradatim: cadastro, assinatura, teste grátis, somente leitura, cancelamento e integração com o Google Agenda."
+>
+  <section>
+    <h2>1. Quem oferece o serviço</h2>
+    <p>
+      O <strong>Gradatim</strong> é oferecido por <strong>Bernardo Dornelles</strong>, pessoa
+      física, Torres/RS. Ao criar uma conta, você concorda com estes termos e com a nossa
+      <a href="/privacidade">Política de Privacidade</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. O que é o serviço</h2>
+    <p>
+      Plataforma de gestão de consultório (agenda, prontuário/evolução, financeiro e assinatura)
+      voltada a psicólogos autônomos, com atendimento individual (não clínicas com múltiplos
+      profissionais). O serviço <strong>não presta atendimento psicológico</strong> nem substitui o
+      julgamento clínico do profissional. É só uma ferramenta de organização e registro.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. Cadastro e responsabilidade pela conta</h2>
+    <ul>
+      <li>Uma conta por psicólogo; o uso é individual, não compartilhado.</li>
+      <li>
+        Você é responsável por manter a confidencialidade do seu login e por tudo que acontecer na
+        sua conta.
+      </li>
+      <li>
+        Você é responsável pela exatidão dos dados inseridos (seus e dos seus pacientes) e por obter
+        o consentimento necessário dos pacientes para o tratamento dos dados deles na plataforma,
+        conforme a LGPD e o Código de Ética Profissional do Psicólogo.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. Assinatura e cobrança</h2>
+    <ul>
+      <li>
+        A plataforma é paga por assinatura, com 14 dias de teste grátis a partir do cadastro.
+        Planos: mensal, trimestral (10% de desconto) e semestral (15% de desconto), com valores
+        exibidos na tela de assinatura antes da confirmação.
+      </li>
+      <li>
+        A cobrança é processada pelo Asaas. Você escolhe a forma de pagamento (Pix, boleto ou
+        cartão) diretamente na página hospedada pelo Asaas. Nenhum dado de cartão passa pelos nossos
+        servidores.
+      </li>
+      <li>
+        Pagamento em atraso restringe a conta ao <strong>modo somente leitura</strong>: você continua
+        vendo e exportando pacientes, agenda, prontuário e financeiro, mas não consegue criar ou
+        editar nada até regularizar. Nunca bloqueamos o acesso de leitura, justamente para não
+        impedir o cumprimento da sua obrigação de guarda de prontuário.
+      </li>
+      <li>Você pode cancelar a assinatura a qualquer momento, pela própria plataforma.</li>
+      <li>
+        Emissão de nota fiscal ainda não está disponível (depende da formalização de CNPJ).
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. Seus dados e os dados dos seus pacientes</h2>
+    <p>
+      Os dados que você cadastra sobre seus pacientes pertencem a você (psicólogo). Nós só
+      armazenamos e processamos em seu nome, como detalhado na Política de Privacidade. Você pode
+      exportar ou excluir esses dados a qualquer momento, respeitado o prazo legal mínimo de 5 anos
+      de guarda de prontuário (Resolução CFP nº 01/2009).
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Integração com Google Agenda</h2>
+    <p>
+      A sincronização com o Google Agenda é opcional e de mão única: nosso sistema cria eventos na
+      sua agenda e nunca lê o que já está nela. Você pode revogar essa permissão a qualquer momento,
+      em <a href={configuracoes}>Configurações</a> ou diretamente na sua conta Google. A plataforma
+      continua funcionando normalmente sem essa integração.
+    </p>
+  </section>
+
+  <section>
+    <h2>7. Limitação de responsabilidade</h2>
+    <p>
+      O serviço é fornecido "como está". Fazemos esforço razoável para manter a plataforma
+      disponível e os dados seguros, mas não garantimos disponibilidade ininterrupta. Falhas
+      pontuais de integrações de terceiros (Google, Asaas) não derrubam o funcionamento essencial
+      da plataforma: por decisão de projeto, uma falha de integração externa nunca impede o uso
+      principal do sistema.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Cancelamento e encerramento de conta</h2>
+    <p>
+      Você pode encerrar sua conta a qualquer momento. Dados sob obrigação legal de guarda
+      (prontuário, dentro do prazo de 5 anos) permanecem armazenados mesmo após o encerramento,
+      conforme exigido por lei, mas deixam de ser acessíveis via login.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Alterações destes termos</h2>
+    <p>
+      Podemos atualizar estes termos conforme o produto evolui. Mudanças relevantes serão avisadas
+      por e-mail ou dentro do sistema antes de entrarem em vigor.
+    </p>
+  </section>
+
+  <section>
+    <h2>10. Foro</h2>
+    <p>
+      Fica eleito o foro da comarca de Torres/RS para dirimir eventuais controvérsias decorrentes
+      destes termos.
+    </p>
+  </section>
+
+  <section>
+    <h2>11. Contato</h2>
+    <p>
+      <a href="mailto:bernardo.dornelles22@gmail.com">bernardo.dornelles22@gmail.com</a> ou
+      <a href={WHATSAPP_URL} rel="noopener" target="_blank">WhatsApp {WHATSAPP_EXIBICAO}</a>.
+    </p>
+  </section>
+</Legal>

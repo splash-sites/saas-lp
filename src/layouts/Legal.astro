@@ -1,0 +1,57 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<Base title={`${title} · Gradatim`} description={description}>
+  <article class="wrap legal">
+    <header>
+      <h1>{title}</h1>
+      <p class="muted">Última atualização: outubro de 2026.</p>
+    </header>
+    <slot />
+  </article>
+</Base>
+
+<style>
+  .legal {
+    max-width: 46rem;
+    padding-block: clamp(2.5rem, 2rem + 3vw, 5rem);
+    display: grid;
+    gap: 2rem;
+  }
+  .legal header {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .legal h1 {
+    font-size: var(--step-3);
+  }
+  .legal :global(section) {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .legal :global(h2) {
+    font-size: var(--step-1);
+    font-weight: 500;
+  }
+  .legal :global(p),
+  .legal :global(li) {
+    color: var(--ink-soft);
+  }
+  .legal :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .legal :global(ul) {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+</style>

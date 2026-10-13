@@ -1,0 +1,77 @@
+---
+import Logo from "./Logo.astro";
+import { APP_LOGIN_URL, WHATSAPP_EXIBICAO, WHATSAPP_URL } from "../consts";
+const ano = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-marca">
+      <Logo tom="claro" />
+      <p>Gestão de consultório para quem atende por conta própria.</p>
+    </div>
+    <nav aria-label="Rodapé" class="footer-links">
+      <a href={APP_LOGIN_URL}>Entrar</a>
+      <a href="/#google-agenda">Uso do Google Agenda</a>
+      <a href="/privacidade">Política de Privacidade</a>
+      <a href="/termos">Termos de Uso</a>
+    </nav>
+    <div class="footer-contato">
+      <span>Fale com a gente</span>
+      <a href={WHATSAPP_URL} rel="noopener" target="_blank">WhatsApp {WHATSAPP_EXIBICAO}</a>
+    </div>
+    <p class="footer-legal">© {ano} Gradatim</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: #b8ccc7;
+    padding-block: 3.5rem 2rem;
+    font-size: 0.95rem;
+  }
+  .footer-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 52rem) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+    .footer-legal {
+      grid-column: 1 / -1;
+    }
+  }
+  .footer-marca {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 22rem;
+  }
+  .footer-links,
+  .footer-contato {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+  }
+  .footer-contato span {
+    color: #fff;
+    font-weight: 600;
+  }
+  .footer a {
+    color: #e6efec;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .footer :focus-visible {
+    outline-color: #7fd1c4;
+  }
+  .footer-legal {
+    border-top: 1px solid #2e4e48;
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+  }
+</style>

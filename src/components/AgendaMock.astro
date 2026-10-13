@@ -1,0 +1,212 @@
+---
+// Tela ilustrativa da agenda semanal, desenhada em HTML/CSS com dados
+// fictícios. Trocar por print real quando houver.
+type Consulta = {
+  dia: number;
+  inicio: number; // hora cheia, 8..18
+  nome: string;
+  tipo: "online" | "presencial";
+  estado?: "confirmou" | "falta";
+};
+
+const dias = ["Seg 12", "Ter 13", "Qua 14", "Qui 15", "Sex 16"];
+const horas = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+
+const consultas: Consulta[] = [
+  { dia: 0, inicio: 9, nome: "Marina S.", tipo: "online", estado: "confirmou" },
+  { dia: 0, inicio: 14, nome: "Paulo R.", tipo: "presencial" },
+  { dia: 0, inicio: 16, nome: "Lia T.", tipo: "online" },
+  { dia: 1, inicio: 8, nome: "Joana M.", tipo: "presencial", estado: "confirmou" },
+  { dia: 1, inicio: 10, nome: "Caio F.", tipo: "online" },
+  { dia: 1, inicio: 15, nome: "Renata A.", tipo: "online" },
+  { dia: 2, inicio: 9, nome: "Marcos V.", tipo: "presencial", estado: "falta" },
+  { dia: 2, inicio: 13, nome: "Helena P.", tipo: "online" },
+  { dia: 3, inicio: 10, nome: "Bruno C.", tipo: "presencial" },
+  { dia: 3, inicio: 14, nome: "Sofia L.", tipo: "online", estado: "confirmou" },
+  { dia: 3, inicio: 17, nome: "Diego N.", tipo: "online" },
+  { dia: 4, inicio: 9, nome: "Teresa G.", tipo: "presencial" },
+  { dia: 4, inicio: 11, nome: "Ana B.", tipo: "online" },
+];
+---
+
+<figure class="agenda" aria-label="Exemplo da agenda semanal do Gradatim, com dados fictícios">
+  <div class="agenda-bar" aria-hidden="true">
+    <span class="agenda-dots"><i></i><i></i><i></i></span>
+    <span class="agenda-url">app.gradatim.com.br/agenda</span>
+  </div>
+  <div class="agenda-top" aria-hidden="true">
+    <strong>Outubro, semana 3</strong>
+    <span class="agenda-legend">
+      <span class="lg lg-online">Online</span>
+      <span class="lg lg-presencial">Presencial</span>
+    </span>
+  </div>
+  <div class="agenda-grid" aria-hidden="true" style={`--rows:${horas.length}`}>
+    <div class="ag-corner" style="grid-area:1 / 1"></div>
+    {dias.map((d, i) => <div class:list={["ag-day", `d${i}`]} style={`grid-column:${i + 2}`}>{d}</div>)}
+    {horas.map((h, r) => <div class="ag-hour" style={`grid-row:${r + 2}`}>{h}h</div>)}
+    {
+      consultas.map((c) => (
+        <div
+          class:list={["ag-ev", c.tipo, c.estado, `d${c.dia}`]}
+          style={`grid-column:${c.dia + 2};grid-row:${c.inicio - 6}`}
+        >
+          <span class="ag-name" data-sensivel>
+            {c.nome}
+          </span>
+          <span class="ag-meta">
+            {c.estado === "falta" ? "Falta" : c.tipo === "online" ? "Meet" : "Consultório"}
+            {c.estado === "confirmou" && <span class="ag-ok">✓</span>}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+  <figcaption class="sr-only">
+    Agenda da semana com consultas online e presenciais, marcação de falta e de paciente que
+    confirmou.
+  </figcaption>
+</figure>
+
+<style>
+  .agenda {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 1px 0 rgb(18 48 43 / 0.04),
+      0 24px 48px -24px rgb(18 48 43 / 0.28);
+    overflow: hidden;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+  .agenda-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--mist);
+    background: var(--paper);
+  }
+  .agenda-dots {
+    display: flex;
+    gap: 5px;
+  }
+  .agenda-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+  .agenda-url {
+    color: var(--ink-soft);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    font-size: 0.7rem;
+  }
+  .agenda-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0.9rem 0.6rem;
+    font-size: 0.85rem;
+  }
+  .agenda-legend {
+    display: flex;
+    gap: 0.75rem;
+    color: var(--ink-soft);
+    font-size: 0.7rem;
+  }
+  .lg::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    margin-right: 0.3rem;
+    vertical-align: 0;
+  }
+  .lg-online::before {
+    background: var(--teal);
+  }
+  .lg-presencial::before {
+    background: var(--marigold);
+  }
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: 2.4rem repeat(5, minmax(0, 1fr));
+    grid-template-rows: auto repeat(var(--rows), 2.35rem);
+    gap: 3px;
+    padding: 0 0.6rem 0.8rem;
+  }
+  .ag-day {
+    grid-row: 1;
+    text-align: center;
+    color: var(--ink-soft);
+    font-weight: 600;
+    padding-bottom: 0.35rem;
+  }
+  .ag-hour {
+    grid-column: 1;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    padding-top: 0.15rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .ag-ev {
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+    min-width: 0;
+    border-left: 3px solid;
+  }
+  .ag-ev.online {
+    background: #e2f1ee;
+    border-color: var(--teal);
+  }
+  .ag-ev.presencial {
+    background: var(--marigold-soft);
+    border-color: var(--marigold);
+  }
+  .ag-ev.falta {
+    background: repeating-linear-gradient(-45deg, #f3f5f4 0 5px, #e8edeb 5px 10px);
+    border-color: var(--line);
+    color: var(--ink-soft);
+  }
+  .ag-ev.falta .ag-name {
+    text-decoration: line-through;
+  }
+  .ag-name {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ag-meta {
+    color: var(--ink-soft);
+    font-size: 0.66rem;
+    white-space: nowrap;
+  }
+  .ag-ok {
+    color: var(--teal);
+    font-weight: 700;
+    margin-left: 0.2rem;
+  }
+
+  /* No celular a agenda real mostra o dia; aqui mostramos 3 dias para caber. */
+  @media (max-width: 30rem) {
+    .agenda-grid {
+      grid-template-columns: 2.2rem repeat(3, minmax(0, 1fr));
+    }
+    .d3,
+    .d4 {
+      display: none;
+    }
+  }
+</style>

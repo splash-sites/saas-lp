@@ -1,0 +1,84 @@
+---
+import Logo from "./Logo.astro";
+import { APP_LOGIN_URL } from "../consts";
+const naHome = Astro.url.pathname === "/";
+const ancora = (id: string) => (naHome ? `#${id}` : `/#${id}`);
+---
+
+<header class="header">
+  <div class="wrap header-inner">
+    <a href="/" class="header-logo" aria-label="Gradatim, página inicial"><Logo /></a>
+    <nav aria-label="Principal" class="header-nav">
+      <a href={ancora("recursos")}>Recursos</a>
+      <a href={ancora("seguranca")}>Segurança</a>
+      <a href={ancora("preco")}>Preço</a>
+      <a href={ancora("duvidas")}>Dúvidas</a>
+    </nav>
+    <div class="header-actions">
+      <a href={APP_LOGIN_URL} class="header-entrar">Entrar</a>
+      <a href={APP_LOGIN_URL} class="btn btn-primary header-cta">Teste grátis</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4rem;
+  }
+  .header-logo {
+    text-decoration: none;
+    margin-right: auto;
+    border-radius: 8px;
+  }
+  .header-nav {
+    display: none;
+    gap: 1.75rem;
+  }
+  .header-nav a,
+  .header-entrar {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .header-nav a:hover,
+  .header-entrar:hover {
+    color: var(--teal);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .header-entrar {
+    padding: 0.5rem 0.25rem;
+  }
+  .header-cta {
+    min-height: 2.5rem;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.95rem;
+  }
+  @media (min-width: 60rem) {
+    .header-nav {
+      display: flex;
+    }
+    .header-logo {
+      margin-right: 0;
+    }
+    .header-nav {
+      margin-inline: auto;
+    }
+  }
+</style>

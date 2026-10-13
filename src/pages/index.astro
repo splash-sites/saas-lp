@@ -1,0 +1,958 @@
+---
+import Base from "../layouts/Base.astro";
+import AgendaMock from "../components/AgendaMock.astro";
+import Recursos from "../components/Recursos.astro";
+import { APP_LOGIN_URL, CTA_TEXTO, CICLOS, SITE_URL, WHATSAPP_URL } from "../consts";
+
+const title = "Gradatim — sistema para consultório de psicologia";
+const description =
+  "Agenda, prontuário, financeiro, atendimento online e lembretes num painel só, para quem atende por conta própria. Preço único, tudo incluído. 14 dias grátis, sem cartão.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Gradatim",
+  url: SITE_URL,
+  description,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  inLanguage: "pt-BR",
+  offers: CICLOS.map((c) => ({
+    "@type": "Offer",
+    name: `Plano ${c.nome.toLowerCase()}`,
+    price: c.cobranca.match(/R\$ ([\d.,]+)/)![1].replace(".", "").replace(",", "."),
+    priceCurrency: "BRL",
+  })),
+};
+
+const faq = [
+  {
+    p: "Preciso de cartão para testar?",
+    r: "Não. Os 14 dias grátis começam no cadastro e nada é pedido para pagamento. Se decidir continuar, você escolhe o ciclo e paga por Pix, boleto ou cartão.",
+  },
+  {
+    p: "O que acontece se a assinatura vencer?",
+    r: "A conta fica em somente leitura. Você continua vendo e exportando pacientes, agenda, prontuário e financeiro, só não cadastra nem edita nada até regularizar. O acesso ao prontuário nunca é bloqueado.",
+  },
+  {
+    p: "Posso cancelar quando quiser?",
+    r: "Sim, a qualquer momento, pela própria plataforma e sem multa.",
+  },
+  {
+    p: "Preciso ter conta Google?",
+    r: "Não. Dá para entrar com Google ou com e-mail e senha. A conta Google só é necessária para as consultas irem para o seu Google Agenda e para o link do Meet ser criado. Sem ela, todo o resto funciona normalmente.",
+  },
+  {
+    p: "Funciona no celular?",
+    r: "Sim. O Gradatim funciona no navegador do celular, do tablet e do computador. Não é um aplicativo de loja, então não há nada para instalar.",
+  },
+  {
+    p: "Como o paciente recebe o lembrete?",
+    r: "Pelo WhatsApp, com a mensagem que você envia em um clique do seu próprio número. Quem autorizou e tem e-mail cadastrado também recebe o convite da consulta pelo Google Agenda. O paciente não precisa instalar nada nem criar conta.",
+  },
+  {
+    p: "Onde ficam os meus dados?",
+    r: "Num banco de dados na nuvem, com criptografia em repouso e cada conta isolada das demais. Só você acessa os dados dos seus pacientes. Os detalhes estão na Política de Privacidade.",
+  },
+  {
+    p: "Posso exportar tudo e sair?",
+    r: "Sim. O prontuário de cada paciente sai em PDF e a conta inteira em planilhas, quando você quiser, inclusive com a assinatura vencida.",
+  },
+  {
+    p: "Serve para clínica com vários profissionais?",
+    r: "Não. O Gradatim é feito para quem atende por conta própria: uma conta, um profissional.",
+  },
+];
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <!-- Topo -->
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 id="hero-titulo" class="escada">
+          <span>Seu consultório</span>
+          <span>organizado,</span>
+          <span>passo a passo.</span>
+        </h1>
+        <p class="lede hero-lede">
+          Agenda, prontuário, financeiro e lembretes num painel só, para quem atende por conta
+          própria, online ou presencial.
+        </p>
+        <div class="hero-cta">
+          <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+          <p class="cta-note">Sem cartão. Tudo incluído por um preço único.</p>
+        </div>
+        <p class="etimo">
+          <i lang="la">gradatim</i>, do latim: passo a passo, gradualmente. Como a terapia, sessão a
+          sessão.
+        </p>
+      </div>
+      <div class="hero-visual">
+        <AgendaMock />
+      </div>
+    </div>
+  </section>
+
+  <!-- Dores -->
+  <section class="section dores" aria-labelledby="dores-titulo">
+    <div class="wrap dores-grid">
+      <h2 id="dores-titulo">Alguma destas parece familiar?</h2>
+      <ul class="dores-lista">
+        <li>
+          A agenda está no celular, o prontuário num arquivo de Word e os pagamentos numa planilha
+          que nunca está atualizada.
+        </li>
+        <li>O paciente esqueceu a sessão de novo, e você só percebeu às 14h05.</li>
+        <li>Chega o fim do mês e você não sabe ao certo quem pagou e quanto entrou.</li>
+        <li>
+          Fica a dúvida se os registros estão como o CFP pede, e onde vão estar daqui a cinco anos.
+        </li>
+      </ul>
+      <p class="dores-fecho">
+        O Gradatim junta tudo isso num lugar só, para o tempo fora da sessão render mais e pesar
+        menos.
+      </p>
+    </div>
+  </section>
+
+  <Recursos />
+
+  <!-- Google Agenda: explicação exigida pela verificação do Google -->
+  <section id="google-agenda" class="section google" aria-labelledby="google-titulo">
+    <div class="wrap google-grid">
+      <div class="section-head google-head">
+        <h2 id="google-titulo">Como o Gradatim usa o seu Google Agenda</h2>
+        <p class="lede">
+          Ao conectar sua conta Google, você autoriza o Gradatim a criar eventos na sua agenda.
+          A conexão é opcional e pode ser desfeita a qualquer momento.
+        </p>
+      </div>
+      <div class="fluxo" role="img" aria-label="O Gradatim envia as consultas para o Google Agenda. O Google Agenda não envia nada de volta.">
+        <span class="fluxo-no fluxo-gradatim">Gradatim</span>
+        <span class="fluxo-seta" aria-hidden="true"><span>consultas e links do Meet</span></span>
+        <span class="fluxo-no">Google Agenda</span>
+      </div>
+      <dl class="google-lista">
+        <div>
+          <dt>O que fazemos</dt>
+          <dd>
+            Criamos, atualizamos e cancelamos na sua agenda os eventos das consultas marcadas no
+            Gradatim. Nas consultas online, o mesmo evento gera o link do Google Meet.
+          </dd>
+        </div>
+        <div>
+          <dt>O que não fazemos</dt>
+          <dd>
+            Não lemos nem importamos os outros eventos da sua agenda. A via é de mão única: do
+            Gradatim para o Google.
+          </dd>
+        </div>
+        <div>
+          <dt>Convite ao paciente</dt>
+          <dd>
+            Se o paciente autorizou lembretes e tem e-mail cadastrado, ele entra como convidado do
+            evento e recebe o convite do Google. Ele não vê outros convidados nem pode convidar
+            ninguém.
+          </dd>
+        </div>
+        <div>
+          <dt>Como guardamos o acesso</dt>
+          <dd>
+            A permissão fica cifrada e serve só para isso. Os detalhes estão na <a href="/privacidade">Política de Privacidade</a>.
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Segurança e ética -->
+  <section id="seguranca" class="section seguranca" aria-labelledby="seg-titulo">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="seg-titulo">Sigilo e registro em dia</h2>
+        <p class="lede">
+          O prontuário é obrigação ética e dado sensível. O Gradatim foi pensado a partir disso.
+        </p>
+      </div>
+      <div class="seg-grid">
+        <div class="seg-item">
+          <h3>Pensado para a Resolução CFP 01/2009</h3>
+          <p>
+            A evolução de cada sessão traz os campos que a resolução pede: demanda e objetivo, o
+            que foi trabalhado, resultados e encaminhamentos.
+          </p>
+        </div>
+        <div class="seg-item">
+          <h3>Nada do prontuário some</h3>
+          <p>
+            Arquivar não é excluir. Os registros ficam guardados por pelo menos cinco anos, como
+            exige a norma.
+          </p>
+        </div>
+        <div class="seg-item">
+          <h3>Dados tratados conforme a LGPD</h3>
+          <p>
+            Cada conta é isolada no banco de dados, os dados ficam criptografados em repouso e só
+            você acessa os dados dos seus pacientes.
+          </p>
+        </div>
+        <div class="seg-item">
+          <h3>Somente leitura, nunca bloqueio</h3>
+          <p>
+            Se a assinatura vencer, você continua vendo e exportando tudo. Seu prontuário não fica
+            refém de pagamento.
+          </p>
+        </div>
+        <div class="seg-item">
+          <h3>Seus dados saem com você</h3>
+          <p>
+            Prontuário em PDF por paciente e a conta inteira em planilhas, quando você quiser.
+          </p>
+        </div>
+        <div class="seg-item seg-privado">
+          <h3>Modo privado</h3>
+          <p>
+            Vai compartilhar a tela? Aperte Alt+O e os nomes e valores ficam borrados.
+          </p>
+          <button type="button" class="btn btn-claro" id="btn-privado" aria-pressed="false">
+            Testar aqui nesta página
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sem frufru -->
+  <section class="section frufru" aria-labelledby="frufru-titulo">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="frufru-titulo">Sem frufru e sem adicional escondido</h2>
+        <p class="lede">
+          Um plano só, com tudo dentro. O preço que você vê é o preço que você paga.
+        </p>
+      </div>
+      <div class="compara">
+        <div class="compara-col compara-outros">
+          <h3>Em muitos sistemas</h3>
+          <ul>
+            <li>Plano básico que não dá conta do consultório.</li>
+            <li>Lembrete por WhatsApp cobrado à parte.</li>
+            <li>Funções essenciais vendidas como adicional.</li>
+            <li>Tela cheia de recursos que você nunca vai usar.</li>
+          </ul>
+        </div>
+        <div class="compara-col compara-gradatim">
+          <h3>No Gradatim</h3>
+          <ul>
+            <li>Um preço único, com tudo incluído desde o primeiro dia.</li>
+            <li>Lembretes sem custo por mensagem.</li>
+            <li>Nenhum recurso pago à parte.</li>
+            <li>Só o que o consultório usa, num painel simples.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como começar: sequência real, por isso numerada -->
+  <section class="section comecar" aria-labelledby="comecar-titulo">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="comecar-titulo">Como começar</h2>
+      </div>
+      <ol class="passos">
+        <li>
+          <h3>Crie sua conta</h3>
+          <p>Com Google ou e-mail e senha. O teste de 14 dias começa na hora, sem cartão.</p>
+        </li>
+        <li>
+          <h3>Cadastre pacientes e horários</h3>
+          <p>Monte a agenda da semana, com as consultas que se repetem já marcadas.</p>
+        </li>
+        <li>
+          <h3>Conecte o Google Agenda, se quiser</h3>
+          <p>As consultas passam a aparecer na sua agenda, com link do Meet nas online.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Preço -->
+  <section id="preco" class="section preco" aria-labelledby="preco-titulo">
+    <div class="wrap preco-grid">
+      <div class="section-head">
+        <h2 id="preco-titulo">Um plano, tudo incluído</h2>
+        <p class="lede">
+          Escolha de quanto em quanto tempo prefere pagar. Quanto maior o ciclo, menor o valor
+          por mês.
+        </p>
+      </div>
+
+      <div class="plano" data-ciclo="mensal">
+        <fieldset class="ciclos">
+          <legend class="sr-only">Ciclo de cobrança</legend>
+          {
+            CICLOS.map((c, i) => (
+              <label class="ciclo">
+                <input
+                  type="radio"
+                  name="ciclo"
+                  value={c.id}
+                  checked={i === 0}
+                  data-por-mes={c.porMes}
+                  data-cobranca={c.cobranca}
+                />
+                <span>
+                  {c.nome}
+                  {c.desconto && <small>{c.desconto}</small>}
+                </span>
+              </label>
+            ))
+          }
+        </fieldset>
+
+        <p class="plano-valor" aria-live="polite">
+          <span class="plano-moeda">R$</span>
+          <span class="plano-num" id="plano-num">{CICLOS[0].porMes}</span>
+          <span class="plano-mes">/mês</span>
+        </p>
+        <p class="plano-cobranca muted" id="plano-cobranca">{CICLOS[0].cobranca}</p>
+
+        <ul class="plano-lista">
+          <li>Pacientes, anamnese e notas privadas</li>
+          <li>Agenda com recorrência e bloqueios</li>
+          <li>Prontuário com evolução por sessão</li>
+          <li>Financeiro com ganhos do mês</li>
+          <li>Google Agenda e link do Meet</li>
+          <li>Lembretes por WhatsApp e e-mail</li>
+          <li>Exportação em PDF e planilhas</li>
+          <li>Modo privado</li>
+        </ul>
+
+        <a href={APP_LOGIN_URL} class="btn btn-primary plano-cta">{CTA_TEXTO}</a>
+        <p class="cta-note plano-nota">
+          Sem cartão no teste. Depois, Pix, boleto ou cartão. Cancele quando quiser, sem multa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dúvidas -->
+  <section id="duvidas" class="section duvidas" aria-labelledby="duvidas-titulo">
+    <div class="wrap duvidas-grid">
+      <div class="section-head">
+        <h2 id="duvidas-titulo">Dúvidas frequentes</h2>
+        <p class="muted">
+          Não achou sua resposta? <a href={WHATSAPP_URL} rel="noopener" target="_blank">Fale com a gente pelo WhatsApp</a>.
+        </p>
+      </div>
+      <div class="faq">
+        {
+          faq.map((item) => (
+            <details>
+              <summary>{item.p}</summary>
+              <p>{item.r}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Chamado final -->
+  <section class="final" aria-labelledby="final-titulo">
+    <div class="wrap final-inner">
+      <h2 id="final-titulo">Dê o primeiro passo.</h2>
+      <p class="final-sub">14 dias grátis, sem cartão, com tudo incluído.</p>
+      <a href={APP_LOGIN_URL} class="btn btn-final">{CTA_TEXTO}</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Seletor de ciclo de cobrança.
+  const plano = document.querySelector<HTMLElement>(".plano");
+  const num = document.getElementById("plano-num");
+  const cobranca = document.getElementById("plano-cobranca");
+  plano?.addEventListener("change", (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.name !== "ciclo" || !num || !cobranca) return;
+    num.textContent = input.dataset.porMes ?? "";
+    cobranca.textContent = input.dataset.cobranca ?? "";
+    plano.dataset.ciclo = input.value;
+  });
+
+  // Botão de teste do modo privado, sincronizado com Alt+O.
+  const botao = document.getElementById("btn-privado");
+  const sincronizar = () => {
+    const ligado = document.documentElement.hasAttribute("data-privado");
+    botao?.setAttribute("aria-pressed", String(ligado));
+    if (botao) botao.textContent = ligado ? "Desligar modo privado" : "Testar aqui nesta página";
+  };
+  botao?.addEventListener("click", () => {
+    document.documentElement.toggleAttribute("data-privado");
+    sincronizar();
+  });
+  document.addEventListener("privado", sincronizar);
+</script>
+
+<style>
+  /* Topo */
+  .hero {
+    padding-block: clamp(2.5rem, 1.5rem + 5vw, 6rem) clamp(3.5rem, 2rem + 5vw, 6.5rem);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    gap: clamp(2.5rem, 2rem + 3vw, 4rem);
+    align-items: center;
+  }
+  @media (min-width: 64rem) {
+    .hero-grid {
+      grid-template-columns: 1.05fr 1fr;
+    }
+  }
+  .hero-copy {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  /* O título em degraus: cada linha um passo à frente da anterior. */
+  .escada {
+    font-size: var(--step-4);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    display: grid;
+  }
+  .escada span {
+    display: block;
+    white-space: nowrap;
+    animation: degrau 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .escada span:nth-child(2) {
+    padding-left: 1.1em;
+    animation-delay: 0.18s;
+  }
+  .escada span:nth-child(3) {
+    padding-left: 2.2em;
+    animation-delay: 0.36s;
+    color: var(--teal);
+  }
+  @keyframes degrau {
+    from {
+      opacity: 0;
+      transform: translate(-0.4em, 0.3em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (max-width: 22rem) {
+    .escada span:nth-child(2) {
+      padding-left: 0.6em;
+    }
+    .escada span:nth-child(3) {
+      padding-left: 1.2em;
+    }
+  }
+  .hero-lede {
+    max-width: 30rem;
+  }
+  .hero-cta {
+    display: grid;
+    justify-items: start;
+    gap: 0.6rem;
+  }
+  .etimo {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 28rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .etimo i {
+    color: var(--ink);
+  }
+
+  /* Dores */
+  .dores {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .dores-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 56rem) {
+    .dores-grid {
+      grid-template-columns: 1fr 1.4fr;
+      column-gap: 5rem;
+    }
+    .dores-fecho {
+      grid-column: 2;
+    }
+  }
+  .dores-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .dores-lista li {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--mist);
+  }
+  .dores-lista li:first-child {
+    padding-top: 0;
+  }
+  .dores-fecho {
+    font-weight: 600;
+    color: var(--teal-deep);
+    max-width: 34rem;
+  }
+
+  /* Google */
+  .google {
+    background: var(--mist);
+  }
+  .google-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .google-head {
+    margin-bottom: 0;
+  }
+  .fluxo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-weight: 600;
+  }
+  .fluxo-no {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.55rem 1.1rem;
+  }
+  .fluxo-gradatim {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .fluxo-seta {
+    position: relative;
+    flex: 1 1 10rem;
+    max-width: 18rem;
+    min-width: 9rem;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    padding-bottom: 0.7rem;
+  }
+  .fluxo-seta::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 6px;
+    bottom: 0.2rem;
+    border-top: 2px solid var(--teal);
+  }
+  .fluxo-seta::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: calc(0.2rem - 5px);
+    border: 6px solid transparent;
+    border-left: 8px solid var(--teal);
+    border-right: 0;
+  }
+  .google-lista {
+    margin: 0;
+    display: grid;
+    gap: 1.75rem 3rem;
+  }
+  @media (min-width: 48rem) {
+    .google-lista {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .google-lista dt {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .google-lista dd {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 32rem;
+  }
+
+  /* Segurança: a faixa escura da página */
+  .seguranca {
+    background: var(--ink);
+    color: #e6efec;
+  }
+  .seguranca .lede {
+    color: #a9c0bb;
+  }
+  .seg-grid {
+    display: grid;
+    gap: 2.25rem 3rem;
+  }
+  @media (min-width: 44rem) {
+    .seg-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 64rem) {
+    .seg-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .seg-item {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #2e4e48;
+  }
+  .seg-item h3 {
+    color: #fff;
+  }
+  .seg-item p {
+    color: #b8ccc7;
+  }
+  .btn-claro {
+    justify-self: start;
+    margin-top: 0.5rem;
+    background: transparent;
+    color: #fff;
+    border-color: #4d6f68;
+    min-height: 2.75rem;
+    font-size: 0.95rem;
+  }
+  .btn-claro:hover,
+  .btn-claro[aria-pressed="true"] {
+    background: #fff;
+    color: var(--ink);
+    border-color: #fff;
+  }
+  .seguranca :focus-visible {
+    outline-color: #7fd1c4;
+  }
+
+  /* Sem frufru */
+  .compara {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 48rem) {
+    .compara {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .compara-col {
+    border-radius: var(--radius-lg);
+    padding: clamp(1.4rem, 1rem + 1.5vw, 2.2rem);
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+  }
+  .compara-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+  .compara-col li {
+    padding-left: 1.6rem;
+    position: relative;
+  }
+  .compara-col li::before {
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+  .compara-outros {
+    border: 1px dashed var(--line);
+    color: var(--ink-soft);
+  }
+  .compara-outros li::before {
+    content: "–";
+  }
+  .compara-gradatim {
+    background: var(--surface);
+    border: 1.5px solid var(--teal);
+  }
+  .compara-gradatim li::before {
+    content: "✓";
+    color: var(--teal);
+  }
+
+  /* Como começar: os passos sobem como degraus */
+  .comecar {
+    background: var(--surface);
+    border-block: 1px solid var(--line);
+  }
+  .passos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    counter-reset: passo;
+  }
+  .passos li {
+    counter-increment: passo;
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    padding: 1.4rem 1.4rem 1.6rem;
+    border-top: 3px solid var(--teal);
+    background: var(--paper);
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  .passos li::before {
+    content: counter(passo);
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--teal);
+  }
+  .passos p {
+    color: var(--ink-soft);
+  }
+  @media (min-width: 52rem) {
+    .passos {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: end;
+    }
+    .passos li:nth-child(1) {
+      margin-top: 4rem;
+    }
+    .passos li:nth-child(2) {
+      margin-top: 2rem;
+    }
+  }
+
+  /* Preço */
+  .preco-grid {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+  }
+  @media (min-width: 60rem) {
+    .preco-grid {
+      grid-template-columns: 1fr 1.05fr;
+      gap: 4rem;
+    }
+  }
+  .plano {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
+    box-shadow: 0 24px 48px -32px rgb(18 48 43 / 0.35);
+  }
+  .ciclos {
+    border: 0;
+    margin: 0 0 1.75rem;
+    padding: 0.3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.25rem;
+    background: var(--paper);
+    border-radius: 999px;
+    border: 1px solid var(--mist);
+  }
+  .ciclo {
+    position: relative;
+  }
+  .ciclo input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .ciclo span {
+    display: grid;
+    justify-items: center;
+    min-height: 2.9rem;
+    align-content: center;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.15;
+    color: var(--ink-soft);
+    transition:
+      background-color 0.15s,
+      color 0.15s;
+  }
+  .ciclo small {
+    font-weight: 500;
+    font-size: 0.7rem;
+    color: var(--teal);
+  }
+  .ciclo input:checked + span {
+    background: var(--ink);
+    color: #fff;
+  }
+  .ciclo input:checked + span small {
+    color: #9fe0d5;
+  }
+  .ciclo input:focus-visible + span {
+    outline: 3px solid var(--teal);
+    outline-offset: 2px;
+  }
+  .plano-valor {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: var(--font-display);
+  }
+  .plano-moeda {
+    font-size: 1.4rem;
+  }
+  .plano-num {
+    font-size: clamp(3.2rem, 2.6rem + 3vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .plano-mes {
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+  }
+  .plano-cobranca {
+    margin-top: 0.3rem;
+  }
+  .plano-lista {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--mist);
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.97rem;
+  }
+  @media (min-width: 30rem) {
+    .plano-lista {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1.5rem;
+    }
+  }
+  .plano-lista li {
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .plano-lista li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .plano-cta {
+    width: 100%;
+  }
+  .plano-nota {
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  /* Dúvidas */
+  .duvidas {
+    padding-top: 0;
+  }
+  .duvidas-grid {
+    display: grid;
+    gap: 1rem;
+    border-top: 1px solid var(--line);
+    padding-top: clamp(4rem, 3rem + 5vw, 7.5rem);
+  }
+  @media (min-width: 60rem) {
+    .duvidas-grid {
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+    }
+  }
+  .faq details {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq details:first-child {
+    border-top: 1px solid var(--line);
+  }
+  .faq summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.15rem 0;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary::after {
+    content: "+";
+    flex: none;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--teal);
+    transition: transform 0.2s;
+  }
+  .faq details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq details p {
+    padding-bottom: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 40rem;
+  }
+
+  /* Chamado final */
+  .final {
+    background: var(--teal);
+    color: #fff;
+    padding-block: clamp(4rem, 3rem + 5vw, 7rem);
+  }
+  .final-inner {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+  }
+  .final h2 {
+    font-size: var(--step-4);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+  .final-sub {
+    font-size: var(--step-1);
+    color: #d3ece7;
+    margin-bottom: 1rem;
+  }
+  .btn-final {
+    background: #fff;
+    color: var(--teal-deep);
+  }
+  .btn-final:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .final :focus-visible {
+    outline-color: #fff;
+  }
+</style>
