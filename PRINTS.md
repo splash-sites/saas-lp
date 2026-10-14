@@ -2,7 +2,7 @@
 
 > Feito em 14/10/2026: os prints estão em `src/assets/prints/`, recortados por `scripts/recortar-prints.mjs`. Esta lista fica como referência para refazê-los quando a interface do app mudar.
 
-Hoje a landing usa telas desenhadas em HTML (`src/components/mock/`). A ideia é trocar cada uma por um print real do app, tirado de uma conta de demonstração.
+A landing usa prints reais do app, tirados de uma conta de demonstração. Para refazê-los:
 
 ## Antes de tirar
 
