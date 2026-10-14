@@ -1,5 +1,7 @@
 # Gradatim — landing page
 
+Contexto completo do projeto, decisões e pendências: [CONTEXTO.md](CONTEXTO.md).
+
 Site público de gradatim.com.br. A aplicação fica em outro repositório
 (splash-sites/saas-psicologia), em app.gradatim.com.br.
 
