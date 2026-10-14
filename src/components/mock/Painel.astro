@@ -1,0 +1,58 @@
+---
+import Janela from "./Janela.astro";
+const hoje = [
+  { h: "08:00", nome: "Joana Martins", tipo: "Presencial", st: "Realizada", c: "m-ok" },
+  { h: "10:00", nome: "Caio Ferreira", tipo: "Online", st: "Confirmada", c: "m-conf" },
+  { h: "15:00", nome: "Renata Alves", tipo: "Online · quinzenal", st: "Agendada", c: "m-neutro" },
+  { h: "17:00", nome: "Igor Duarte", tipo: "Presencial · semanal", st: "Agendada", c: "m-neutro" },
+];
+---
+
+<Janela
+  url="app.gradatim.com.br/dashboard"
+  ativo="Painel"
+  rotulo="Painel do Gradatim com as consultas de hoje, evoluções pendentes, lembretes a enviar e o valor recebido no mês, com dados fictícios."
+>
+  <div class="m-main">
+    <div class="m-topo">
+      <div><div class="m-titulo">Bom dia, Carla</div><div class="m-sub">Terça, 13 de outubro</div></div>
+      <span class="m-btn m-btn-p">+ Nova consulta</span>
+    </div>
+    <div class="m-kpis m-kpis-4">
+      <div class="m-card m-kpi"><span>Consultas hoje</span><b>5</b><span class="m-peq">2 online, 3 presenciais</span></div>
+      <div class="m-card m-kpi"><span>Evoluções pendentes</span><b style="color:#B45309">2</b><span class="m-peq">Sessões de ontem</span></div>
+      <div class="m-card m-kpi"><span>Lembretes a enviar</span><b>4</b><span class="m-peq">Consultas de amanhã</span></div>
+      <div class="m-card m-kpi"><span>Recebido no mês</span><b data-sensivel>R$ 6.840</b><span class="m-peq" data-sensivel>R$ 900 a receber</span></div>
+    </div>
+    <div class="m-painel">
+      <div class="m-card m-hoje">
+        <b>Hoje</b>
+        {
+          hoje.map((c) => (
+            <div class="m-linha">
+              <span class="m-sub">{c.h}</span>
+              <span>
+                <b data-sensivel>{c.nome}</b>
+                <span class="m-sub"> · {c.tipo}</span>
+              </span>
+              <span class:list={["m-chip", c.c]}>{c.st}</span>
+            </div>
+          ))
+        }
+      </div>
+      <div class="m-pilha">
+        <div class="m-card m-alerta">
+          <b>Evoluções pendentes</b>
+          <span><span data-sensivel>Marcos Vieira</span> · ontem, 09:00</span>
+          <span><span data-sensivel>Helena Prado</span> · ontem, 13:00</span>
+          <span class="m-btn">Registrar agora</span>
+        </div>
+        <div class="m-card">
+          <b>Lembretes de amanhã</b>
+          <span class="m-sub">4 consultas, nenhuma mensagem enviada ainda.</span>
+          <span class="m-btn m-btn-wa">Abrir lembretes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</Janela>

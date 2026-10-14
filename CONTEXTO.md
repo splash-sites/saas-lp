@@ -37,7 +37,7 @@ Não reabrir sem motivo novo.
 | Responsável no rodapé | Só "Gradatim" (sem nome de pessoa física) |
 | Contato | Só WhatsApp (51) 8213-5882 (8 dígitos, sem o 9), segunda a sexta, das 9h às 18h |
 | Rodapé completo | Igual ao da Prestio: marca, "Fale com a gente", "Documentos" e "Desenvolvido por Splash Sistemas" |
-| Telas | Ilustrações em HTML/CSS com dados fictícios (trocar por prints reais quando houver) |
+| Telas | Mockups do app em HTML/CSS com dados fictícios, no padrão da Prestio: Painel, Agenda, Prontuário, Financeiro, Lembretes (com celular no WhatsApp) e Modo privado (botão funciona). Ficam em `src/components/mock/`, estilos em `src/styles/mock.css`. No celular rolam para o lado |
 | Fundadores | Não entram na página por enquanto |
 | Analytics | Vercel Analytics, sem cookies e sem banner. Sem anúncios |
 | Privacidade e Termos | Copiados do app para `/privacidade` e `/termos` na landing |
@@ -84,7 +84,8 @@ Nesta máquina o servidor de desenvolvimento roda na porta 4330 (configurado em 
 | Arquivo | O que tem |
 |---|---|
 | `src/consts.ts` | URLs, WhatsApp e preços. Mudou um valor, muda aqui |
-| `src/pages/index.astro` | A home inteira: textos, telas dos celulares, FAQ e estilos da página |
+| `src/pages/index.astro` | A home: ordem das seções, textos, FAQ e estilos da página |
+| `src/components/mock/` | Mockups das telas do app (um componente por tela, `Janela.astro` é a moldura) |
 | `src/styles/global.css` | Cores, fonte, botões e o modo privado (Alt+O) |
 | `src/components/` | Cabeçalho, rodapé e logo |
 | `src/layouts/Base.astro` | `<head>` com SEO, Open Graph, dados estruturados e Vercel Analytics |

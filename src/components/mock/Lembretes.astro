@@ -1,0 +1,52 @@
+---
+import Janela from "./Janela.astro";
+---
+
+<div class="m-lembretes-par">
+  <Janela
+    url="app.gradatim.com.br/lembretes"
+    ativo="Lembretes"
+    rotulo="Lista de lembretes das consultas de amanhã no Gradatim, com botão para enviar no WhatsApp, e o WhatsApp aberto no celular com a mensagem já escrita, com dados fictícios."
+  >
+    <div class="m-main">
+      <div><div class="m-titulo">Lembretes</div><div class="m-sub">Amanhã, quarta-feira, 14 de outubro</div></div>
+      <div class="m-card m-lista-lem">
+        <div>
+          <span><b data-sensivel>Marcos Vieira</b><span class="m-sub"> · 09:00 · presencial</span></span>
+          <span class="m-enviado">Enviado ✓<span class="m-btn">Enviar de novo</span></span>
+        </div>
+        <div class="foco">
+          <span><b data-sensivel>Helena Prado</b><span class="m-sub"> · 13:00 · online</span></span>
+          <span class="m-btn m-btn-wa">Enviar no WhatsApp</span>
+        </div>
+        <div>
+          <span><b data-sensivel>Joana Martins</b><span class="m-sub"> · 16:00 · online</span></span>
+          <span class="m-btn m-btn-wa">Enviar no WhatsApp</span>
+        </div>
+        <div>
+          <span><b data-sensivel>Bruno Costa</b><span class="m-sub"> · 18:00 · presencial</span></span>
+          <span class="m-btn m-btn-wa">Enviar no WhatsApp</span>
+        </div>
+      </div>
+      <div class="m-card m-modelo">
+        <b>Texto do lembrete</b>
+        <div>{"Olá, {nome}! Lembrete da sua consulta {dia}, às {hora}. Até lá!"}</div>
+        <span class="m-peq">Quem autorizou e tem e-mail também recebe o convite pelo Google Agenda.</span>
+      </div>
+    </div>
+  </Janela>
+
+  <div class="m-whats" aria-hidden="true">
+    <div class="m-whats-tela">
+      <div class="m-whats-topo">
+        <span class="m-avatar" style="width:36px;height:36px;font-size:13px">HP</span>
+        <div><b data-sensivel>Helena Prado</b><small>online</small></div>
+      </div>
+      <div class="m-whats-meio"><span>Hoje</span></div>
+      <div class="m-whats-campo">
+        <div>Olá, <span data-sensivel>Helena</span>! Lembrete da sua consulta amanhã, quarta, às 13:00. Até lá!</div>
+        <i><svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M3 20l18-8L3 4v6l12 2-12 2z"></path></svg></i>
+      </div>
+    </div>
+  </div>
+</div>

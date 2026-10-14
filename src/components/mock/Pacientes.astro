@@ -1,0 +1,38 @@
+---
+import Janela from "./Janela.astro";
+const lista = [
+  { nome: "Marina Souza", fone: "(51) 99812-4410", proxima: "Seg, 19 out · 09:00", valor: "R$ 180" },
+  { nome: "Caio Ferreira", fone: "(51) 99734-2287", proxima: "Ter, 20 out · 10:00", valor: "R$ 180" },
+  { nome: "Helena Prado", fone: "(51) 98455-0913", proxima: "Qua, 14 out · 13:00", valor: "R$ 180" },
+  { nome: "Joana Martins", fone: "(51) 99120-6638", proxima: "Qua, 14 out · 16:00", valor: "R$ 200" },
+  { nome: "Renata Alves", fone: "(51) 98607-1745", proxima: "Ter, 27 out · 15:00", valor: "R$ 200" },
+  { nome: "Lucas Teixeira", fone: "(51) 99268-3301", proxima: "Sem consulta marcada", valor: "R$ 160", inativo: true },
+];
+---
+
+<Janela
+  url="app.gradatim.com.br/pacientes"
+  ativo="Pacientes"
+  rotulo="Lista de pacientes no Gradatim. Com o modo privado ligado, nomes, telefones e valores ficam borrados. Dados fictícios."
+>
+  <div class="m-main">
+    <div class="m-topo">
+      <span class="m-titulo">Pacientes</span>
+      <div class="m-acoes"><span class="m-busca">Buscar paciente</span><span class="m-btn m-btn-p">+ Novo paciente</span></div>
+    </div>
+    <div class="m-card m-tabela m-pacientes">
+      <div class="m-linha m-cabecalho"><span>Nome</span><span>WhatsApp</span><span>Status</span><span>Próxima consulta</span><span>Sessão</span></div>
+      {
+        lista.map((p) => (
+          <div class="m-linha">
+            <b data-sensivel>{p.nome}</b>
+            <span class="m-sub" data-sensivel>{p.fone}</span>
+            <span class:list={["m-chip", p.inativo ? "m-neutro" : "m-ok"]}>{p.inativo ? "Inativo" : "Ativo"}</span>
+            <span class="m-sub">{p.proxima}</span>
+            <span data-sensivel>{p.valor}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Janela>
