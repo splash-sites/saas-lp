@@ -61,6 +61,7 @@ O app pede acesso ao Google Agenda, e o Google exige uma página inicial públic
 
 - [ ] Confirmar se as páginas legais mantêm "Bernardo Dornelles, Torres/RS" e o Gmail como contato. Estão assim porque vieram do app; o rodapé da home mostra só "Gradatim".
 - [ ] A seção 8 da Política de Privacidade ("Este site", sobre não usar cookies e usar Vercel Analytics) existe só na landing. Levar para o app ou manter só aqui.
+- FAQ da home tem 5 perguntas (cartão, assinatura vencida, cancelamento e exportação, celular, paciente instalar). O resto está coberto no bloco de sigilo.
 - [ ] Trocar as telas desenhadas por prints reais do app com dados fictícios.
 - [ ] Publicar na Vercel: importar este repositório, apontar gradatim.com.br e www para o projeto e ativar o Analytics no painel.
 - [ ] Quando houver CNPJ, atualizar Privacidade e Termos aqui e no app.
