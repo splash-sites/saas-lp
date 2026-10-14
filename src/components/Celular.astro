@@ -1,0 +1,36 @@
+---
+// Moldura de celular em volta de um print real do app (390 px de largura).
+interface Props {
+  class?: string;
+}
+const { class: classe } = Astro.props;
+---
+
+<figure class:list={["celular", classe]}>
+  <div class="celular-tela">
+    <slot />
+  </div>
+</figure>
+
+<style>
+  .celular {
+    margin: 0;
+    background: var(--ink-raise);
+    border-radius: 38px;
+    padding: 9px;
+    box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.75);
+  }
+  .celular-tela {
+    border-radius: 30px;
+    overflow: hidden;
+    background: #f8fafc;
+    aspect-ratio: 390 / 760;
+  }
+  .celular-tela :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+</style>

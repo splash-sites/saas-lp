@@ -1,12 +1,17 @@
 ---
 import Base from "../layouts/Base.astro";
-import Painel from "../components/mock/Painel.astro";
-import Agenda from "../components/mock/Agenda.astro";
-import Prontuario from "../components/mock/Prontuario.astro";
-import Financeiro from "../components/mock/Financeiro.astro";
-import Lembretes from "../components/mock/Lembretes.astro";
-import Pacientes from "../components/mock/Pacientes.astro";
-import "../styles/mock.css";
+import { Picture } from "astro:assets";
+import Navegador from "../components/Navegador.astro";
+import Celular from "../components/Celular.astro";
+import imgPainel from "../assets/prints/painel.png";
+import imgAgenda from "../assets/prints/agenda.png";
+import imgAgendaConsulta from "../assets/prints/agenda-consulta.png";
+import imgAgendaCelular from "../assets/prints/agenda-celular.png";
+import imgProntuario from "../assets/prints/prontuario.png";
+import imgFinanceiro from "../assets/prints/financeiro.png";
+import imgLembretes from "../assets/prints/lembretes.png";
+import imgPacientes from "../assets/prints/pacientes.png";
+import imgPacientesPrivado from "../assets/prints/pacientes-privado.png";
 import { APP_LOGIN_URL, CTA_TEXTO, CICLOS, SITE_URL, WHATSAPP_URL } from "../consts";
 
 const title = "Gradatim — sistema para consultório de psicologia";
@@ -53,16 +58,16 @@ const pontos = {
     "Online ou presencial",
     "Repetição semanal ou quinzenal",
     "Horários bloqueados",
-    "Falta e confirmação com um toque",
+    "Confirmada, a confirmar ou falta",
   ],
   prontuario: [
     "Ficha e anamnese com demanda e objetivos",
     "Notas privadas separadas da evolução",
-    "Aviso de evoluções pendentes",
+    "Aviso de evoluções pendentes no painel",
     "Prontuário em PDF",
   ],
-  financeiro: ["Pago, pendente ou atrasado", "Ganhos do mês", "Histórico mês a mês"],
-  lembretes: ["Mensagem editável", "Sai do seu número", "Convite por e-mail para quem autorizou"],
+  financeiro: ["Pago, pendente ou atrasado", "Marcar como pago com um clique", "Histórico mês a mês"],
+  lembretes: ["Mostra o que já foi enviado", "Mensagem editável", "Sem nenhum dado clínico"],
 };
 
 const seguranca = [
@@ -123,42 +128,28 @@ const faq = [
       </div>
     </div>
 
-    <div class="wrap">
-      <div class="celulares" role="img" aria-label="Telas do Gradatim no celular, com dados fictícios: prontuário, agenda do dia e lembretes de amanhã.">
-        <div class="celular celular-lado celular-esq" aria-hidden="true">
-          <div class="tela">
-            <b class="tela-titulo">Prontuário</b>
-            <span class="tela-sub">Sessão 14 · 12 out</span>
-            <div class="campo"><b>Demanda e objetivo</b><span data-sensivel>Ansiedade no trabalho</span></div>
-            <div class="campo"><b>O que foi trabalhado</b><span data-sensivel>Ensaio da reunião</span></div>
-            <div class="campo"><b>Resultados</b><span data-sensivel>Menos tensão</span></div>
-            <div class="campo"><b>Encaminhamentos</b><span data-sensivel>Manter registro</span></div>
-          </div>
-        </div>
-
-        <div class="celular celular-meio" aria-hidden="true">
-          <div class="tela">
-            <b class="tela-titulo tela-titulo-g">Hoje</b>
-            <span class="tela-sub tela-sub-cola">Terça, 13 de outubro</span>
-            <div class="slot"><span>08:00</span><div class="ev presencial"><b data-sensivel>Joana M.</b><span>Presencial · confirmou</span></div></div>
-            <div class="slot"><span>10:00</span><div class="ev online"><b data-sensivel>Caio F.</b><span>Online · Meet</span></div></div>
-            <div class="slot"><span>12:00</span><div class="ev bloqueio"><b>Almoço</b><span>Bloqueado</span></div></div>
-            <div class="slot"><span>15:00</span><div class="ev online"><b data-sensivel>Renata A.</b><span>Online · quinzenal</span></div></div>
-            <div class="slot"><span>17:00</span><div class="ev presencial"><b data-sensivel>Igor D.</b><span>Presencial · semanal</span></div></div>
-          </div>
-        </div>
-
-        <div class="celular celular-lado celular-dir" aria-hidden="true">
-          <div class="tela">
-            <b class="tela-titulo">Lembretes</b>
-            <span class="tela-sub">Consultas de amanhã</span>
-            <div class="lem"><b data-sensivel>Marcos V.</b><span class="tela-sub">Enviado</span></div>
-            <div class="lem"><b data-sensivel>Helena P.</b><span class="wa">WhatsApp</span></div>
-            <div class="lem"><b data-sensivel>Joana M.</b><span class="wa">WhatsApp</span></div>
-            <div class="bolha">Olá, <span data-sensivel>Helena</span>! Lembrete da sua consulta amanhã às 13h. Até lá!</div>
-          </div>
-        </div>
-      </div>
+    <div class="wrap hero-visual">
+      <Navegador url="app.gradatim.com.br/dashboard" class="hero-janela">
+        <Picture
+          src={imgPainel}
+          formats={["avif", "webp"]}
+          widths={[800, 1200, 1600, 2060]}
+          sizes="(min-width: 75rem) 64rem, 88vw"
+          alt="Painel do Gradatim: saudação, 5 consultas hoje, 2 evoluções pendentes com o aviso de que o registro é obrigatório pela CFP 01/2009, 3 lembretes a enviar, R$ 9.780 recebidos no mês e a lista de consultas de hoje e dos próximos dias. Dados fictícios."
+          loading="eager"
+          fetchpriority="high"
+        />
+      </Navegador>
+      <Celular class="hero-celular">
+        <Picture
+          src={imgAgendaCelular}
+          formats={["avif", "webp"]}
+          widths={[390, 780]}
+          sizes="15rem"
+          alt="Agenda do dia no celular, com as consultas de quarta-feira, o almoço bloqueado e o botão Entrar no Meet numa consulta online. Dados fictícios."
+          loading="eager"
+        />
+      </Celular>
     </div>
   </section>
 
@@ -185,43 +176,47 @@ const faq = [
     </div>
   </section>
 
-  <!-- Painel: o dia numa tela -->
-  <section id="recursos" class="secao" aria-labelledby="painel-titulo">
-    <div class="wrap bloco">
-      <div class="cabeca">
-        <h2 id="painel-titulo">Abriu o sistema, o dia está ali.</h2>
-        <p class="lede">
-          Quem você atende hoje, o que ficou sem evolução, quem precisa de lembrete e quanto entrou
-          no mês. Tudo na primeira tela.
-        </p>
-      </div>
-      <div>
-        <div class="m-rolagem"><Painel /></div>
-        <p class="m-arraste" aria-hidden="true">Arraste a tela para o lado →</p>
-      </div>
-    </div>
-  </section>
-
   <!-- Agenda -->
-  <section class="faixa" aria-labelledby="agenda-titulo">
+  <section id="recursos" class="secao" aria-labelledby="agenda-titulo">
     <div class="wrap bloco">
       <div class="cabeca">
         <h2 id="agenda-titulo">A semana inteira, com o link do Meet pronto.</h2>
         <p class="lede">
           Semana no computador, o dia de hoje no celular. Marcou a consulta como online, o link do
-          Google Meet está criado, e ela aparece sozinha no seu Google Agenda.
+          Google Meet aparece nela, pronto para copiar, e tudo vai sozinho para o seu Google Agenda.
         </p>
         <ul class="pontos">{pontos.agenda.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div>
-        <div class="m-rolagem"><Agenda /></div>
-        <p class="m-arraste" aria-hidden="true">Arraste a tela para o lado →</p>
+      <div class="agenda-visual">
+        <div class="agenda-rolagem">
+          <Navegador url="app.gradatim.com.br/agenda">
+            <Picture
+              src={imgAgenda}
+              formats={["avif", "webp"]}
+              widths={[800, 1200, 1600, 2060]}
+              sizes="(min-width: 75rem) 71rem, 92vw"
+              alt="Agenda semanal do Gradatim de 12 a 18 de outubro com 23 consultas, online e presenciais, marcadas como realizada, confirmada, a confirmar e uma falta, e o almoço bloqueado todos os dias das 12h às 13h. Dados fictícios."
+              loading="lazy"
+            />
+          </Navegador>
+        </div>
+        <p class="arraste" aria-hidden="true">Arraste a agenda para o lado →</p>
+        <Navegador url="app.gradatim.com.br/agenda/consulta" class="agenda-detalhe">
+          <Picture
+            src={imgAgendaConsulta}
+            formats={["avif", "webp"]}
+            widths={[500, 900, 1400]}
+            sizes="(min-width: 56rem) 36rem, 92vw"
+            alt="Videochamada de uma consulta online, com o link do Google Meet, o botão Copiar link e o aviso Sincronizada com o Google. Dados fictícios."
+            loading="lazy"
+          />
+        </Navegador>
       </div>
     </div>
   </section>
 
   <!-- Prontuário -->
-  <section class="secao" aria-labelledby="prontuario-titulo">
+  <section class="faixa" aria-labelledby="prontuario-titulo">
     <div class="wrap lado">
       <div class="cabeca">
         <h2 id="prontuario-titulo">O registro que a CFP pede, sessão a sessão.</h2>
@@ -231,42 +226,76 @@ const faq = [
         </p>
         <ul class="lista-check">{pontos.prontuario.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div class="lado-visual"><Prontuario /></div>
+      <div class="lado-visual">
+        <Navegador url="app.gradatim.com.br/pacientes/evolucoes">
+          <Picture
+            src={imgProntuario}
+            formats={["avif", "webp"]}
+            widths={[600, 900, 1300]}
+            sizes="(min-width: 56rem) 34rem, 92vw"
+            alt="Evolução da sessão de 12 de outubro com os quatro campos: avaliação da demanda e objetivos, procedimentos aplicados, resultados obtidos e encaminhamentos e decisões. Dados fictícios."
+            loading="lazy"
+          />
+        </Navegador>
+      </div>
     </div>
   </section>
 
   <!-- Financeiro -->
-  <section class="faixa" aria-labelledby="financeiro-titulo">
+  <section class="secao" aria-labelledby="financeiro-titulo">
     <div class="wrap lado lado-invertido">
       <div class="cabeca">
         <h2 id="financeiro-titulo">Quem pagou, quem falta e quanto entrou.</h2>
         <p class="lede">
-          Lance o pagamento da sessão em segundos. O mês fecha sozinho, com histórico para comparar
-          com os anteriores.
+          Lance o pagamento da sessão em segundos e marque como pago quando receber. O mês mostra
+          o recebido, o que falta receber e o que está atrasado, com histórico mês a mês.
         </p>
         <ul class="lista-check">{pontos.financeiro.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div class="lado-visual"><Financeiro /></div>
+      <div class="lado-visual">
+        <Navegador url="app.gradatim.com.br/financeiro">
+          <Picture
+            src={imgFinanceiro}
+            formats={["avif", "webp"]}
+            widths={[600, 900, 1300]}
+            sizes="(min-width: 56rem) 30rem, 92vw"
+            alt="Financeiro de outubro: R$ 9.780 recebidos, R$ 6.440 a receber e 1 atrasado, com a lista de lançamentos por paciente marcados como pago, atrasado e pendente. Dados fictícios."
+            loading="lazy"
+          />
+        </Navegador>
+      </div>
     </div>
   </section>
 
   <!-- Lembretes -->
-  <section class="secao" aria-labelledby="lembretes-titulo">
+  <section class="faixa" aria-labelledby="lembretes-titulo">
     <div class="wrap lado">
       <div class="cabeca">
         <h2 id="lembretes-titulo">Um clique e o lembrete já está escrito.</h2>
         <p class="lede">
-          Todo dia o Gradatim lista as consultas de amanhã. Um clique abre o WhatsApp com a
-          mensagem pronta, saindo do seu número. Sem custo por mensagem e sem nenhum dado clínico.
+          Todo dia o Gradatim lista as consultas de amanhã. O botão "Enviar no WhatsApp" abre a
+          conversa com a mensagem pronta, saindo do seu número. Quem autorizou também recebe o
+          convite por e-mail pelo Google Agenda. Sem custo por mensagem.
         </p>
         <ul class="lista-check">{pontos.lembretes.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div class="lado-visual"><Lembretes /></div>
+      <div class="lado-visual">
+        <Navegador url="app.gradatim.com.br/lembretes">
+          <Picture
+            src={imgLembretes}
+            formats={["avif", "webp"]}
+            widths={[600, 900, 1300]}
+            sizes="(min-width: 56rem) 34rem, 92vw"
+            alt="Lembretes de quinta-feira, 15 de outubro: 4 consultas e 3 lembretes a enviar, com o botão Enviar no WhatsApp em cada uma e um lembrete já enviado às 15:30. Dados fictícios."
+            loading="lazy"
+          />
+        </Navegador>
+      </div>
     </div>
   </section>
 
   <!-- Segurança + Google Agenda -->
-  <section id="seguranca" class="faixa" aria-labelledby="seg-titulo">
+  <section id="seguranca" class="secao" aria-labelledby="seg-titulo">
     <div class="wrap">
       <div class="claro">
         <div class="cabeca">
@@ -299,7 +328,7 @@ const faq = [
   </section>
 
   <!-- Modo privado -->
-  <section class="secao" aria-labelledby="privado-titulo">
+  <section class="faixa" aria-labelledby="privado-titulo">
     <div class="wrap lado lado-invertido">
       <div class="cabeca">
         <h2 id="privado-titulo">Vai compartilhar a tela? Alt+O.</h2>
@@ -311,12 +340,34 @@ const faq = [
           <kbd>Alt+O</kbd><span id="btn-privado-texto">Ligar modo privado</span>
         </button>
       </div>
-      <div class="lado-visual"><Pacientes /></div>
+      <div class="lado-visual">
+        <Navegador url="app.gradatim.com.br/pacientes">
+          <div class="privado-imagens">
+            <Picture
+              src={imgPacientes}
+              formats={["avif", "webp"]}
+              widths={[600, 900, 1300]}
+              sizes="(min-width: 56rem) 34rem, 92vw"
+              alt="Lista de pacientes com nome, status ativo ou inativo e telefone. Dados fictícios."
+              loading="lazy"
+            />
+            <Picture
+              src={imgPacientesPrivado}
+              formats={["avif", "webp"]}
+              widths={[600, 900, 1300]}
+              sizes="(min-width: 56rem) 34rem, 92vw"
+              alt="A mesma lista de pacientes com o modo privado ligado: nomes e telefones borrados, só o status visível."
+              loading="lazy"
+              class="privado-borrado"
+            />
+          </div>
+        </Navegador>
+      </div>
     </div>
   </section>
 
   <!-- Preço -->
-  <section id="preco" class="faixa" aria-labelledby="preco-titulo">
+  <section id="preco" class="secao" aria-labelledby="preco-titulo">
     <div class="wrap preco">
       <div class="cabeca">
         <h2 id="preco-titulo">Um preço só. O lembrete já vem dentro.</h2>
@@ -365,7 +416,7 @@ const faq = [
   </section>
 
   <!-- Dúvidas -->
-  <section id="duvidas" class="secao" aria-labelledby="duvidas-titulo">
+  <section id="duvidas" class="faixa" aria-labelledby="duvidas-titulo">
     <div class="wrap duvidas">
       <h2 id="duvidas-titulo">Dúvidas frequentes</h2>
       <div class="faq">
@@ -475,126 +526,80 @@ const faq = [
     color: var(--text-soft);
   }
 
-  /* Celulares */
-  .celulares {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: clamp(2.5rem, 2rem + 3vw, 4rem);
-  }
-  .celular {
-    flex: none;
-    background: var(--ink-raise);
-    border-radius: 44px;
-    padding: 10px;
-    box-shadow: 0 50px 100px -30px rgb(0 0 0 / 0.7);
-  }
-  .celular-meio {
-    width: 280px;
+  /* Prints no topo: painel no computador e agenda do dia no celular */
+  .hero-visual {
     position: relative;
-    z-index: 2;
+    margin-top: clamp(2.5rem, 2rem + 3vw, 4rem);
+    padding-right: clamp(3rem, 1rem + 9vw, 9rem);
   }
-  .celular-lado {
-    width: 250px;
-    border-radius: 40px;
-    margin-top: 56px;
-    box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.6);
+  .hero-visual :global(.hero-celular) {
+    position: absolute;
+    right: var(--gutter);
+    bottom: -2.5rem;
+    width: clamp(8.5rem, 5rem + 12vw, 15rem);
   }
-  .celular-esq {
-    transform: rotate(-7deg) translateX(30px);
-  }
-  .celular-dir {
-    transform: rotate(7deg) translateX(-30px);
-  }
-  .tela {
-    background: var(--paper);
-    color: var(--ink-on-paper);
-    border-radius: 34px;
-    padding: 28px 16px 20px;
-    height: 470px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 13px;
-    line-height: 1.35;
-    text-align: left;
-  }
-  .celular-meio .tela {
-    height: 540px;
-    padding-top: 30px;
-  }
-  .tela-titulo {
-    font-size: 20px;
-    letter-spacing: -0.02em;
-  }
-  .tela-titulo-g {
-    font-size: 22px;
-  }
-  .tela-sub {
-    color: var(--soft-on-paper);
-  }
-  .tela-sub-cola {
-    margin-top: -6px;
-  }
-  .campo,
-  .lem,
-  .ev {
-    background: #fff;
-    border-radius: 14px;
-    padding: 10px;
-  }
-  .campo b {
-    display: block;
-    font-size: 11px;
-    color: var(--teal);
-  }
-  .slot {
-    display: grid;
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 8px;
-    align-items: center;
-  }
-  .slot > span {
-    color: var(--soft-on-paper);
-  }
-  .ev {
-    display: grid;
-    border-left: 4px solid transparent;
-  }
-  .ev span {
-    color: var(--soft-on-paper);
-  }
-  .ev.presencial {
-    border-left-color: var(--marigold);
-  }
-  .ev.online {
-    border-left-color: var(--teal);
-  }
-  .ev.bloqueio {
-    background: var(--mist);
-  }
-  .lem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .wa {
-    background: var(--whatsapp);
-    color: #fff;
-    border-radius: 999px;
-    padding: 3px 10px;
-    font-weight: 700;
-  }
-  .bolha {
-    background: var(--mist);
-    border-radius: 14px 14px 14px 4px;
-    padding: 10px;
-    margin-top: 6px;
-  }
-  @media (max-width: 60rem) {
-    .celular-lado {
-      display: none;
+  @media (max-width: 40rem) {
+    .hero-visual {
+      padding-right: 2.5rem;
     }
+    .hero-visual :global(.hero-celular) {
+      bottom: -1.5rem;
+    }
+  }
+
+  /* Agenda: semana grande + cartão do detalhe da consulta */
+  .arraste {
+    display: none;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-faint);
+  }
+  @media (max-width: 48rem) {
+    .agenda-rolagem {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 16px;
+    }
+    .agenda-rolagem > :global(figure) {
+      min-width: 46rem;
+      box-shadow: none;
+    }
+    .arraste {
+      display: block;
+    }
+  }
+  .agenda-visual {
+    position: relative;
+  }
+  .agenda-visual :global(.agenda-detalhe) {
+    width: min(100%, 36rem);
+    margin: 1.25rem 0 0 auto;
+  }
+  @media (min-width: 56rem) {
+    .agenda-visual {
+      padding-bottom: 4rem;
+    }
+    .agenda-visual :global(.agenda-detalhe) {
+      position: absolute;
+      right: -1rem;
+      bottom: 0;
+      margin: 0;
+      box-shadow: 0 30px 70px -20px rgb(0 0 0 / 0.8);
+    }
+  }
+
+  /* Modo privado: o print borrado aparece por cima quando o modo está ligado */
+  .privado-imagens {
+    position: relative;
+  }
+  .privado-imagens :global(.privado-borrado) {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  :global(html[data-privado]) .privado-imagens :global(.privado-borrado) {
+    opacity: 1;
   }
 
   /* Dores */
@@ -675,6 +680,10 @@ const faq = [
   .lado-visual {
     display: flex;
     justify-content: center;
+  }
+  .lado-visual > :global(figure) {
+    width: 100%;
+    max-width: 34rem;
   }
   .lista-check {
     list-style: none;

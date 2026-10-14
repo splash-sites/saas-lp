@@ -37,7 +37,7 @@ Não reabrir sem motivo novo.
 | Responsável no rodapé | Só "Gradatim" (sem nome de pessoa física) |
 | Contato | Só WhatsApp (51) 8213-5882 (8 dígitos, sem o 9), segunda a sexta, das 9h às 18h |
 | Rodapé completo | Igual ao da Prestio: marca, "Fale com a gente", "Documentos" e "Desenvolvido por Splash Sistemas" |
-| Telas | Por enquanto, mockups do app em HTML/CSS com dados fictícios, no padrão da Prestio: Painel, Agenda, Prontuário, Financeiro, Lembretes (com celular no WhatsApp) e Modo privado (botão funciona). Ficam em `src/components/mock/`, estilos em `src/styles/mock.css`. Painel e Agenda em largura total (rolam para o lado no celular); Prontuário, Financeiro, Lembretes (só o celular no WhatsApp) e Modo privado em recorte menor ao lado do texto. Serão trocados por prints reais: ver `PRINTS.md` |
+| Telas | Prints reais do app (conta de teste com dados fictícios), recortados sem a barra lateral, em `src/assets/prints/`. O Astro gera AVIF e WebP com PNG de fallback. Topo: painel no computador + agenda do dia no celular. Agenda: semana inteira + cartão da videochamada. Prontuário, Financeiro, Lembretes e Modo privado (par normal/borrado que alterna com o botão e o Alt+O) ao lado do texto. Para refazer os recortes: `node scripts/recortar-prints.mjs <pasta dos prints>` |
 | Fundadores | Não entram na página por enquanto |
 | Analytics | Vercel Analytics, sem cookies e sem banner. Sem anúncios |
 | Privacidade e Termos | Copiados do app para `/privacidade` e `/termos` na landing |
@@ -62,7 +62,7 @@ O app pede acesso ao Google Agenda, e o Google exige uma página inicial públic
 - [ ] Confirmar se as páginas legais mantêm "Bernardo Dornelles, Torres/RS" e o Gmail como contato. Estão assim porque vieram do app; o rodapé da home mostra só "Gradatim".
 - [ ] A seção 8 da Política de Privacidade ("Este site", sobre não usar cookies e usar Vercel Analytics) existe só na landing. Levar para o app ou manter só aqui.
 - FAQ da home tem 5 perguntas (cartão, assinatura vencida, cancelamento e exportação, celular, paciente instalar). O resto está coberto no bloco de sigilo.
-- [ ] Tirar os prints reais da lista em `PRINTS.md` (Bernardo) e trocar os mockups por eles.
+- [x] Prints reais no lugar dos mockups (14/10/2026). Ao mudar a interface do app, gerar de novo (ver `PRINTS.md`) e rodar `scripts/recortar-prints.mjs`.
 - [ ] Publicar na Vercel: importar este repositório, apontar gradatim.com.br e www para o projeto e ativar o Analytics no painel.
 - [ ] Quando houver CNPJ, atualizar Privacidade e Termos aqui e no app.
 
@@ -85,7 +85,8 @@ Nesta máquina o servidor de desenvolvimento roda na porta 4330 (configurado em 
 |---|---|
 | `src/consts.ts` | URLs, WhatsApp e preços. Mudou um valor, muda aqui |
 | `src/pages/index.astro` | A home: ordem das seções, textos, FAQ e estilos da página |
-| `src/components/mock/` | Mockups das telas do app (um componente por tela, `Janela.astro` é a moldura) |
+| `src/components/Navegador.astro`, `Celular.astro` | Molduras em volta dos prints |
+| `src/assets/prints/` | Prints recortados usados na home |
 | `src/styles/global.css` | Cores, fonte, botões e o modo privado (Alt+O) |
 | `src/components/` | Cabeçalho, rodapé e logo |
 | `src/layouts/Base.astro` | `<head>` com SEO, Open Graph, dados estruturados e Vercel Analytics |
