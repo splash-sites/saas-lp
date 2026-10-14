@@ -1,37 +1,39 @@
 /* Gradatim — tokens e base.
-   Paleta fria e calma, puxada do teal do app (#0F766E) para landing e
-   aplicação parecerem a mesma casa. Tema único claro, como no app. */
+   Direção C ("celular primeiro") com a paleta do app: fundo verde-tinta,
+   âmbar como cor de ação, teal e névoa nas telas claras. */
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  --paper: #f4f7f6;
-  --surface: #ffffff;
-  --mist: #dfebe7;
-  --line: #c9d8d4;
+  /* Fundo escuro */
   --ink: #12302b;
-  --ink-soft: #46605b;
-  --teal: #0f766e;
-  --teal-deep: #0b4f4a;
+  --ink-deep: #0e2622;
+  --ink-card: #18403a;
+  --ink-raise: #1f4a43;
+  --ink-line: #2a5750;
+
+  /* Texto sobre o escuro */
+  --text: #f4f7f6;
+  --text-soft: #b9cfc9;
+  --text-link: #dce8e4;
+  --text-faint: #9db8b1;
+
+  /* Superfícies claras (telas e bloco de segurança) */
+  --paper: #f4f7f6;
+  --mist: #dfebe7;
+  --ink-on-paper: #12302b;
+  --soft-on-paper: #46605b;
+
+  /* Acentos */
   --marigold: #f0b93b;
-  --marigold-soft: #fbefd0;
+  --teal: #0f766e;
+  --whatsapp: #1e8a5a;
 
-  --font-display: "Newsreader Variable", Georgia, "Times New Roman", serif;
-  --font-body: "Instrument Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "Onest Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Escala modular 1.25 sobre 17px. */
-  --step--1: 0.85rem;
-  --step-0: 1.0625rem;
-  --step-1: 1.33rem;
-  --step-2: 1.66rem;
-  --step-3: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
-  --step-4: clamp(2.4rem, 1.6rem + 3.6vw, 4.1rem);
-
-  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
-  --max: 72rem;
-  --radius-sm: 6px;
-  --radius: 12px;
-  --radius-lg: 20px;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+  --max: 75rem;
+  --section: clamp(4.5rem, 3rem + 5vw, 7rem);
 }
 
 *,
@@ -48,34 +50,38 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: var(--step-0);
-  line-height: 1.6;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 h1,
 h2,
 h3 {
-  font-family: var(--font-display);
-  font-weight: 450;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
   margin: 0;
+  font-weight: 700;
   text-wrap: balance;
 }
 
+h1 {
+  font-size: clamp(2.6rem, 1.4rem + 5.2vw, 5.25rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
 h2 {
-  font-size: var(--step-3);
+  font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
 }
 
 h3 {
-  font-size: var(--step-1);
-  font-weight: 500;
+  font-size: 1.3rem;
   line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -84,18 +90,18 @@ p {
 }
 
 a {
-  color: var(--teal);
+  color: var(--marigold);
   text-underline-offset: 0.18em;
 }
 
 a:hover {
-  color: var(--teal-deep);
+  color: var(--text);
 }
 
 :focus-visible {
-  outline: 3px solid var(--teal);
+  outline: 3px solid var(--marigold);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 img,
@@ -111,26 +117,9 @@ svg {
   padding-inline: var(--gutter);
 }
 
-.section {
-  padding-block: clamp(4rem, 3rem + 5vw, 7.5rem);
-}
-
-.section-head {
-  max-width: 40rem;
-  display: grid;
-  gap: 1rem;
-  align-content: start;
-  margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
-}
-
 .lede {
-  font-size: var(--step-1);
-  line-height: 1.5;
-  color: var(--ink-soft);
-}
-
-.muted {
-  color: var(--ink-soft);
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.25rem);
+  color: var(--text-soft);
 }
 
 .sr-only {
@@ -150,73 +139,57 @@ svg {
   left: 1rem;
   top: -3rem;
   z-index: 100;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--marigold);
+  color: var(--ink);
   padding: 0.6rem 1rem;
-  border-radius: var(--radius-sm);
+  border-radius: 10px;
+  font-weight: 700;
 }
 
 .skip:focus {
   top: 1rem;
-  color: var(--paper);
+  color: var(--ink);
 }
 
-/* Botões. 48px de altura para toque confortável no celular. */
+/* Botões */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   min-height: 3rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: 999px;
+  padding: 1rem 1.75rem;
+  border-radius: 16px;
   font: inherit;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 1.125rem;
   line-height: 1.2;
   text-decoration: none;
+  text-align: center;
   cursor: pointer;
-  border: 1.5px solid transparent;
+  border: 2px solid transparent;
   transition:
     background-color 0.15s,
-    color 0.15s,
-    border-color 0.15s;
+    color 0.15s;
 }
 
 .btn-primary {
-  background: var(--teal);
-  color: #fff;
+  background: var(--marigold);
+  color: var(--ink);
 }
 
 .btn-primary:hover {
-  background: var(--teal-deep);
-  color: #fff;
-}
-
-.btn-ghost {
-  border-color: var(--line);
-  color: var(--ink);
-  background: transparent;
-}
-
-.btn-ghost:hover {
-  border-color: var(--ink);
+  background: #f5ca66;
   color: var(--ink);
 }
 
-.cta-note {
-  font-size: var(--step--1);
-  color: var(--ink-soft);
-}
-
-/* Modo privado (Alt+O) — o mesmo comportamento do app, aplicado às telas
+/* Modo privado (Alt+O): o mesmo comportamento do app, aplicado às telas
    ilustrativas da página. */
 [data-sensivel] {
   transition: filter 0.2s;
 }
 
 html[data-privado] [data-sensivel] {
-  filter: blur(5px);
+  filter: blur(6px);
   user-select: none;
 }
 
@@ -228,8 +201,7 @@ html[data-privado] [data-sensivel] {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

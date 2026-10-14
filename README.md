@@ -7,8 +7,8 @@ Site público de gradatim.com.br. A aplicação fica em outro repositório
 - Vercel Analytics (sem cookies, sem banner).
 - URLs, WhatsApp e preços ficam em `src/consts.ts`.
 - `/privacidade` e `/termos` são cópias das páginas do app: manter as duas iguais.
-- As telas da página são ilustrações em HTML/CSS com dados fictícios
-  (`src/components/AgendaMock.astro` e `src/components/Recursos.astro`).
+- As telas dos celulares são ilustrações em HTML/CSS com dados fictícios
+  (em `src/pages/index.astro`). Visual: direção C, fundo verde-tinta e âmbar.
 
 ## Comandos
 
