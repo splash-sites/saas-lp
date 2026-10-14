@@ -94,3 +94,14 @@ Nesta máquina o servidor de desenvolvimento roda na porta 4330 (configurado em 
 ## Tom dos textos
 
 Próximo, claro, sem jargão de tecnologia, respeitoso com a profissão. Frases curtas, sem travessão e sem cara de texto de IA. Apresentar recursos como benefício, não como lista técnica.
+
+## Identidade visual
+
+Pacote completo em `gradatim-marca.zip` (mesmo formato do `prestio-marca.zip`), com `LEIA-ME.txt` dentro.
+
+- **Símbolo:** escada de três degraus em verde-tinta dentro de um círculo âmbar.
+- **Logo:** símbolo + "gradatim" em Onest Bold, sempre em minúsculas, texto convertido em contorno.
+- **Versões:** `gradatim-logo` (fundo claro), `-fundo-claro`, `-negativo` (fundo escuro), `-fundo-escuro` e `gradatim-simbolo`, em SVG e PNG de 2000 px.
+- **Foto de perfil 1080×1080:** `gradatim-perfil` (símbolo sobre verde-tinta) e `gradatim-perfil-ambar` (escada sobre âmbar).
+- **Favicons:** svg, ico, 32, apple-touch 180, 192 e 512. Já estão em `public/` e ligados no `<head>`.
+- **Onde ficam:** os SVGs das logos estão em `public/marca/`. Para regenerar tudo, rode `npm run marca` (sai em `marca-gerada/`).
