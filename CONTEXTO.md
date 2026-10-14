@@ -34,8 +34,9 @@ Não reabrir sem motivo novo.
 | Cancelamento | "Cancele quando quiser, sem multa" |
 | Pagamento | Pix, boleto ou cartão (Asaas) |
 | Fluxo | Botão leva direto ao teste grátis de 14 dias, sem cartão. Sem lista de espera |
-| Rodapé | Só "Gradatim" |
-| Contato | Só WhatsApp (51) 98213-5882 |
+| Responsável no rodapé | Só "Gradatim" (sem nome de pessoa física) |
+| Contato | Só WhatsApp (51) 8213-5882 (8 dígitos, sem o 9), segunda a sexta, das 9h às 18h |
+| Rodapé completo | Igual ao da Prestio: marca, "Fale com a gente", "Documentos" e "Desenvolvido por Splash Sistemas" |
 | Telas | Ilustrações em HTML/CSS com dados fictícios (trocar por prints reais quando houver) |
 | Fundadores | Não entram na página por enquanto |
 | Analytics | Vercel Analytics, sem cookies e sem banner. Sem anúncios |
@@ -59,7 +60,6 @@ O app pede acesso ao Google Agenda, e o Google exige uma página inicial públic
 ## Pendências
 
 - [ ] Confirmar se as páginas legais mantêm "Bernardo Dornelles, Torres/RS" e o Gmail como contato. Estão assim porque vieram do app; o rodapé da home mostra só "Gradatim".
-- [ ] Confirmar o número do WhatsApp: foi informado "51 8213-5882" e usamos (51) 98213-5882, com o 9.
 - [ ] A seção 8 da Política de Privacidade ("Este site", sobre não usar cookies e usar Vercel Analytics) existe só na landing. Levar para o app ou manter só aqui.
 - [ ] Trocar as telas desenhadas por prints reais do app com dados fictícios.
 - [ ] Publicar na Vercel: importar este repositório, apontar gradatim.com.br e www para o projeto e ativar o Analytics no painel.

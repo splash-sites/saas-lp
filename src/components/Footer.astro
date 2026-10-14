@@ -1,51 +1,86 @@
 ---
 import Logo from "./Logo.astro";
-import { APP_LOGIN_URL, WHATSAPP_EXIBICAO, WHATSAPP_URL } from "../consts";
+import { WHATSAPP_EXIBICAO, WHATSAPP_HORARIO, WHATSAPP_URL } from "../consts";
 const ano = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <div class="wrap footer-inner">
-    <Logo />
-    <nav aria-label="Rodapé" class="footer-links">
-      <a href={APP_LOGIN_URL}>Entrar</a>
-      <a href="/#google-agenda">Uso do Google Agenda</a>
+  <div class="wrap footer-grade">
+    <div class="footer-marca">
+      <Logo />
+      <p>Gestão de consultório para quem atende por conta própria, online ou presencial.</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-titulo">Fale com a gente</p>
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp {WHATSAPP_EXIBICAO}</a>
+      <p>Atendimento de {WHATSAPP_HORARIO}</p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-titulo">Documentos</p>
       <a href="/privacidade">Política de Privacidade</a>
       <a href="/termos">Termos de Uso</a>
-      <a href={WHATSAPP_URL} rel="noopener" target="_blank">WhatsApp {WHATSAPP_EXIBICAO}</a>
-    </nav>
-    <span class="footer-copy">© {ano} Gradatim</span>
+      <a href="/#google-agenda">Uso do Google Agenda</a>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <span>© {ano} Gradatim. Todos os direitos reservados.</span>
+    <span>Desenvolvido por <a href="https://splashsistemas.com.br" target="_blank" rel="noopener">Splash Sistemas</a></span>
   </div>
 </footer>
 
 <style>
   .footer {
-    border-top: 1px solid var(--ink-line);
-    padding-block: 2rem 3rem;
+    background: var(--ink-deep);
+    padding-top: clamp(3.5rem, 2.5rem + 3vw, 5rem);
+    color: var(--text-soft);
   }
-  .footer-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1.5rem 2.5rem;
+  .footer-grade {
+    display: grid;
+    gap: 2.5rem;
+    padding-bottom: 3rem;
   }
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 2rem;
+  @media (min-width: 52rem) {
+    .footer-grade {
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3rem;
+    }
   }
-  .footer-links a {
-    color: var(--text-link);
-    font-size: 0.95rem;
-    text-decoration: none;
+  .footer-marca {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    max-width: 26rem;
   }
-  .footer-links a:hover {
+  .footer-col {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    justify-items: start;
+  }
+  .footer-titulo {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .footer-col a {
+    color: var(--text);
+  }
+  .footer-col a:hover {
     color: var(--marigold);
-    text-decoration: underline;
   }
-  .footer-copy {
-    margin-left: auto;
-    font-size: 0.875rem;
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    padding-block: 1.5rem 2.5rem;
+    border-top: 1px solid var(--ink-line);
+    font-size: 0.9rem;
     color: var(--text-faint);
+  }
+  .footer-base a {
+    color: var(--marigold);
+  }
+  .footer-base a:hover {
+    color: var(--text);
   }
 </style>

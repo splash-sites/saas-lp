@@ -3,8 +3,9 @@
 export const SITE_URL = "https://gradatim.com.br";
 export const APP_LOGIN_URL = "https://app.gradatim.com.br/login";
 
-export const WHATSAPP_NUMERO = "5551982135882";
-export const WHATSAPP_EXIBICAO = "(51) 98213-5882";
+export const WHATSAPP_NUMERO = "555182135882";
+export const WHATSAPP_EXIBICAO = "(51) 8213-5882";
+export const WHATSAPP_HORARIO = "segunda a sexta, das 9h às 18h";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(
   "Olá! Tenho uma dúvida sobre o Gradatim.",
 )}`;
