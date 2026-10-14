@@ -222,55 +222,46 @@ const faq = [
 
   <!-- Prontuário -->
   <section class="secao" aria-labelledby="prontuario-titulo">
-    <div class="wrap bloco">
+    <div class="wrap lado">
       <div class="cabeca">
         <h2 id="prontuario-titulo">O registro que a CFP pede, sessão a sessão.</h2>
         <p class="lede">
           A evolução tem os campos pensados para a Resolução CFP 01/2009, então o registro sai
           completo. Cada paciente tem a sua linha do tempo, e arquivar não apaga.
         </p>
-        <ul class="pontos">{pontos.prontuario.map((p) => <li>{p}</li>)}</ul>
+        <ul class="lista-check">{pontos.prontuario.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div>
-        <div class="m-rolagem"><Prontuario /></div>
-        <p class="m-arraste" aria-hidden="true">Arraste a tela para o lado →</p>
-      </div>
+      <div class="lado-visual"><Prontuario /></div>
     </div>
   </section>
 
   <!-- Financeiro -->
   <section class="faixa" aria-labelledby="financeiro-titulo">
-    <div class="wrap bloco">
+    <div class="wrap lado lado-invertido">
       <div class="cabeca">
         <h2 id="financeiro-titulo">Quem pagou, quem falta e quanto entrou.</h2>
         <p class="lede">
           Lance o pagamento da sessão em segundos. O mês fecha sozinho, com histórico para comparar
           com os anteriores.
         </p>
-        <ul class="pontos">{pontos.financeiro.map((p) => <li>{p}</li>)}</ul>
+        <ul class="lista-check">{pontos.financeiro.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div>
-        <div class="m-rolagem"><Financeiro /></div>
-        <p class="m-arraste" aria-hidden="true">Arraste a tela para o lado →</p>
-      </div>
+      <div class="lado-visual"><Financeiro /></div>
     </div>
   </section>
 
   <!-- Lembretes -->
   <section class="secao" aria-labelledby="lembretes-titulo">
-    <div class="wrap bloco">
+    <div class="wrap lado">
       <div class="cabeca">
         <h2 id="lembretes-titulo">Um clique e o lembrete já está escrito.</h2>
         <p class="lede">
-          A lista das consultas de amanhã abre o WhatsApp com a mensagem pronta, saindo do seu
-          número. Sem custo por mensagem e sem nenhum dado clínico.
+          Todo dia o Gradatim lista as consultas de amanhã. Um clique abre o WhatsApp com a
+          mensagem pronta, saindo do seu número. Sem custo por mensagem e sem nenhum dado clínico.
         </p>
-        <ul class="pontos">{pontos.lembretes.map((p) => <li>{p}</li>)}</ul>
+        <ul class="lista-check">{pontos.lembretes.map((p) => <li>{p}</li>)}</ul>
       </div>
-      <div>
-        <div class="m-rolagem"><Lembretes /></div>
-        <p class="m-arraste" aria-hidden="true">Arraste a tela para o lado →</p>
-      </div>
+      <div class="lado-visual"><Lembretes /></div>
     </div>
   </section>
 
@@ -309,23 +300,18 @@ const faq = [
 
   <!-- Modo privado -->
   <section class="secao" aria-labelledby="privado-titulo">
-    <div class="wrap bloco">
-      <div class="privado-topo">
-        <div class="cabeca">
-          <h2 id="privado-titulo">Vai compartilhar a tela? Alt+O.</h2>
-          <p class="lede">
-            Em supervisão, aula ou suporte, o modo privado borra nomes, telefones e valores. Aperte
-            de novo e tudo volta. Experimente aqui.
-          </p>
-        </div>
+    <div class="wrap lado lado-invertido">
+      <div class="cabeca">
+        <h2 id="privado-titulo">Vai compartilhar a tela? Alt+O.</h2>
+        <p class="lede">
+          Em supervisão, aula ou suporte, o modo privado borra nomes, telefones e valores. Aperte de
+          novo e tudo volta. Experimente aqui.
+        </p>
         <button type="button" class="btn btn-privado" id="btn-privado" aria-pressed="false">
           <kbd>Alt+O</kbd><span id="btn-privado-texto">Ligar modo privado</span>
         </button>
       </div>
-      <div>
-        <div class="m-rolagem"><Pacientes /></div>
-        <p class="m-arraste" aria-hidden="true">Arraste a tela para o lado →</p>
-      </div>
+      <div class="lado-visual"><Pacientes /></div>
     </div>
   </section>
 
@@ -670,6 +656,46 @@ const faq = [
     margin-right: 0.45rem;
   }
 
+  /* Texto de um lado, recorte da tela do outro */
+  .lado {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 56rem) {
+    .lado {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 4rem;
+    }
+    .lado-invertido .cabeca {
+      order: 2;
+    }
+  }
+  .lado-visual {
+    display: flex;
+    justify-content: center;
+  }
+  .lista-check {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .lista-check li {
+    color: var(--text-link);
+    padding-left: 1.75rem;
+    position: relative;
+  }
+  .lista-check li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--marigold);
+    font-weight: 700;
+  }
+
   /* Segurança (bloco claro) */
   .claro {
     background: var(--paper);
@@ -694,14 +720,9 @@ const faq = [
   }
 
   /* Modo privado */
-  .privado-topo {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1.5rem;
-  }
   .btn-privado {
+    justify-self: start;
+    margin-top: 0.75rem;
     gap: 0.65rem;
     background: transparent;
     color: var(--marigold);

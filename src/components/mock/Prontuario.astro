@@ -1,44 +1,27 @@
 ---
 import Janela from "./Janela.astro";
-const sessoes = [
-  { t: "Sessão 14", d: "12 out · online", atual: true },
-  { t: "Sessão 13", d: "5 out · online" },
-  { t: "Sessão 12", d: "28 set · presencial" },
-  { t: "Sessão 11", d: "21 set · presencial" },
-  { t: "Avaliação inicial", d: "2 mar · anamnese" },
-];
 const campos = [
-  ["Avaliação da demanda / objetivos", "Ansiedade antecipatória antes de reuniões. Objetivo combinado: participar das reuniões semanais sem evitar."],
-  ["Procedimentos aplicados", "Revisão do registro de pensamentos da semana. Ensaio da apresentação de sexta."],
-  ["Resultados obtidos", "Participou de duas reuniões. Relata menos tensão no corpo antes de falar."],
-  ["Encaminhamentos / decisões", "Manter o registro diário. Retomar a relação com a chefia na próxima sessão."],
+  ["Avaliação da demanda / objetivos", "Ansiedade antes de reuniões. Objetivo: participar das reuniões semanais sem evitar."],
+  ["Procedimentos aplicados", "Revisão do registro de pensamentos. Ensaio da apresentação de sexta."],
+  ["Resultados obtidos", "Participou de duas reuniões. Relata menos tensão antes de falar."],
+  ["Encaminhamentos / decisões", "Manter o registro diário. Retomar o tema da chefia."],
 ];
 ---
 
 <Janela
+  compacta
   url="app.gradatim.com.br/pacientes/evolucoes"
   ativo="Pacientes"
-  rotulo="Prontuário de uma paciente no Gradatim, com a linha do tempo das sessões e a evolução da sessão em quatro campos, com dados fictícios."
+  rotulo="Evolução de uma sessão no Gradatim, com os quatro campos do registro, com dados fictícios."
 >
   <div class="m-main">
-    <div class="m-topo">
-      <div class="m-paciente">
-        <span class="m-avatar">MS</span>
-        <div><div class="m-titulo" data-sensivel>Marina Souza</div><div class="m-peq">Em acompanhamento desde março · 14 sessões</div></div>
-        <span class="m-chip m-ok">Ativo</span>
-      </div>
-      <div class="m-acoes"><span class="m-btn">WhatsApp</span><span class="m-btn">Prontuário (PDF)</span></div>
+    <div class="m-paciente">
+      <span class="m-avatar">MS</span>
+      <div><div class="m-titulo" data-sensivel>Marina Souza</div><div class="m-peq">Sessão 14 · segunda, 12 de outubro</div></div>
     </div>
-    <div class="m-abas"><span>Ficha e anamnese</span><span class="ativo">Evoluções</span><span>Notas privadas</span></div>
-    <div class="m-prontuario">
-      <div class="m-sessoes">
-        {sessoes.map((s) => <div class:list={{ atual: s.atual }}><b>{s.t}</b><span class="m-peq">{s.d}</span></div>)}
-      </div>
-      <div class="m-card m-evolucao">
-        <div class="m-topo"><b style="font-size:17px">Evolução · sessão 14</b><span class="m-peq">Segunda, 12 de outubro, 50 min</span></div>
-        {campos.map(([t, v]) => <div class="m-campo"><b>{t}</b><div data-sensivel>{v}</div></div>)}
-        <div class="m-fim"><span class="m-btn">Arquivar</span><span class="m-btn m-btn-p">Salvar evolução</span></div>
-      </div>
+    <div class="m-evolucao">
+      {campos.map(([t, v]) => <div class="m-campo"><b>{t}</b><div data-sensivel>{v}</div></div>)}
     </div>
+    <div class="m-fim"><span class="m-btn">Prontuário (PDF)</span><span class="m-btn m-btn-p">Salvar evolução</span></div>
   </div>
 </Janela>

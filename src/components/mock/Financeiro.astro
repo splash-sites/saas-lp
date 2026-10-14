@@ -1,11 +1,9 @@
 ---
 import Janela from "./Janela.astro";
 const linhas = [
-  { nome: "Joana Martins", sessao: "13 out", valor: "R$ 180", st: "Pago", c: "m-ok" },
-  { nome: "Caio Ferreira", sessao: "13 out", valor: "R$ 180", st: "Pago", c: "m-ok" },
-  { nome: "Helena Prado", sessao: "14 out", valor: "R$ 180", st: "Pendente", c: "m-pend" },
-  { nome: "Marcos Vieira", sessao: "set (2)", valor: "R$ 360", st: "Atrasado", c: "m-atraso" },
-  { nome: "Renata Alves", sessao: "13 out", valor: "R$ 200", st: "Pendente", c: "m-pend" },
+  { nome: "Joana Martins", valor: "R$ 180", st: "Pago", c: "m-ok" },
+  { nome: "Helena Prado", valor: "R$ 180", st: "Pendente", c: "m-pend" },
+  { nome: "Marcos Vieira", valor: "R$ 360", st: "Atrasado", c: "m-atraso" },
 ];
 const meses: [string, number][] = [
   ["mai", 56],
@@ -18,36 +16,19 @@ const meses: [string, number][] = [
 ---
 
 <Janela
+  compacta
   url="app.gradatim.com.br/financeiro"
   ativo="Financeiro"
-  rotulo="Financeiro do mês no Gradatim com valores recebidos, a receber e atrasados, a lista de pagamentos por paciente e um gráfico do recebido por mês, com dados fictícios."
+  rotulo="Financeiro do mês no Gradatim com o valor recebido, um gráfico por mês e pagamentos pago, pendente e atrasado, com dados fictícios."
 >
   <div class="m-main">
-    <div class="m-topo">
-      <div class="m-acoes"><span class="m-btn">‹</span><span class="m-titulo">Outubro de 2026</span><span class="m-btn">›</span></div>
-      <div class="m-acoes"><span class="m-btn">Histórico</span><span class="m-btn m-btn-p">+ Lançar pagamento</span></div>
-    </div>
-    <div class="m-kpis m-kpis-3">
-      <div class="m-card m-kpi"><span>Recebido no mês</span><b style="color:#166534" data-sensivel>R$ 6.840,00</b><span class="m-peq">38 sessões pagas</span></div>
-      <div class="m-card m-kpi"><span>A receber (lançado no mês)</span><b data-sensivel>R$ 900,00</b><span class="m-peq">5 pendentes</span></div>
-      <div class="m-card m-kpi"><span>Atrasados</span><b style="color:#B91C1C" data-sensivel>R$ 360,00</b><span class="m-peq">1 paciente</span></div>
-    </div>
-    <div class="m-financeiro">
-      <div class="m-card m-tabela">
-        <div class="m-linha m-cabecalho"><span>Paciente</span><span>Sessão</span><span>Valor</span><span>Situação</span></div>
-        {
-          linhas.map((l) => (
-            <div class="m-linha">
-              <b data-sensivel>{l.nome}</b>
-              <span class="m-sub">{l.sessao}</span>
-              <span data-sensivel>{l.valor}</span>
-              <span class:list={["m-chip", l.c]}>{l.st}</span>
-            </div>
-          ))
-        }
+    <div class="m-fin-topo">
+      <div class="m-kpi">
+        <span>Recebido em outubro</span>
+        <b style="color:#166534" data-sensivel>R$ 6.840,00</b>
+        <span class="m-peq" data-sensivel>R$ 900 a receber · R$ 360 atrasado</span>
       </div>
-      <div class="m-card m-barras">
-        <b>Recebido por mês</b>
+      <div class="m-barras m-barras-mini">
         <div>
           {
             meses.map(([m, h], i) => (
@@ -59,6 +40,17 @@ const meses: [string, number][] = [
           }
         </div>
       </div>
+    </div>
+    <div class="m-card m-lista-fin">
+      {
+        linhas.map((l) => (
+          <div>
+            <b data-sensivel>{l.nome}</b>
+            <span data-sensivel>{l.valor}</span>
+            <span class:list={["m-chip", l.c]}>{l.st}</span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </Janela>

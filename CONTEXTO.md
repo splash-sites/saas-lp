@@ -37,7 +37,7 @@ Não reabrir sem motivo novo.
 | Responsável no rodapé | Só "Gradatim" (sem nome de pessoa física) |
 | Contato | Só WhatsApp (51) 8213-5882 (8 dígitos, sem o 9), segunda a sexta, das 9h às 18h |
 | Rodapé completo | Igual ao da Prestio: marca, "Fale com a gente", "Documentos" e "Desenvolvido por Splash Sistemas" |
-| Telas | Mockups do app em HTML/CSS com dados fictícios, no padrão da Prestio: Painel, Agenda, Prontuário, Financeiro, Lembretes (com celular no WhatsApp) e Modo privado (botão funciona). Ficam em `src/components/mock/`, estilos em `src/styles/mock.css`. No celular rolam para o lado |
+| Telas | Por enquanto, mockups do app em HTML/CSS com dados fictícios, no padrão da Prestio: Painel, Agenda, Prontuário, Financeiro, Lembretes (com celular no WhatsApp) e Modo privado (botão funciona). Ficam em `src/components/mock/`, estilos em `src/styles/mock.css`. Painel e Agenda em largura total (rolam para o lado no celular); Prontuário, Financeiro, Lembretes (só o celular no WhatsApp) e Modo privado em recorte menor ao lado do texto. Serão trocados por prints reais: ver `PRINTS.md` |
 | Fundadores | Não entram na página por enquanto |
 | Analytics | Vercel Analytics, sem cookies e sem banner. Sem anúncios |
 | Privacidade e Termos | Copiados do app para `/privacidade` e `/termos` na landing |
@@ -62,7 +62,7 @@ O app pede acesso ao Google Agenda, e o Google exige uma página inicial públic
 - [ ] Confirmar se as páginas legais mantêm "Bernardo Dornelles, Torres/RS" e o Gmail como contato. Estão assim porque vieram do app; o rodapé da home mostra só "Gradatim".
 - [ ] A seção 8 da Política de Privacidade ("Este site", sobre não usar cookies e usar Vercel Analytics) existe só na landing. Levar para o app ou manter só aqui.
 - FAQ da home tem 5 perguntas (cartão, assinatura vencida, cancelamento e exportação, celular, paciente instalar). O resto está coberto no bloco de sigilo.
-- [ ] Trocar as telas desenhadas por prints reais do app com dados fictícios.
+- [ ] Tirar os prints reais da lista em `PRINTS.md` (Bernardo) e trocar os mockups por eles.
 - [ ] Publicar na Vercel: importar este repositório, apontar gradatim.com.br e www para o projeto e ativar o Analytics no painel.
 - [ ] Quando houver CNPJ, atualizar Privacidade e Termos aqui e no app.
 

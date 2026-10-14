@@ -1,6 +1,7 @@
 /* Telas da aplicação desenhadas em HTML (dados fictícios), no visual claro
    do app: barra lateral branca, fundo cinza-claro e detalhes em teal.
-   No celular a janela mantém a largura de computador e rola para o lado. */
+   Janelas grandes mantêm a largura de computador e rolam para o lado no
+   celular; as compactas (ao lado de um texto) se ajustam à tela. */
 
 .m-arraste {
   display: none;
@@ -18,8 +19,7 @@
     padding-bottom: 0.5rem;
   }
 
-  .m-rolagem .m-janela,
-  .m-rolagem .m-whats {
+  .m-rolagem .m-janela {
     box-shadow: none;
   }
 
@@ -41,6 +41,13 @@
   box-shadow: 0 50px 100px -40px rgb(0 0 0 / 0.7);
 }
 
+.m-janela-compacta {
+  min-width: 0;
+  width: 100%;
+  max-width: 34rem;
+  box-shadow: 0 40px 80px -40px rgb(0 0 0 / 0.7);
+}
+
 .m-barra {
   display: flex;
   align-items: center;
@@ -53,6 +60,7 @@
 .m-pontos {
   display: flex;
   gap: 6px;
+  flex: none;
 }
 
 .m-pontos i {
@@ -68,6 +76,10 @@
   padding: 4px 14px;
   font-size: 12px;
   color: #475569;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .m-aviso {
@@ -75,6 +87,7 @@
   font-size: 12px;
   font-weight: 600;
   color: #b45309;
+  white-space: nowrap;
   display: none;
 }
 
@@ -85,6 +98,10 @@ html[data-privado] .m-aviso {
 .m-corpo {
   display: flex;
   min-height: 34rem;
+}
+
+.m-janela-compacta .m-corpo {
+  min-height: 0;
 }
 
 .m-lateral {
@@ -134,6 +151,11 @@ html[data-privado] .m-aviso {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.m-janela-compacta .m-main {
+  padding: 20px;
+  gap: 14px;
 }
 
 .m-topo {
@@ -195,14 +217,7 @@ html[data-privado] .m-aviso {
 .m-kpis {
   display: grid;
   gap: 14px;
-}
-
-.m-kpis-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.m-kpis-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .m-kpi {
@@ -262,14 +277,6 @@ html[data-privado] .m-aviso {
   align-items: center;
   padding: 11px 0;
   border-top: 1px solid #f1f5f9;
-}
-
-.m-cabecalho {
-  color: #64748b;
-  font-size: 12px;
-  font-weight: 600;
-  border-top: 0;
-  border-bottom: 1px solid #e2e8f0;
 }
 
 /* Painel */
@@ -461,7 +468,7 @@ html[data-privado] .m-aviso {
   font-weight: 600;
 }
 
-/* Prontuário */
+/* Prontuário (compacto) */
 .m-paciente {
   display: flex;
   align-items: center;
@@ -481,52 +488,10 @@ html[data-privado] .m-aviso {
   flex: none;
 }
 
-.m-abas {
-  display: flex;
-  gap: 22px;
-  border-bottom: 1px solid #e2e8f0;
-  font-weight: 600;
-  color: #64748b;
-}
-
-.m-abas span {
-  padding-bottom: 10px;
-}
-
-.m-abas .ativo {
-  color: #0f766e;
-  border-bottom: 2px solid #0f766e;
-}
-
-.m-prontuario {
-  display: grid;
-  grid-template-columns: 240px minmax(0, 1fr);
-  gap: 18px;
-}
-
-.m-sessoes {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.m-sessoes > div {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  display: grid;
-}
-
-.m-sessoes .atual {
-  border: 2px solid #0f766e;
-}
-
 .m-evolucao {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 20px 22px;
 }
 
 .m-campo {
@@ -544,43 +509,29 @@ html[data-privado] .m-aviso {
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 10px 12px;
-  background: #f8fafc;
+  background: #fff;
 }
 
 .m-fim {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-/* Financeiro */
-.m-financeiro {
+/* Financeiro (compacto) */
+.m-fin-topo {
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  gap: 14px;
-  flex: 1;
-}
-
-.m-tabela {
-  padding: 4px 18px 10px;
-}
-
-.m-tabela .m-linha {
-  grid-template-columns: minmax(0, 1.4fr) 80px 80px 100px;
-}
-
-.m-barras {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: end;
 }
 
 .m-barras > div {
-  flex: 1;
-  min-height: 150px;
+  height: 110px;
   display: flex;
   align-items: flex-end;
-  gap: 10px;
+  gap: 8px;
 }
 
 .m-barras span {
@@ -591,7 +542,7 @@ html[data-privado] .m-aviso {
   align-items: center;
   gap: 6px;
   height: 100%;
-  font-size: 12px;
+  font-size: 11px;
   color: #64748b;
 }
 
@@ -599,7 +550,7 @@ html[data-privado] .m-aviso {
   width: 100%;
   height: var(--h);
   background: #ccfbf1;
-  border-radius: 6px 6px 0 0;
+  border-radius: 5px 5px 0 0;
 }
 
 .m-barras .atual i {
@@ -611,66 +562,44 @@ html[data-privado] .m-aviso {
   font-weight: 600;
 }
 
-/* Lembretes */
-.m-lembretes-par {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  min-width: 70rem;
+.m-lista-fin,
+.m-lista-pac {
+  padding: 4px 16px;
 }
 
-.m-lembretes-par .m-janela {
-  flex: 1;
-  min-width: 0;
-}
-
-.m-lista-lem {
-  padding: 4px 18px;
-}
-
-.m-lista-lem > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.m-lista-fin > div,
+.m-lista-pac > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: 12px;
-  padding: 14px 0;
+  align-items: center;
+  padding: 12px 0;
   border-top: 1px solid #f1f5f9;
 }
 
-.m-lista-lem > div:first-child {
+.m-lista-fin > div:first-child,
+.m-lista-pac > div:first-child {
   border-top: 0;
 }
 
-.m-lista-lem .foco {
-  background: #f0fdf4;
-  margin: 0 -18px;
-  padding-inline: 18px;
+@media (max-width: 30rem) {
+  .m-fin-topo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .m-lista-pac > div {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .m-lista-pac > div > :nth-child(2) {
+    display: none;
+  }
 }
 
-.m-enviado {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #166534;
-  font-weight: 600;
-}
-
-.m-modelo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.m-modelo div {
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 10px 12px;
-  background: #f8fafc;
-  color: #334155;
-}
-
+/* Lembretes: celular com o WhatsApp */
 .m-whats {
   width: 290px;
+  max-width: 100%;
   flex: none;
   background: var(--ink-raise);
   border-radius: 44px;
@@ -681,12 +610,13 @@ html[data-privado] .m-aviso {
 .m-whats-tela {
   background: #efeae2;
   border-radius: 36px;
-  height: 560px;
+  height: 540px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   color: #111b21;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .m-whats-topo {
@@ -744,18 +674,4 @@ html[data-privado] .m-aviso {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Pacientes (modo privado) */
-.m-pacientes .m-linha {
-  grid-template-columns: minmax(0, 1.4fr) 160px 100px 170px 90px;
-  padding: 13px 0;
-}
-
-.m-busca {
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 7px 12px;
-  color: #64748b;
-  width: 220px;
 }
