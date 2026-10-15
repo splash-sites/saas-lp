@@ -107,3 +107,11 @@ Pacote completo em `gradatim-marca.zip` (mesmo formato do `prestio-marca.zip`), 
 - **Foto de perfil 1080×1080:** `gradatim-perfil` (símbolo sobre verde-tinta) e `gradatim-perfil-ambar` (escada sobre âmbar).
 - **Favicons:** svg, ico, 32, apple-touch 180, 192 e 512. Já estão em `public/` e ligados no `<head>`.
 - **Onde ficam:** os SVGs das logos estão em `public/marca/`. Para regenerar tudo, rode `npm run marca` (sai em `marca-gerada/`).
+
+## Tutoriais (/tutorial)
+
+- Página `/tutorial`: lista dos 36 tutoriais com busca (ignora acentos, aceita `?q=`), filtro por área, "Comece por aqui" e ícones do Lucide por área. Cada tutorial tem sua página em `/tutorial/<slug>`.
+- Conteúdo em `src/data/tutoriais.ts`: passos, texto e, em cada passo, o print e os alvos (rótulos do manifest). O primeiro alvo é o principal (destaque pulsando, cursor e etiqueta); `numerar: true` marca vários alvos com números.
+- Prints em `src/assets/tutoriais/` com o `manifest.json` (coordenadas dos botões). O componente `src/components/PrintTutorial.astro` desenha as marcações por cima e corta a barra lateral e o fundo vazio quando eles não importam para o passo.
+- Para atualizar os prints: gere de novo no app com o prompt de `PROMPT-PRINTS-TUTORIAIS.md` e rode `node scripts/preparar-tutoriais.mjs <pasta prints-tutoriais>`. O script copia os prints, cobre o e-mail da conta de teste no rodapé da barra lateral e mede onde termina o conteúdo de cada tela.
+- Se um alvo citado em `tutoriais.ts` sumir do manifest, o build falha com o nome do alvo e do print.

@@ -1,0 +1,1792 @@
+{
+  "sobre": "Caixas em px CSS (deviceScaleFactor 2: multiplique por 2 para os pixels do PNG), relativas ao topo do print. Prints de página inteira: a janela foi aumentada até a altura da página (tamanhoPrint), então as coordenadas valem para a imagem inteira. 'cortado: true' = parte do elemento passa da borda do print e a caixa foi limitada à parte visível. 'extra: true' = print a mais, fora da lista pedida.",
+  "observacoes": [
+    "celular-agenda.png saiu como página inteira: o seletor de dias e o 'Entrar no Meet' não cabem juntos nos 844 px da tela.",
+    "celular-menu.png: com o menu aberto, a gaveta cobre o ☰ e o 'Ocultar dados'. Esses dois alvos estão no extra celular-menu-fechado.png.",
+    "painel.png: o bloco 'Evoluções pendentes' continua abaixo da dobra (cortado: true).",
+    "painel-consulta.png: 'Marcar falta' também aparece em consulta futura. O extra painel-consulta-encerrada.png mostra o mesmo painel de uma sessão já encerrada, com 'Marcar falta' e 'Registrar evolução'.",
+    "painel-consulta.png: o botão de cancelar se chama só 'Cancelar'.",
+    "assinatura-*.png e configuracoes-google-conectado.png: o estado da assinatura e do Google foi simulado só na leitura, por um proxy local. Nada foi gravado no banco e a trava de assinatura não foi ligada. O aviso de desenvolvimento 'Rodando em modo simulado' foi tirado da tela nesses prints, porque não existe em produção.",
+    "financeiro-historico.png: a tabela mostra 12 meses, e só os 6 últimos (maio a outubro de 2026) têm lançamentos."
+  ],
+  "prints": [
+    {
+      "arquivo": "login.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Entrar com Google",
+          "x": 481,
+          "y": 240,
+          "w": 318,
+          "h": 40
+        },
+        {
+          "rotulo": "Não tem conta? Criar uma",
+          "x": 481,
+          "y": 604,
+          "w": 318,
+          "h": 16
+        }
+      ],
+      "conteudo": {
+        "esquerda": 447,
+        "direita": 832,
+        "base": 710
+      }
+    },
+    {
+      "arquivo": "login-criar-conta.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Nome completo",
+          "x": 481,
+          "y": 325,
+          "w": 318,
+          "h": 64
+        },
+        {
+          "rotulo": "E-mail",
+          "x": 481,
+          "y": 401,
+          "w": 318,
+          "h": 64
+        },
+        {
+          "rotulo": "Senha",
+          "x": 481,
+          "y": 477,
+          "w": 318,
+          "h": 64
+        },
+        {
+          "rotulo": "Confirmar senha",
+          "x": 481,
+          "y": 553,
+          "w": 318,
+          "h": 64
+        },
+        {
+          "rotulo": "Criar conta",
+          "x": 481,
+          "y": 629,
+          "w": 318,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 447,
+        "direita": 832,
+        "base": 787
+      }
+    },
+    {
+      "arquivo": "painel.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Painel",
+          "x": 16,
+          "y": 80,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Cartão Consultas hoje",
+          "x": 272,
+          "y": 108,
+          "w": 235,
+          "h": 120
+        },
+        {
+          "rotulo": "Cartão Evoluções pendentes",
+          "x": 519,
+          "y": 108,
+          "w": 235,
+          "h": 120
+        },
+        {
+          "rotulo": "Cartão Lembretes a enviar",
+          "x": 766,
+          "y": 108,
+          "w": 235,
+          "h": 120
+        },
+        {
+          "rotulo": "Cartão Recebido no mês",
+          "x": 1013,
+          "y": 108,
+          "w": 235,
+          "h": 120
+        },
+        {
+          "rotulo": "Nova consulta",
+          "x": 272,
+          "y": 252,
+          "w": 149,
+          "h": 40
+        },
+        {
+          "rotulo": "Novo paciente",
+          "x": 429,
+          "y": 252,
+          "w": 152,
+          "h": 40
+        },
+        {
+          "rotulo": "Novo lançamento",
+          "x": 589,
+          "y": 252,
+          "w": 173,
+          "h": 40
+        },
+        {
+          "rotulo": "Bloco Evoluções pendentes",
+          "x": 272,
+          "y": 316,
+          "w": 976,
+          "h": 484,
+          "cortado": true
+        },
+        {
+          "rotulo": "Registrar evolução",
+          "x": 1061,
+          "y": 404,
+          "w": 153,
+          "h": 32
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 1248,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "celular-menu.png",
+      "viewport": [
+        390,
+        844
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        390,
+        844
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Fechar menu (X)",
+          "x": 330,
+          "y": 16,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Painel",
+          "x": 118,
+          "y": 76,
+          "w": 256,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Agenda",
+          "x": 118,
+          "y": 124,
+          "w": 256,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Pacientes",
+          "x": 118,
+          "y": 172,
+          "w": 256,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Lembretes",
+          "x": 118,
+          "y": 220,
+          "w": 256,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Financeiro",
+          "x": 118,
+          "y": 268,
+          "w": 256,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Assinatura",
+          "x": 118,
+          "y": 316,
+          "w": 256,
+          "h": 44
+        },
+        {
+          "rotulo": "Menu: Configurações",
+          "x": 118,
+          "y": 364,
+          "w": 256,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "arquivo": "celular-menu-fechado.png",
+      "viewport": [
+        390,
+        844
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        390,
+        844
+      ],
+      "escala": 2,
+      "extra": true,
+      "alvos": [
+        {
+          "rotulo": "Botão do menu (☰)",
+          "x": 330,
+          "y": 6,
+          "w": 44,
+          "h": 44
+        },
+        {
+          "rotulo": "Ocultar dados",
+          "x": 278,
+          "y": 6,
+          "w": 44,
+          "h": 44
+        }
+      ]
+    },
+    {
+      "arquivo": "celular-agenda.png",
+      "viewport": [
+        390,
+        844
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        390,
+        1001
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Entrar no Meet",
+          "x": 85,
+          "y": 841,
+          "w": 276,
+          "h": 44
+        },
+        {
+          "rotulo": "Seletor de dias",
+          "x": 16,
+          "y": 304,
+          "w": 358,
+          "h": 56
+        }
+      ]
+    },
+    {
+      "arquivo": "configuracoes-google.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Configurações",
+          "x": 16,
+          "y": 344,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Conectar Google Calendar",
+          "x": 289,
+          "y": 209,
+          "w": 205,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "configuracoes-google-conectado.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Desconectar",
+          "x": 371,
+          "y": 209,
+          "w": 118,
+          "h": 40
+        },
+        {
+          "rotulo": "Reconectar",
+          "x": 500,
+          "y": 209,
+          "w": 108,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "pacientes.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Pacientes",
+          "x": 16,
+          "y": 168,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Novo paciente",
+          "x": 914,
+          "y": 32,
+          "w": 126,
+          "h": 40
+        },
+        {
+          "rotulo": "Item da lista (Marina Souza)",
+          "x": 273,
+          "y": 538,
+          "w": 766,
+          "h": 48
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 1039,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "paciente-novo.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Nome",
+          "x": 272,
+          "y": 84,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Aceita receber lembretes de consulta",
+          "x": 272,
+          "y": 602,
+          "w": 672,
+          "h": 52
+        },
+        {
+          "rotulo": "Salvar",
+          "x": 272,
+          "y": 670,
+          "w": 97,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 709
+      }
+    },
+    {
+      "arquivo": "paciente-ficha.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        1093
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "WhatsApp",
+          "x": 612,
+          "y": 60,
+          "w": 102,
+          "h": 40
+        },
+        {
+          "rotulo": "Prontuário (PDF)",
+          "x": 722,
+          "y": 60,
+          "w": 141,
+          "h": 40
+        },
+        {
+          "rotulo": "Editar",
+          "x": 871,
+          "y": 60,
+          "w": 73,
+          "h": 40
+        },
+        {
+          "rotulo": "Bloco da anamnese",
+          "x": 272,
+          "y": 330,
+          "w": 672,
+          "h": 450
+        },
+        {
+          "rotulo": "Salvar anamnese",
+          "x": 272,
+          "y": 740,
+          "w": 144,
+          "h": 40
+        },
+        {
+          "rotulo": "Nova evolução",
+          "x": 836,
+          "y": 812,
+          "w": 108,
+          "h": 32
+        },
+        {
+          "rotulo": "Excluir paciente",
+          "x": 272,
+          "y": 1019,
+          "w": 102,
+          "h": 20
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 1058
+      }
+    },
+    {
+      "arquivo": "paciente-editar.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Status",
+          "x": 272,
+          "y": 404,
+          "w": 672,
+          "h": 64
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 709
+      }
+    },
+    {
+      "arquivo": "agenda.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Agenda",
+          "x": 16,
+          "y": 124,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Nova consulta",
+          "x": 1099,
+          "y": 32,
+          "w": 149,
+          "h": 40
+        },
+        {
+          "rotulo": "Bloqueios",
+          "x": 992,
+          "y": 32,
+          "w": 99,
+          "h": 40
+        },
+        {
+          "rotulo": "Hoje",
+          "x": 420,
+          "y": 32,
+          "w": 64,
+          "h": 40
+        },
+        {
+          "rotulo": "Semana anterior",
+          "x": 376,
+          "y": 32,
+          "w": 40,
+          "h": 40
+        },
+        {
+          "rotulo": "Próxima semana",
+          "x": 488,
+          "y": 32,
+          "w": 40,
+          "h": 40
+        },
+        {
+          "rotulo": "Horário vazio",
+          "x": 946,
+          "y": 473,
+          "w": 144,
+          "h": 53
+        },
+        {
+          "rotulo": "Uma consulta",
+          "x": 334,
+          "y": 193,
+          "w": 144,
+          "h": 44
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 1248,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "consulta-nova.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Paciente",
+          "x": 272,
+          "y": 84,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Data",
+          "x": 272,
+          "y": 164,
+          "w": 213,
+          "h": 64
+        },
+        {
+          "rotulo": "Hora",
+          "x": 501,
+          "y": 164,
+          "w": 213,
+          "h": 64
+        },
+        {
+          "rotulo": "Duração",
+          "x": 731,
+          "y": 164,
+          "w": 213,
+          "h": 64
+        },
+        {
+          "rotulo": "Modalidade",
+          "x": 272,
+          "y": 244,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Agendar",
+          "x": 272,
+          "y": 502,
+          "w": 88,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 541
+      }
+    },
+    {
+      "arquivo": "consulta-nova-recorrente.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Recorrência",
+          "x": 272,
+          "y": 324,
+          "w": 328,
+          "h": 64
+        },
+        {
+          "rotulo": "Nº de ocorrências",
+          "x": 616,
+          "y": 324,
+          "w": 328,
+          "h": 64
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 541
+      }
+    },
+    {
+      "arquivo": "painel-consulta.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Paciente confirmou",
+          "x": 856,
+          "y": 237,
+          "w": 159,
+          "h": 32
+        },
+        {
+          "rotulo": "Marcar falta",
+          "x": 1023,
+          "y": 237,
+          "w": 118,
+          "h": 32
+        },
+        {
+          "rotulo": "Linha Pagamento",
+          "x": 904,
+          "y": 300,
+          "w": 227,
+          "h": 36
+        },
+        {
+          "rotulo": "Linha Lembrete",
+          "x": 904,
+          "y": 365,
+          "w": 220,
+          "h": 36
+        },
+        {
+          "rotulo": "Linha Prontuário",
+          "x": 904,
+          "y": 430,
+          "w": 196,
+          "h": 36
+        },
+        {
+          "rotulo": "Remarcar",
+          "x": 856,
+          "y": 676,
+          "w": 196,
+          "h": 40
+        },
+        {
+          "rotulo": "Cancelar",
+          "x": 1060,
+          "y": 676,
+          "w": 196,
+          "h": 40
+        },
+        {
+          "rotulo": "Cancelar esta e as próximas da série",
+          "x": 856,
+          "y": 726,
+          "w": 400,
+          "h": 20
+        },
+        {
+          "rotulo": "Mais detalhes",
+          "x": 856,
+          "y": 756,
+          "w": 400,
+          "h": 20
+        }
+      ],
+      "conteudo": {
+        "esquerda": 245,
+        "direita": 1279,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "painel-consulta-encerrada.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "extra": true,
+      "alvos": [
+        {
+          "rotulo": "Marcar falta",
+          "x": 1008,
+          "y": 339,
+          "w": 118,
+          "h": 32
+        },
+        {
+          "rotulo": "Registrar evolução",
+          "x": 868,
+          "y": 200,
+          "w": 376,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 245,
+        "direita": 1279,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "painel-consulta-online.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Entrar no Meet",
+          "x": 868,
+          "y": 200,
+          "w": 376,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 245,
+        "direita": 1279,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "agenda-consulta.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Link do Meet",
+          "x": 289,
+          "y": 405,
+          "w": 250,
+          "h": 20
+        },
+        {
+          "rotulo": "Copiar link",
+          "x": 547,
+          "y": 399,
+          "w": 87,
+          "h": 32
+        },
+        {
+          "rotulo": "Sincronizada com o Google",
+          "x": 272,
+          "y": 478,
+          "w": 175,
+          "h": 20
+        },
+        {
+          "rotulo": "Sincronizar agora",
+          "x": 459,
+          "y": 472,
+          "w": 125,
+          "h": 32
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 562
+      }
+    },
+    {
+      "arquivo": "consulta-remarcar.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Data",
+          "x": 272,
+          "y": 84,
+          "w": 213,
+          "h": 64
+        },
+        {
+          "rotulo": "Hora",
+          "x": 501,
+          "y": 84,
+          "w": 213,
+          "h": 64
+        },
+        {
+          "rotulo": "Status",
+          "x": 616,
+          "y": 164,
+          "w": 328,
+          "h": 64
+        },
+        {
+          "rotulo": "Salvar",
+          "x": 272,
+          "y": 342,
+          "w": 74,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 381
+      }
+    },
+    {
+      "arquivo": "bloqueios.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Novo bloqueio",
+          "x": 818,
+          "y": 32,
+          "w": 126,
+          "h": 40
+        },
+        {
+          "rotulo": "Remover",
+          "x": 870,
+          "y": 153,
+          "w": 57,
+          "h": 20
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 410
+      }
+    },
+    {
+      "arquivo": "bloqueio-novo.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Data",
+          "x": 272,
+          "y": 84,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Início",
+          "x": 272,
+          "y": 164,
+          "w": 328,
+          "h": 64
+        },
+        {
+          "rotulo": "Fim",
+          "x": 616,
+          "y": 164,
+          "w": 328,
+          "h": 64
+        },
+        {
+          "rotulo": "Motivo",
+          "x": 272,
+          "y": 244,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Bloquear horário",
+          "x": 272,
+          "y": 324,
+          "w": 141,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 363
+      }
+    },
+    {
+      "arquivo": "evolucao-nova.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        1094
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Data da sessão",
+          "x": 272,
+          "y": 128,
+          "w": 161,
+          "h": 64
+        },
+        {
+          "rotulo": "Avaliação da demanda / objetivos",
+          "x": 272,
+          "y": 212,
+          "w": 672,
+          "h": 146
+        },
+        {
+          "rotulo": "Procedimentos aplicados",
+          "x": 272,
+          "y": 378,
+          "w": 672,
+          "h": 146
+        },
+        {
+          "rotulo": "Resultados",
+          "x": 272,
+          "y": 544,
+          "w": 672,
+          "h": 146
+        },
+        {
+          "rotulo": "Encaminhamentos",
+          "x": 272,
+          "y": 710,
+          "w": 672,
+          "h": 146
+        },
+        {
+          "rotulo": "Notas técnicas privadas",
+          "x": 272,
+          "y": 876,
+          "w": 672,
+          "h": 126
+        },
+        {
+          "rotulo": "Salvar",
+          "x": 272,
+          "y": 1022,
+          "w": 155,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 1061
+      }
+    },
+    {
+      "arquivo": "evolucoes-lista.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Item da lista",
+          "x": 272,
+          "y": 184,
+          "w": 672,
+          "h": 82
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "evolucao-detalhe.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Editar",
+          "x": 871,
+          "y": 76,
+          "w": 73,
+          "h": 40
+        },
+        {
+          "rotulo": "Arquivar evolução",
+          "x": 272,
+          "y": 467,
+          "w": 114,
+          "h": 20
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 484
+      }
+    },
+    {
+      "arquivo": "financeiro.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        1043
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Financeiro",
+          "x": 16,
+          "y": 256,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Novo lançamento",
+          "x": 893,
+          "y": 32,
+          "w": 147,
+          "h": 40
+        },
+        {
+          "rotulo": "Histórico mensal",
+          "x": 742,
+          "y": 32,
+          "w": 143,
+          "h": 40
+        },
+        {
+          "rotulo": "Cartão Recebido no mês",
+          "x": 272,
+          "y": 160,
+          "w": 248,
+          "h": 78
+        },
+        {
+          "rotulo": "Cartão A receber",
+          "x": 532,
+          "y": 160,
+          "w": 248,
+          "h": 78
+        },
+        {
+          "rotulo": "Cartão Atrasados",
+          "x": 792,
+          "y": 160,
+          "w": 248,
+          "h": 78
+        },
+        {
+          "rotulo": "Marcar como pago",
+          "x": 867,
+          "y": 763,
+          "w": 156,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 1040,
+        "base": 1010
+      }
+    },
+    {
+      "arquivo": "financeiro-novo-recebido.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Paciente",
+          "x": 272,
+          "y": 184,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Consulta vinculada",
+          "x": 272,
+          "y": 84,
+          "w": 672,
+          "h": 84
+        },
+        {
+          "rotulo": "Valor",
+          "x": 272,
+          "y": 264,
+          "w": 328,
+          "h": 64
+        },
+        {
+          "rotulo": "Já recebi",
+          "x": 272,
+          "y": 368,
+          "w": 80,
+          "h": 20
+        },
+        {
+          "rotulo": "Data do pagamento",
+          "x": 272,
+          "y": 404,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Forma de pagamento",
+          "x": 272,
+          "y": 484,
+          "w": 672,
+          "h": 64
+        },
+        {
+          "rotulo": "Salvar",
+          "x": 272,
+          "y": 662,
+          "w": 77,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 701
+      }
+    },
+    {
+      "arquivo": "financeiro-novo-areceber.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Ainda vou receber",
+          "x": 368,
+          "y": 368,
+          "w": 136,
+          "h": 20
+        },
+        {
+          "rotulo": "Vencimento",
+          "x": 272,
+          "y": 404,
+          "w": 672,
+          "h": 64
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 701
+      }
+    },
+    {
+      "arquivo": "lancamento-detalhe.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Editar",
+          "x": 272,
+          "y": 375,
+          "w": 73,
+          "h": 40
+        },
+        {
+          "rotulo": "Desmarcar pagamento",
+          "x": 357,
+          "y": 375,
+          "w": 183,
+          "h": 40
+        },
+        {
+          "rotulo": "Arquivar lançamento",
+          "x": 812,
+          "y": 385,
+          "w": 132,
+          "h": 20
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 414
+      }
+    },
+    {
+      "arquivo": "financeiro-historico.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Tabela",
+          "x": 273,
+          "y": 173,
+          "w": 670,
+          "h": 475
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 648
+      }
+    },
+    {
+      "arquivo": "lembretes.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Lembretes",
+          "x": 16,
+          "y": 212,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Enviar no WhatsApp",
+          "x": 761,
+          "y": 290,
+          "w": 166,
+          "h": 40
+        },
+        {
+          "rotulo": "Enviado às…",
+          "x": 691,
+          "y": 237,
+          "w": 95,
+          "h": 16
+        },
+        {
+          "rotulo": "Enviar de novo",
+          "x": 797,
+          "y": 225,
+          "w": 130,
+          "h": 40
+        },
+        {
+          "rotulo": "Paciente não aceita lembretes",
+          "x": 762,
+          "y": 365,
+          "w": 165,
+          "h": 16
+        },
+        {
+          "rotulo": "Sem telefone válido",
+          "x": 818,
+          "y": 491,
+          "w": 109,
+          "h": 16
+        },
+        {
+          "rotulo": "Editar mensagem",
+          "x": 832,
+          "y": 114,
+          "w": 112,
+          "h": 20
+        },
+        {
+          "rotulo": "Dia seguinte",
+          "x": 510,
+          "y": 104,
+          "w": 140,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 943,
+        "base": 594
+      }
+    },
+    {
+      "arquivo": "configuracoes-lembretes.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        1176
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Lembrar com antecedência de (horas)",
+          "x": 289,
+          "y": 645,
+          "w": 403,
+          "h": 84
+        },
+        {
+          "rotulo": "Mensagem do lembrete no WhatsApp",
+          "x": 289,
+          "y": 745,
+          "w": 638,
+          "h": 158
+        },
+        {
+          "rotulo": "Convidar o paciente pelo Google Agenda",
+          "x": 289,
+          "y": 1019,
+          "w": 638,
+          "h": 52
+        },
+        {
+          "rotulo": "Salvar preferências",
+          "x": 289,
+          "y": 1087,
+          "w": 158,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 1145
+      }
+    },
+    {
+      "arquivo": "privado-desligado.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Ocultar dados",
+          "x": 16,
+          "y": 672,
+          "w": 207,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 1039,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "privado-ligado.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Mostrar dados",
+          "x": 16,
+          "y": 672,
+          "w": 207,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 272,
+        "direita": 1039,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "configuracoes-exportar.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Exportar todos os dados (.zip)",
+          "x": 289,
+          "y": 459,
+          "w": 228,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 799
+      }
+    },
+    {
+      "arquivo": "assinatura-planos.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": true,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Menu: Assinatura",
+          "x": 16,
+          "y": 300,
+          "w": 207,
+          "h": 40
+        },
+        {
+          "rotulo": "Plano Mensal",
+          "x": 289,
+          "y": 299,
+          "w": 207,
+          "h": 90
+        },
+        {
+          "rotulo": "Plano Trimestral",
+          "x": 504,
+          "y": 299,
+          "w": 207,
+          "h": 90
+        },
+        {
+          "rotulo": "Plano Semestral",
+          "x": 720,
+          "y": 299,
+          "w": 207,
+          "h": 90
+        },
+        {
+          "rotulo": "CPF ou CNPJ",
+          "x": 289,
+          "y": 405,
+          "w": 320,
+          "h": 116
+        },
+        {
+          "rotulo": "Assinar plano",
+          "x": 289,
+          "y": 537,
+          "w": 121,
+          "h": 40
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 712
+      }
+    },
+    {
+      "arquivo": "assinatura-cobranca.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Plano",
+          "x": 289,
+          "y": 101,
+          "w": 307,
+          "h": 36
+        },
+        {
+          "rotulo": "Próximo vencimento",
+          "x": 289,
+          "y": 149,
+          "w": 307,
+          "h": 36
+        },
+        {
+          "rotulo": "Ver / pagar cobrança",
+          "x": 289,
+          "y": 279,
+          "w": 143,
+          "h": 32
+        },
+        {
+          "rotulo": "Cancelar assinatura",
+          "x": 289,
+          "y": 333,
+          "w": 127,
+          "h": 20
+        }
+      ],
+      "conteudo": {
+        "esquerda": 271,
+        "direita": 944,
+        "base": 426
+      }
+    },
+    {
+      "arquivo": "assinatura-vencida.png",
+      "viewport": [
+        1280,
+        800
+      ],
+      "paginaInteira": false,
+      "tamanhoPrint": [
+        1280,
+        800
+      ],
+      "escala": 2,
+      "alvos": [
+        {
+          "rotulo": "Aviso de assinatura vencida",
+          "x": 240,
+          "y": 0,
+          "w": 1040,
+          "h": 37
+        },
+        {
+          "rotulo": "Regularizar assinatura",
+          "x": 886,
+          "y": 9,
+          "w": 147,
+          "h": 18
+        }
+      ],
+      "conteudo": {
+        "esquerda": 245,
+        "direita": 1279,
+        "base": 799
+      }
+    }
+  ],
+  "faltando": []
+}

@@ -1,0 +1,448 @@
+---
+import Base from "../../layouts/Base.astro";
+import PrintTutorial from "../../components/PrintTutorial.astro";
+import { TUTORIAIS, categoriaNome, type Tutorial } from "../../data/tutoriais";
+import { WHATSAPP_URL, WHATSAPP_HORARIO } from "../../consts";
+
+export function getStaticPaths() {
+  return TUTORIAIS.map((t) => ({ params: { slug: t.slug }, props: { t } }));
+}
+
+const { t } = Astro.props as { t: Tutorial };
+const categoria = categoriaNome(t.categoria);
+const relacionados = TUTORIAIS.filter((x) => x.categoria === t.categoria && x.slug !== t.slug).slice(0, 3);
+const semTags = (html: string) => html.replace(/<[^>]+>/g, "");
+const leitura = Math.max(1, Math.round(t.passos.reduce((n, p) => n + semTags(p.texto).split(/\s+/).length, 0) / 120) + t.passos.length);
+---
+
+<Base title={`${t.titulo} · Tutoriais · Gradatim`} description={t.resumo}>
+  <div class="cabeca">
+    <div class="wrap cabeca-inner">
+      <nav aria-label="Você está em" class="trilha">
+        <a href="/tutorial">Tutoriais</a><span aria-hidden="true">›</span><a href={`/tutorial?q=${encodeURIComponent(categoria)}`}>{categoria}</a>
+      </nav>
+      <h1>{t.titulo}</h1>
+      <p class="resumo">{t.resumo}</p>
+      <p class="meta">
+        {t.passos.length} {t.passos.length === 1 ? "passo" : "passos"} · Leitura de {leitura} min · Atualizado em outubro de 2026
+      </p>
+    </div>
+  </div>
+
+  <div class="corpo">
+    <div class="wrap colunas">
+      <article class="artigo">
+        {
+          t.antes && (
+            <div class="antes">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 8v5M12 16h.01" />
+              </svg>
+              <div>
+                <b>Antes de começar</b>
+                <p set:html={t.antes} />
+              </div>
+            </div>
+          )
+        }
+
+        {
+          t.passos.map((p, i) => (
+            <section id={`passo-${i + 1}`} class="passo">
+              <span class="passo-n" aria-hidden="true">
+                {i + 1}
+              </span>
+              <div class="passo-conteudo">
+                <h2>
+                  <span class="sr-only">Passo {i + 1}: </span>
+                  {p.titulo}
+                </h2>
+                <p set:html={p.texto} />
+                {p.print && p.alvos && (
+                  <PrintTutorial
+                    print={p.print}
+                    alvos={p.alvos}
+                    numerar={p.numerar}
+                    etiqueta={p.etiqueta}
+                    recorte={p.recorte}
+                    alt={`${p.titulo}: ${semTags(p.texto)}`}
+                  />
+                )}
+              </div>
+            </section>
+          ))
+        }
+
+        {
+          t.dica && (
+            <div class="dica">
+              <b>Dica</b>
+              <p set:html={t.dica} />
+            </div>
+          )
+        }
+
+        <div class="feedback" id="feedback">
+          <div class="fb-pergunta">
+            <b>Este tutorial resolveu sua dúvida?</b>
+            <div class="fb-botoes">
+              <button type="button" data-voto="sim">Sim</button>
+              <button type="button" data-voto="nao">Não</button>
+            </div>
+          </div>
+          <b class="fb-sim" hidden>Que bom! Obrigado por avisar.</b>
+          <div class="fb-nao" hidden>
+            <b>Poxa. Conta pra gente o que faltou?</b>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="btn btn-whats">Falar no WhatsApp</a>
+          </div>
+        </div>
+
+        {
+          relacionados.length > 0 && (
+            <section class="relacionados" aria-labelledby="rel-titulo">
+              <h2 id="rel-titulo">Veja também</h2>
+              <div class="rel-grade">
+                {relacionados.map((r) => (
+                  <a href={`/tutorial/${r.slug}`} class="rel">
+                    <span class="cat">{categoria}</span>
+                    <b>{r.titulo}</b>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+      </article>
+
+      <aside class="lado" aria-label="Neste tutorial">
+        {
+          t.passos.length > 1 && (
+            <nav class="indice" aria-label="Passos deste tutorial">
+              <b>Neste tutorial</b>
+              <ol>
+                {t.passos.map((p, i) => (
+                  <li>
+                    <a href={`#passo-${i + 1}`}>
+                      <span>{i + 1}</span>
+                      {p.titulo}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+        <div class="duvida">
+          <b>Ainda com dúvida?</b>
+          <span>Fale com a gente pelo WhatsApp, de {WHATSAPP_HORARIO}.</span>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp</a>
+        </div>
+        <a href="/tutorial" class="voltar">← Todos os tutoriais</a>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const fb = document.getElementById("feedback");
+  fb?.querySelectorAll<HTMLButtonElement>("[data-voto]").forEach((b) =>
+    b.addEventListener("click", () => {
+      fb.querySelector<HTMLElement>(".fb-pergunta")!.hidden = true;
+      fb.querySelector<HTMLElement>(b.dataset.voto === "sim" ? ".fb-sim" : ".fb-nao")!.hidden = false;
+    }),
+  );
+</script>
+
+<style>
+  .cabeca {
+    background: #fff;
+    color: var(--ink-on-paper);
+    border-bottom: 1px solid var(--mist);
+  }
+  .cabeca-inner {
+    padding-block: 2.25rem 2.5rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .cabeca a {
+    color: var(--teal);
+  }
+  .cabeca :focus-visible {
+    outline-color: var(--teal);
+  }
+  .trilha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--soft-on-paper);
+  }
+  .trilha a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .cabeca h1 {
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    max-width: 22ch;
+  }
+  .resumo {
+    font-size: 1.15rem;
+    color: var(--soft-on-paper);
+    max-width: 44rem;
+  }
+  .meta {
+    font-size: 0.88rem;
+    color: var(--soft-on-paper);
+  }
+
+  .corpo {
+    background: var(--paper);
+    color: var(--ink-on-paper);
+    padding-block: 3rem 4.5rem;
+  }
+  .corpo a {
+    color: var(--teal);
+  }
+  .corpo a:hover {
+    color: var(--ink-on-paper);
+  }
+  .corpo :focus-visible {
+    outline-color: var(--teal);
+  }
+  .colunas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+  .artigo {
+    flex: 999 1 34rem;
+    min-width: 0;
+    display: grid;
+    gap: 2.75rem;
+  }
+  .lado {
+    flex: 1 1 16rem;
+    max-width: 20rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (max-width: 60rem) {
+    .lado {
+      max-width: none;
+    }
+  }
+
+  .antes,
+  .dica {
+    border-radius: 16px;
+    padding: 1.1rem 1.35rem;
+  }
+  .antes {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    background: #fbefd0;
+    border: 1px solid var(--marigold);
+    color: #5c4307;
+  }
+  .antes svg {
+    flex: none;
+    margin-top: 0.15rem;
+  }
+  .antes p {
+    margin-top: 0.2rem;
+  }
+  .antes a {
+    color: #5c4307;
+    font-weight: 600;
+  }
+  .dica {
+    background: #fff;
+    border: 1px solid var(--mist);
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .passo {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1.25rem;
+    scroll-margin-top: 6rem;
+  }
+  .passo-n {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--marigold);
+    font-weight: 700;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .passo-conteudo {
+    display: grid;
+    gap: 0.9rem;
+    min-width: 0;
+  }
+  .passo h2 {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .passo p {
+    color: #2e4a45;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+  @media (max-width: 36rem) {
+    .passo {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+    .passo-n {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.1rem;
+    }
+  }
+
+  .feedback {
+    background: #fff;
+    border: 1px solid var(--mist);
+    border-radius: 18px;
+    padding: 1.25rem 1.5rem;
+  }
+  .fb-pergunta,
+  .fb-nao {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+  }
+  .fb-pergunta[hidden],
+  .fb-nao[hidden],
+  .fb-sim[hidden] {
+    display: none;
+  }
+  .fb-sim {
+    color: var(--teal);
+  }
+  .fb-botoes {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .fb-botoes button {
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #b9cfc9;
+    background: #fff;
+    color: var(--ink-on-paper);
+    border-radius: 12px;
+    padding: 0.6rem 1.2rem;
+    min-height: 2.75rem;
+  }
+  .fb-botoes button:hover {
+    border-color: var(--teal);
+  }
+  .btn-whats {
+    background: var(--whatsapp);
+    color: #fff !important;
+    font-size: 1rem;
+  }
+  .relacionados {
+    display: grid;
+    gap: 1rem;
+  }
+  .relacionados h2 {
+    font-size: 1.4rem;
+  }
+  .rel-grade {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 44rem) {
+    .rel-grade {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .rel {
+    background: #fff;
+    border: 1px solid var(--mist);
+    border-radius: 16px;
+    padding: 1rem 1.15rem;
+    text-decoration: none;
+    color: var(--ink-on-paper) !important;
+    display: grid;
+    gap: 0.3rem;
+  }
+  .rel:hover {
+    border-color: var(--teal);
+  }
+  .cat {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--teal);
+  }
+
+  .indice,
+  .duvida {
+    border-radius: 18px;
+    padding: 1.25rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .indice {
+    background: #fff;
+    border: 1px solid var(--mist);
+  }
+  .indice ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .indice a {
+    display: flex;
+    gap: 0.65rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--ink-on-paper) !important;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+  .indice a:hover {
+    background: var(--paper);
+  }
+  .indice a span {
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .duvida {
+    background: var(--ink);
+    color: var(--text);
+  }
+  .duvida span {
+    color: var(--text-soft);
+    font-size: 0.95rem;
+  }
+  .duvida .btn {
+    justify-self: start;
+    font-size: 0.95rem;
+    padding: 0.7rem 1.1rem;
+    color: var(--ink) !important;
+  }
+  .voltar {
+    font-weight: 600;
+    text-decoration: none;
+  }
+</style>

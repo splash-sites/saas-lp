@@ -1,0 +1,288 @@
+---
+// Print real do app com as marcações de onde clicar, desenhadas por cima.
+// As caixas vêm do manifest.json (px CSS do print) e viram porcentagem,
+// então acompanham a imagem em qualquer largura.
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import manifest from "../assets/tutoriais/manifest.json";
+
+interface Props {
+  print: string;
+  alvos: string[];
+  numerar?: boolean;
+  etiqueta?: string;
+  recorte?: [number, number];
+  alt: string;
+}
+const { print, alvos, numerar = false, etiqueta, recorte, alt } = Astro.props;
+
+const imagens = import.meta.glob<{ default: ImageMetadata }>("../assets/tutoriais/*.png", { eager: true });
+const img = imagens[`../assets/tutoriais/${print}`]?.default;
+const info = manifest.prints.find((p) => p.arquivo === print);
+if (!img || !info) throw new Error(`Print ${print} não encontrado`);
+
+const [W, H] = info.tamanhoPrint as [number, number];
+const celular = info.viewport[0] < 500;
+
+const caixas = alvos.map((rotulo) => {
+  const a = info.alvos.find((x) => x.rotulo === rotulo);
+  if (!a) throw new Error(`Alvo "${rotulo}" não existe em ${print}`);
+  return a;
+});
+
+// Recorte: o informado, ou, em prints altos, uma janela em volta dos alvos.
+const alturaJanela = celular ? 844 : 800;
+let [y0, y1] = recorte ?? [0, H];
+if (!recorte && H > alturaJanela + 20) {
+  const topo = Math.min(...caixas.map((c) => c.y));
+  const base = Math.max(...caixas.map((c) => c.y + c.h));
+  const meio = (topo + base) / 2;
+  const altura = Math.max(alturaJanela, base - topo + 160);
+  y0 = Math.max(0, Math.min(H - altura, meio - altura / 2));
+  y1 = Math.min(H, y0 + altura);
+}
+// Sem alvo na barra lateral (240 px), ela sai do quadro e a tela fica maior.
+// O fundo vazio à direita e embaixo também sai (medido em preparar-tutoriais).
+const LATERAL = 240;
+const MARGEM = 28;
+const conteudo = (info as { conteudo?: { esquerda: number; direita: number; base: number } }).conteudo;
+// O login não tem barra lateral: corta só o fundo vazio dos dois lados.
+const x0 = print.startsWith("login") && conteudo
+  ? Math.max(0, conteudo.esquerda - MARGEM)
+  : !celular && caixas.every((c) => c.x >= LATERAL + 8) ? LATERAL : 0;
+const alvosDireita = Math.max(...caixas.map((c) => c.x + c.w));
+const alvosBase = Math.max(...caixas.map((c) => c.y + c.h));
+const x1 = conteudo ? Math.min(W, Math.max(conteudo.direita, alvosDireita) + MARGEM) : W;
+if (conteudo && !recorte) y1 = Math.min(y1, Math.max(conteudo.base, alvosBase) + MARGEM);
+const Hc = y1 - y0;
+const Wc = x1 - x0;
+const pct = (v: number) => `${(v * 100).toFixed(3)}%`;
+const X = (x: number) => (x - x0) / Wc;
+const Y = (y: number) => (y - y0) / Hc;
+
+const marcas = caixas.map((c, i) => ({
+  n: i + 1,
+  principal: i === 0,
+  left: pct(X(c.x)),
+  top: pct(Y(c.y)),
+  width: pct(c.w / Wc),
+  height: pct(c.h / Hc),
+}));
+
+// Etiqueta e cursor do alvo principal. A etiqueta vai ao lado do alvo quando
+// há espaço; senão, embaixo ou em cima, para não tapar o que vem perto.
+const p = caixas[0];
+const limpa = (r: string) => r.replace(/^(Menu|Cartão|Linha|Bloco): ?/, "");
+const textoEtiqueta = etiqueta ?? limpa(p.rotulo);
+// Tamanho aproximado da etiqueta em px CSS do print (a página mostra o print
+// a uns 760 px de largura no computador).
+const escalaTela = celular ? 1 : Wc / 760;
+const etW = (textoEtiqueta.length * 7.5 + 28) * escalaTela;
+const etH = 30 * escalaTela;
+const vao = 14 * escalaTela;
+const outros = caixas.slice(1);
+const cruza = (a: { x: number; y: number; w: number; h: number }) =>
+  outros.some((o) => a.x < o.x + o.w + 6 && a.x + a.w > o.x - 6 && a.y < o.y + o.h + 6 && a.y + a.h > o.y - 6);
+const cabe = (a: { x: number; y: number; w: number; h: number }) => a.x >= x0 && a.x + a.w <= x1 && a.y >= y0 && a.y + a.h <= y1;
+const meio = p.y + p.h / 2 - etH / 2;
+const candidatas = [
+  { x: p.x + p.w + vao, y: meio },
+  { x: p.x - vao - etW, y: meio },
+  { x: Math.min(p.x, x1 - etW - 4), y: p.y + p.h + vao },
+  { x: Math.min(p.x, x1 - etW - 4), y: p.y - vao - etH },
+].map((c) => ({ ...c, w: etW, h: etH }));
+const escolhida = candidatas.find((c) => cabe(c) && !cruza(c)) ?? candidatas.find(cabe) ?? candidatas[2];
+const posEtiqueta = `left: ${pct(X(escolhida.x))}; top: ${pct(Y(escolhida.y))}`;
+const posCursor = `left: ${pct(X(p.x + p.w * 0.62))}; top: ${pct(Y(p.y + p.h * 0.5))}`;
+const posToque = `left: ${pct(X(p.x + p.w / 2))}; top: ${pct(Y(p.y + p.h / 2))}`;
+---
+
+<figure class:list={["pt", { "pt-celular": celular }]} style={!celular && Wc < 700 ? `max-width: ${Math.round(Wc * 1.15)}px` : undefined}>
+  <div class="pt-moldura">
+    {
+      !celular && (
+        <div class="pt-barra" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
+      )
+    }
+    <div class="pt-tela" style={`aspect-ratio: ${Wc} / ${Hc}`}>
+      <div class="pt-img" style={`top: ${pct(-y0 / Hc)}; left: ${pct(-x0 / Wc)}; width: ${pct(W / Wc)}`}>
+        <Picture
+          src={img}
+          formats={["avif", "webp"]}
+          widths={celular ? [390, 780] : [700, 1100, 1600, 2560]}
+          sizes={celular ? "18rem" : "(min-width: 64rem) 46rem, 92vw"}
+          alt={alt}
+          loading="lazy"
+        />
+      </div>
+      <div class="pt-marcas" aria-hidden="true">
+        {
+          marcas.map((m) => (
+            <span
+              class:list={["pt-alvo", { "pt-alvo-principal": m.principal && !numerar, "pt-alvo-secundario": !m.principal && !numerar }]}
+              style={`left: ${m.left}; top: ${m.top}; width: ${m.width}; height: ${m.height}`}
+            >
+              {numerar && <b class="pt-num">{m.n}</b>}
+            </span>
+          ))
+        }
+        {!numerar && !celular && (
+          <svg class="pt-cursor" style={posCursor} viewBox="0 0 28 38">
+            <path d="M2 2v30l8-7 5 11 5-2-5-11h11z" fill="#FFFFFF" stroke="#12302B" stroke-width="2.2" stroke-linejoin="round" />
+          </svg>
+        )}
+        {!numerar && celular && <span class="pt-toque" style={posToque} />}
+        {!numerar && <span class="pt-etiqueta" style={posEtiqueta}>{textoEtiqueta}</span>}
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .pt {
+    margin: 0;
+  }
+  .pt-moldura {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #dfebe7;
+    background: #f8fafc;
+    box-shadow: 0 24px 50px -32px rgb(18 48 43 / 0.55);
+  }
+  .pt-celular {
+    max-width: 18rem;
+  }
+  .pt-celular .pt-moldura {
+    border: 0;
+    border-radius: 34px;
+    padding: 8px;
+    background: var(--ink-raise);
+  }
+  .pt-celular .pt-tela {
+    border-radius: 27px;
+  }
+  .pt-barra {
+    display: flex;
+    gap: 6px;
+    padding: 9px 12px;
+    background: #eef2f1;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .pt-barra i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .pt-tela {
+    position: relative;
+    overflow: hidden;
+    background: #f8fafc;
+  }
+  .pt-img {
+    position: absolute;
+  }
+  .pt-img :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .pt-marcas {
+    position: absolute;
+    inset: 0;
+  }
+  .pt-alvo {
+    position: absolute;
+    border: 2.5px solid #f0b93b;
+    border-radius: 10px;
+    box-shadow: 0 0 0 4px rgb(240 185 59 / 0.18);
+    margin: -4px;
+    padding: 4px;
+    box-sizing: content-box;
+  }
+  .pt-alvo-principal {
+    border-width: 3px;
+    animation: pt-pulso 1.8s ease-out infinite;
+  }
+  .pt-alvo-secundario {
+    border-style: dashed;
+    border-color: #0f766e;
+    box-shadow: none;
+  }
+  @keyframes pt-pulso {
+    0% {
+      box-shadow: 0 0 0 0 rgb(240 185 59 / 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 14px rgb(240 185 59 / 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgb(240 185 59 / 0);
+    }
+  }
+  .pt-num {
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #12302b;
+    color: #f0b93b;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+  }
+  .pt-cursor {
+    position: absolute;
+    width: clamp(18px, 3.2%, 30px);
+    filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.35));
+  }
+  .pt-toque {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    margin: -14px 0 0 -14px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.7);
+    border: 3px solid #12302b;
+    box-shadow: 0 0 0 6px rgb(18 48 43 / 0.18);
+  }
+  .pt-etiqueta {
+    position: absolute;
+    background: #12302b;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    padding: 6px 10px;
+    border-radius: 9px;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px -6px rgb(0 0 0 / 0.5);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pt-alvo-principal {
+      animation: none;
+    }
+  }
+  @media (max-width: 30rem) {
+    .pt-etiqueta {
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+    .pt-num {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 11px;
+      left: -10px;
+      top: -10px;
+    }
+  }
+</style>

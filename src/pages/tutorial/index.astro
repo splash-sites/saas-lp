@@ -1,0 +1,440 @@
+---
+import { Picture } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import IconeCategoria from "../../components/IconeCategoria.astro";
+import { CATEGORIAS, TUTORIAIS, categoriaNome } from "../../data/tutoriais";
+import { WHATSAPP_URL, WHATSAPP_HORARIO } from "../../consts";
+import capaMeet from "../../assets/tutoriais/agenda-consulta.png";
+import capaEvolucao from "../../assets/tutoriais/evolucao-nova.png";
+import capaLembretes from "../../assets/tutoriais/lembretes.png";
+
+const title = "Tutoriais · Gradatim";
+const description = "Aprenda a usar o Gradatim com demonstrações e tutoriais: agenda, prontuário, financeiro, lembretes e mais.";
+
+const semAcento = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+const destaques = [
+  { slug: "consulta-online-meet", capa: capaMeet, pos: "60% 45%" },
+  { slug: "registrar-evolucao", capa: capaEvolucao, pos: "70% 20%" },
+  { slug: "enviar-lembretes-whatsapp", capa: capaLembretes, pos: "70% 25%" },
+].map((d) => ({ ...d, t: TUTORIAIS.find((t) => t.slug === d.slug)! }));
+
+const grupos = CATEGORIAS.map((c) => ({ ...c, tutoriais: TUTORIAIS.filter((t) => t.categoria === c.id) }));
+const populares = ["link do Meet", "consulta recorrente", "lembrete", "PDF"];
+---
+
+<Base title={title} description={description}>
+  <section class="topo" aria-labelledby="tut-titulo">
+    <div class="wrap topo-inner">
+      <h1 id="tut-titulo">Tutoriais</h1>
+      <p class="lede">Aprenda a usar o Gradatim com demonstrações e tutoriais.</p>
+      <div class="busca">
+        <label for="busca" class="sr-only">Buscar nos tutoriais</label>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input id="busca" type="search" autocomplete="off" placeholder="O que você quer fazer? Ex.: consulta recorrente, link do Meet, PDF" />
+      </div>
+      <div class="populares">
+        <span>Mais buscados:</span>
+        {populares.map((p) => <button type="button" class="popular" data-termo={p}>{p}</button>)}
+      </div>
+    </div>
+  </section>
+
+  <div class="corpo">
+    <div class="wrap">
+      <div class="filtros" role="group" aria-label="Filtrar por área">
+        <button type="button" class="filtro" data-cat="todos" aria-pressed="true">Todos <span>{TUTORIAIS.length}</span></button>
+        {
+          grupos.map((g) => (
+            <button type="button" class="filtro" data-cat={g.id} aria-pressed="false">
+              {g.nome} <span>{g.tutoriais.length}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <section class="destaques" id="destaques" aria-labelledby="destaques-titulo">
+        <h2 id="destaques-titulo">Comece por aqui</h2>
+        <div class="destaques-grade">
+          {
+            destaques.map((d) => (
+              <a href={`/tutorial/${d.slug}`} class="destaque">
+                <div class="destaque-capa">
+                  <Picture src={d.capa} formats={["avif", "webp"]} widths={[600, 1000]} sizes="(min-width: 60rem) 24rem, 92vw" alt="" style={`object-position: ${d.pos}`} loading="lazy" />
+                </div>
+                <div class="destaque-texto">
+                  <span class="cat">{categoriaNome(d.t.categoria)}</span>
+                  <b>{d.t.titulo}</b>
+                  <span class="resumo">{d.t.resumo}</span>
+                  <span class="passos">{d.t.passos.length} passos</span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <p class="resultado" id="resultado" aria-live="polite" hidden></p>
+
+      {
+        grupos.map((g) => (
+          <section class="grupo" data-grupo={g.id} aria-labelledby={`g-${g.id}`}>
+            <div class="grupo-topo">
+              <span class="grupo-icone">
+                <IconeCategoria categoria={g.id} />
+              </span>
+              <h2 id={`g-${g.id}`}>{g.nome}</h2>
+            </div>
+            <div class="cards">
+              {g.tutoriais.map((t) => (
+                <a
+                  href={`/tutorial/${t.slug}`}
+                  class="card"
+                  data-cat={t.categoria}
+                  data-texto={semAcento(`${t.titulo} ${t.resumo} ${g.nome} ${t.passos.map((p) => p.titulo).join(" ")}`)}
+                >
+                  <b>{t.titulo}</b>
+                  <span class="resumo">{t.resumo}</span>
+                  <span class="passos">{t.passos.length} {t.passos.length === 1 ? "passo" : "passos"} →</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <div class="vazio" id="vazio" hidden>
+        <b>Nenhum tutorial encontrado.</b>
+        <span>Tente outra palavra, como “agenda”, “evolução” ou “pagamento”, ou fale com a gente.</span>
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="btn btn-whats">Perguntar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="ajuda" aria-labelledby="ajuda-titulo">
+    <div class="wrap ajuda-inner">
+      <div>
+        <h2 id="ajuda-titulo">Não achou o que procurava?</h2>
+        <p class="lede">Fale com a gente pelo WhatsApp, de {WHATSAPP_HORARIO}.</p>
+      </div>
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const semAcento = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const busca = document.getElementById("busca") as HTMLInputElement;
+  const filtros = [...document.querySelectorAll<HTMLButtonElement>(".filtro")];
+  const cards = [...document.querySelectorAll<HTMLElement>(".card")];
+  const grupos = [...document.querySelectorAll<HTMLElement>(".grupo")];
+  const destaques = document.getElementById("destaques")!;
+  const resultado = document.getElementById("resultado")!;
+  const vazio = document.getElementById("vazio")!;
+  let cat = "todos";
+
+  function atualizar() {
+    const q = semAcento(busca.value.trim());
+    let total = 0;
+    cards.forEach((c) => {
+      const ok = (cat === "todos" || c.dataset.cat === cat) && (!q || c.dataset.texto!.includes(q));
+      c.hidden = !ok;
+      if (ok) total++;
+    });
+    grupos.forEach((g) => (g.hidden = ![...g.querySelectorAll<HTMLElement>(".card")].some((c) => !c.hidden)));
+    destaques.hidden = !!q || cat !== "todos";
+    resultado.hidden = !q;
+    resultado.textContent = `${total} ${total === 1 ? "tutorial encontrado" : "tutoriais encontrados"} para “${busca.value.trim()}”`;
+    vazio.hidden = total > 0;
+  }
+
+  busca.addEventListener("input", atualizar);
+  filtros.forEach((f) =>
+    f.addEventListener("click", () => {
+      cat = f.dataset.cat!;
+      filtros.forEach((x) => x.setAttribute("aria-pressed", String(x === f)));
+      atualizar();
+    }),
+  );
+  document.querySelectorAll<HTMLButtonElement>(".popular").forEach((b) =>
+    b.addEventListener("click", () => {
+      busca.value = b.dataset.termo!;
+      cat = "todos";
+      filtros.forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.cat === "todos")));
+      atualizar();
+      busca.focus();
+    }),
+  );
+  const inicial = new URLSearchParams(location.search).get("q");
+  if (inicial) {
+    busca.value = inicial;
+    atualizar();
+  }
+</script>
+
+<style>
+  .topo {
+    padding-block: clamp(3rem, 2rem + 4vw, 5rem);
+  }
+  .topo-inner {
+    display: grid;
+    gap: 1.1rem;
+    justify-items: start;
+  }
+  .topo h1 {
+    font-size: clamp(2.8rem, 2rem + 3vw, 4rem);
+  }
+  .busca {
+    position: relative;
+    width: 100%;
+    max-width: 46rem;
+    margin-top: 0.5rem;
+  }
+  .busca svg {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--soft-on-paper);
+  }
+  .busca input {
+    width: 100%;
+    font: inherit;
+    font-size: 1.1rem;
+    padding: 1.1rem 1.25rem 1.1rem 3.4rem;
+    border: 0;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--ink-on-paper);
+    min-height: 3.75rem;
+  }
+  .busca input:focus-visible {
+    outline: 3px solid var(--marigold);
+    outline-offset: 2px;
+  }
+  .populares {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+  }
+  .popular {
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--ink-line);
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    min-height: 2.25rem;
+  }
+  .popular:hover {
+    border-color: var(--marigold);
+  }
+
+  /* Corpo claro, para leitura */
+  .corpo {
+    background: var(--paper);
+    color: var(--ink-on-paper);
+    padding-block: 2rem 4.5rem;
+  }
+  .corpo :focus-visible {
+    outline-color: var(--teal);
+  }
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .filtro {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 0.5rem 0.9rem;
+    min-height: 2.5rem;
+    border: 1px solid var(--mist);
+    background: #fff;
+    color: var(--ink-on-paper);
+  }
+  .filtro span {
+    opacity: 0.65;
+    font-weight: 500;
+  }
+  .filtro[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+  .destaques {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .destaques h2,
+  .grupo h2 {
+    font-size: 1.6rem;
+  }
+  .destaques-grade {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 52rem) {
+    .destaques-grade {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .destaque,
+  .card {
+    text-decoration: none;
+    color: var(--ink-on-paper);
+    background: #fff;
+    border: 1px solid var(--mist);
+    border-radius: 20px;
+    transition: border-color 0.15s;
+  }
+  .destaque:hover,
+  .card:hover {
+    border-color: var(--teal);
+    color: var(--ink-on-paper);
+  }
+  .destaque {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .destaque-capa {
+    height: 11rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--mist);
+    background: #f8fafc;
+  }
+  .destaque-capa :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .destaque-texto {
+    padding: 1.25rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .destaque-texto b {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .cat {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--teal);
+  }
+  .resumo {
+    color: var(--soft-on-paper);
+    font-size: 0.97rem;
+  }
+  .passos {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-top: 0.2rem;
+  }
+  .resultado {
+    margin-top: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--soft-on-paper);
+  }
+  .grupo {
+    margin-top: 2.75rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .grupo[hidden],
+  .card[hidden],
+  .destaques[hidden] {
+    display: none;
+  }
+  .grupo-topo {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .grupo-icone {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    background: var(--ink);
+    color: var(--marigold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .cards {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 64rem) {
+    .cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .card {
+    padding: 1.1rem 1.25rem;
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    border-radius: 16px;
+  }
+  .card b {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+  .vazio {
+    margin-top: 2.5rem;
+    background: #fff;
+    border: 1px dashed var(--text-soft);
+    border-radius: 20px;
+    padding: 2rem;
+    display: grid;
+    justify-items: start;
+    gap: 0.6rem;
+  }
+  .vazio[hidden] {
+    display: none;
+  }
+  .vazio span {
+    color: var(--soft-on-paper);
+  }
+  .btn-whats {
+    background: var(--whatsapp);
+    color: #fff;
+    font-size: 1rem;
+  }
+  .btn-whats:hover {
+    color: #fff;
+    background: #18774c;
+  }
+  .ajuda {
+    padding-block: 3.5rem;
+  }
+  .ajuda-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+  .ajuda h2 {
+    font-size: 1.8rem;
+  }
+</style>
