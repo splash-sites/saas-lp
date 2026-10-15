@@ -59,7 +59,7 @@ O app pede acesso ao Google Agenda, e o Google exige uma página inicial públic
 
 ## Pendências
 
-- [ ] Confirmar se as páginas legais mantêm "Bernardo Dornelles, Torres/RS" e o Gmail como contato. Estão assim porque vieram do app; o rodapé da home mostra só "Gradatim".
+- [x] Privacidade e Termos atualizados (15/10/2026) com o texto novo do app e contato contato@splashsistemas.com.br.
 - [ ] A seção 8 da Política de Privacidade ("Este site", sobre não usar cookies e usar Vercel Analytics) existe só na landing. Levar para o app ou manter só aqui.
 - FAQ da home tem 5 perguntas (cartão, assinatura vencida, cancelamento e exportação, celular, paciente instalar). O resto está coberto no bloco de sigilo.
 - [x] Prints reais no lugar dos mockups (14/10/2026). Ao mudar a interface do app, gerar de novo (ver `PRINTS.md`) e rodar `scripts/recortar-prints.mjs`.
