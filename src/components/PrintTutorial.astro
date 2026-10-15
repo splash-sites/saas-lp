@@ -97,7 +97,10 @@ const posCursor = `left: ${pct(X(p.x + p.w * 0.62))}; top: ${pct(Y(p.y + p.h * 0
 const posToque = `left: ${pct(X(p.x + p.w / 2))}; top: ${pct(Y(p.y + p.h / 2))}`;
 ---
 
-<figure class:list={["pt", { "pt-celular": celular }]} style={!celular && Wc < 700 ? `max-width: ${Math.round(Wc * 1.15)}px` : undefined}>
+<figure
+  class:list={["pt", { "pt-celular": celular }]}
+  style={[`--largura-real: ${Wc}px`, !celular && Wc < 700 ? `max-width: ${Math.round(Wc * 1.15)}px` : ""].join("; ")}
+>
   <div class="pt-moldura">
     {
       !celular && (
@@ -108,13 +111,14 @@ const posToque = `left: ${pct(X(p.x + p.w / 2))}; top: ${pct(Y(p.y + p.h / 2))}`
         </div>
       )
     }
+    <div class="pt-rolagem">
     <div class="pt-tela" style={`aspect-ratio: ${Wc} / ${Hc}`}>
       <div class="pt-img" style={`top: ${pct(-y0 / Hc)}; left: ${pct(-x0 / Wc)}; width: ${pct(W / Wc)}`}>
         <Picture
           src={img}
           formats={["avif", "webp"]}
           widths={celular ? [390, 780] : [700, 1100, 1600, 2560]}
-          sizes={celular ? "18rem" : "(min-width: 64rem) 46rem, 92vw"}
+          sizes={celular ? "18rem" : `(max-width: 48rem) ${W}px, ${Math.round((760 * W) / Wc)}px`}
           alt={alt}
           loading="lazy"
         />
@@ -139,12 +143,38 @@ const posToque = `left: ${pct(X(p.x + p.w / 2))}; top: ${pct(Y(p.y + p.h / 2))}`
         {!numerar && <span class="pt-etiqueta" style={posEtiqueta}>{textoEtiqueta}</span>}
       </div>
     </div>
+    </div>
   </div>
+  {
+    !celular && (
+      <button type="button" class="pt-ampliar" aria-expanded="false">
+        Ampliar print
+      </button>
+    )
+  }
 </figure>
+
+<script>
+  // No celular, o print de computador fica pequeno: "Ampliar" mostra no tamanho
+  // real, com rolagem para o lado, e as marcações acompanham.
+  document.querySelectorAll<HTMLButtonElement>(".pt-ampliar").forEach((b) =>
+    b.addEventListener("click", () => {
+      const fig = b.closest(".pt")!;
+      const ampliado = fig.classList.toggle("pt-ampliado");
+      b.setAttribute("aria-expanded", String(ampliado));
+      b.textContent = ampliado ? "Reduzir print" : "Ampliar print";
+      // Leva a rolagem até o alvo principal, para ele aparecer na tela.
+      const rolagem = fig.querySelector<HTMLElement>(".pt-rolagem")!;
+      const alvo = fig.querySelector<HTMLElement>(".pt-alvo");
+      rolagem.scrollLeft = ampliado && alvo ? alvo.offsetLeft - (rolagem.clientWidth - alvo.offsetWidth) / 2 : 0;
+    }),
+  );
+</script>
 
 <style>
   .pt {
     margin: 0;
+    min-width: 0;
   }
   .pt-moldura {
     border-radius: 14px;
@@ -177,6 +207,33 @@ const posToque = `left: ${pct(X(p.x + p.w / 2))}; top: ${pct(Y(p.y + p.h / 2))}`
     height: 9px;
     border-radius: 50%;
     background: #cbd5e1;
+  }
+  .pt-rolagem {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pt-ampliado .pt-tela {
+    width: var(--largura-real);
+  }
+  .pt-ampliar {
+    display: none;
+    margin-top: 0.6rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #b9cfc9;
+    background: #fff;
+    color: var(--ink-on-paper);
+    border-radius: 10px;
+    padding: 0.5rem 0.9rem;
+    min-height: 2.75rem;
+  }
+  @media (max-width: 48rem) {
+    .pt-ampliar {
+      display: inline-flex;
+      align-items: center;
+    }
   }
   .pt-tela {
     position: relative;
