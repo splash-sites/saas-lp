@@ -66,6 +66,7 @@ const leitura = Math.max(1, Math.round(t.passos.reduce((n, p) => n + semTags(p.t
                     numerar={p.numerar}
                     etiqueta={p.etiqueta}
                     recorte={p.recorte}
+                    prioridade={i === 0}
                     alt={`${p.titulo}: ${semTags(p.texto)}`}
                   />
                 )}

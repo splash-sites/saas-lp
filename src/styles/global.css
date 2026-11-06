@@ -91,7 +91,7 @@ p {
 
 a {
   color: var(--marigold);
-  text-underline-offset: 0.18em;
+  text-decoration: none;
 }
 
 a:hover {
@@ -204,4 +204,10 @@ html[data-privado] [data-sensivel] {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+}
+
+/* Único link sublinhado do site: o "Fale com a gente pelo WhatsApp" do FAQ. */
+a.link-sublinhado {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }

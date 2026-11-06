@@ -1,5 +1,8 @@
 ---
 import "@fontsource-variable/onest";
+// Pré-carrega a fonte junto com o HTML. Sem isso o navegador só descobre o arquivo
+// depois de ler o CSS, e o texto aparece primeiro na fonte do sistema e depois troca.
+import onestLatin from "@fontsource-variable/onest/files/onest-latin-wght-normal.woff2?url";
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
 import Header from "../components/Header.astro";
@@ -22,6 +25,7 @@ const ogImage = new URL("/og.png", SITE_URL).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={onestLatin} as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />

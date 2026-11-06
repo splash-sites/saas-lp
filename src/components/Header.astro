@@ -10,13 +10,13 @@ const ancora = (id: string) => (naHome ? `#${id}` : `/#${id}`);
     <a href="/" class="header-logo" aria-label="Gradatim, página inicial"><Logo /></a>
     <nav aria-label="Principal" class="header-nav">
       <a href={ancora("recursos")}>Recursos</a>
-      <a href={ancora("seguranca")}>Segurança</a>
+      <a href="/seguranca">Segurança</a>
       <a href={ancora("preco")}>Preço</a>
       <a href={ancora("duvidas")}>Dúvidas</a>
       <a href="/tutorial">Tutoriais</a>
     </nav>
     <div class="header-actions">
-      <a href={APP_LOGIN_URL} class="header-entrar">Entrar</a>
+      <a href={APP_LOGIN_URL} class="btn header-cta header-entrar">Entrar</a>
       <a href={APP_LOGIN_URL} class="btn btn-primary header-cta">Teste grátis</a>
     </div>
   </div>
@@ -55,18 +55,19 @@ const ancora = (id: string) => (naHome ? `#${id}` : `/#${id}`);
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.6rem;
   }
-  .header-entrar {
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.5rem 0.25rem;
-  }
-  .header-nav a:hover,
-  .header-entrar:hover {
+  .header-nav a:hover {
     color: var(--marigold);
+  }
+  /* Entrar: mesmo formato do "Teste grátis", em teal (a cor do app) para não competir com o âmbar. */
+  .header-entrar {
+    background: var(--teal);
+    color: var(--text);
+  }
+  .header-entrar:hover {
+    background: #14897f;
+    color: var(--text);
   }
   .header-cta {
     min-height: 2.75rem;
@@ -74,6 +75,22 @@ const ancora = (id: string) => (naHome ? `#${id}` : `/#${id}`);
     font-size: 0.95rem;
     border-radius: 14px;
     white-space: nowrap;
+  }
+  /* Celular: logo nunca encolhe; os dois botões ficam mais justos para caber na margem. */
+  .header-logo {
+    flex-shrink: 0;
+  }
+  @media (max-width: 26rem) {
+    .header-inner {
+      gap: 0.75rem;
+    }
+    .header-actions {
+      gap: 0.4rem;
+    }
+    .header-cta {
+      padding-inline: 0.8rem;
+      font-size: 0.9rem;
+    }
   }
   @media (min-width: 60rem) {
     .header-nav {

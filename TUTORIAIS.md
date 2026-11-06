@@ -16,7 +16,7 @@ Legenda: ★ = prioridade para o lançamento. 📸 = prints necessários.
 1. Abra app.gradatim.com.br e escolha **Entrar com Google**. Ou, para usar e-mail, clique em **Não tem conta? Criar uma**.
 2. No cadastro por e-mail, preencha **Nome completo**, **E-mail**, **Senha** e **Confirmar senha** e clique em **Criar conta**.
 3. Confirme o e-mail pelo link que chega na sua caixa de entrada e entre.
-4. O teste grátis de 14 dias começa no cadastro, sem cartão.
+4. O teste grátis de 7 dias começa no cadastro, sem cartão.
 
 📸 tela de login (botão Google + link de criar conta) · formulário de cadastro
 

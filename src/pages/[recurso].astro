@@ -1,0 +1,430 @@
+---
+// Páginas de recurso (SEO). Conteúdo em src/data/recursos.ts.
+import Base from "../layouts/Base.astro";
+import { Picture } from "astro:assets";
+import Navegador from "../components/Navegador.astro";
+import { RECURSOS, type Recurso } from "../data/recursos";
+import { TUTORIAIS } from "../data/tutoriais";
+import { APP_LOGIN_URL, CICLOS, CTA_TEXTO, SITE_URL } from "../consts";
+
+export function getStaticPaths() {
+  return RECURSOS.map((r) => ({ params: { recurso: r.slug }, props: { r } }));
+}
+
+const { r } = Astro.props as { r: Recurso };
+const url = `${SITE_URL}/${r.slug}`;
+const outros = RECURSOS.filter((x) => x.slug !== r.slug);
+const tutoriais = TUTORIAIS.filter((t) => r.tutoriais.includes(t.categoria)).slice(0, 4);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${url}#pagina`,
+      url,
+      name: r.title,
+      description: r.description,
+      inLanguage: "pt-BR",
+      isPartOf: { "@id": `${SITE_URL}/#site` },
+      about: { "@type": "SoftwareApplication", name: "Gradatim", url: SITE_URL },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Início", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: r.nome, item: url },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: r.faq.map((item) => ({
+        "@type": "Question",
+        name: item.p,
+        acceptedAnswer: { "@type": "Answer", text: item.r },
+      })),
+    },
+  ],
+};
+---
+
+<Base title={r.title} description={r.description} jsonLd={jsonLd}>
+  <!-- Topo -->
+  <section class="topo" aria-labelledby="titulo">
+    <div class="wrap topo-grade">
+      <div class="topo-texto">
+        <nav aria-label="Você está em" class="trilha">
+          <a href="/">Início</a><span aria-hidden="true">›</span><span aria-current="page">{r.nome}</span>
+        </nav>
+        <h1 id="titulo">
+          <span class="sobre">{r.sobre}</span>
+          <span class="frase">{r.h1}</span>
+        </h1>
+        <p class="lede">{r.lede}</p>
+        <div class="cta">
+          <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+          <span class="nota">Sem cartão no cadastro</span>
+        </div>
+      </div>
+      <div class="topo-visual">
+        <Navegador url={r.print.url}>
+          <Picture
+            src={r.print.img}
+            formats={["avif", "webp"]}
+            widths={[600, 900, 1300]}
+            sizes="(min-width: 56rem) 36rem, 92vw"
+            alt={r.print.alt}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </Navegador>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dores -->
+  <section class="faixa" aria-labelledby="dores-titulo">
+    <div class="wrap bloco">
+      <h2 id="dores-titulo" class="titulo-largo">{r.dorTitulo}</h2>
+      <ul class="cartoes">
+        {
+          r.dores.map((d) => (
+            <li class="dor">
+              <h3>{d.titulo}</h3>
+              <p>{d.texto}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Solução -->
+  <section class="secao" aria-labelledby="solucao-titulo">
+    <div class="wrap bloco">
+      <div class="cabeca">
+        <h2 id="solucao-titulo">{r.solucaoTitulo}</h2>
+        <p class="lede">{r.solucaoLede}</p>
+      </div>
+      <ul class="cartoes cartoes-3">
+        {
+          r.itens.map((i) => (
+            <li class="item">
+              <h3>{i.titulo}</h3>
+              <p>{i.texto}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div>
+        <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dúvidas -->
+  <section class="faixa" aria-labelledby="duvidas-titulo">
+    <div class="wrap duvidas">
+      <h2 id="duvidas-titulo">Dúvidas sobre {r.nome.toLowerCase()}</h2>
+      <div class="faq">
+        {
+          r.faq.map((item) => (
+            <details>
+              <summary>{item.p}</summary>
+              <p>{item.r}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Links internos: tutoriais e outros recursos -->
+  <section class="secao" aria-labelledby="mais-titulo">
+    <div class="wrap bloco">
+      <h2 id="mais-titulo" class="sr-only">Continue explorando</h2>
+      {
+        tutoriais.length > 0 && (
+          <div class="mais">
+            <h3>Veja como funciona, passo a passo</h3>
+            <ul class="links">
+              {tutoriais.map((t) => (
+                <li>
+                  <a href={`/tutorial/${t.slug}`}>{t.titulo}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+      <div class="mais">
+        <h3>Tudo o que o Gradatim faz pelo seu consultório</h3>
+        <ul class="links links-recursos">
+          {
+            outros.map((o) => (
+              <li>
+                <a href={`/${o.slug}`}>
+                  <b>{o.nome}</b>
+                  <span>{o.sobre}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chamado final -->
+  <section class="final" aria-labelledby="final-titulo">
+    <div class="wrap final-inner">
+      <h2 id="final-titulo" class="final-titulo">Um preço só, tudo incluído.</h2>
+      <p class="lede">
+        Agenda, prontuário, financeiro, atendimento online e lembretes por R$ {CICLOS[0].porMes} por mês. Teste 7
+        dias grátis, sem cartão.
+      </p>
+      <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+      <a href="/#preco" class="ver-precos">Ver os planos</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .secao {
+    padding-block: var(--section);
+  }
+  .faixa {
+    background: var(--ink-deep);
+    padding-block: var(--section);
+  }
+  .bloco {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .cabeca {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 40rem;
+  }
+  .titulo-largo {
+    max-width: 45rem;
+  }
+
+  /* Topo */
+  .topo {
+    padding-block: clamp(2rem, 1rem + 3vw, 3.5rem) var(--section);
+    overflow: hidden;
+  }
+  .topo-grade {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 56rem) {
+    .topo-grade {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 3.5rem;
+    }
+  }
+  .topo-texto {
+    display: grid;
+    gap: 1.4rem;
+    justify-items: start;
+  }
+  .trilha {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-faint);
+  }
+  .trilha a {
+    color: var(--text-soft);
+  }
+  .trilha a:hover {
+    color: var(--marigold);
+  }
+  h1 {
+    display: grid;
+    gap: 0.9rem;
+    font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4rem);
+  }
+  .sobre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    color: var(--marigold);
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 0.4rem;
+  }
+  .nota {
+    color: var(--text-faint);
+    font-size: 0.95rem;
+  }
+  .topo-visual {
+    display: flex;
+    justify-content: center;
+  }
+  .topo-visual > :global(figure) {
+    width: 100%;
+  }
+
+  /* Cartões de dor e de recurso */
+  .cartoes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 40rem) {
+    .cartoes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 64rem) {
+    .cartoes-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .cartoes li {
+    border-radius: 22px;
+    padding: 1.4rem 1.5rem;
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+  }
+  .cartoes h3 {
+    font-size: 1.15rem;
+  }
+  .cartoes p {
+    color: var(--text-soft);
+  }
+  .dor {
+    background: var(--ink-raise);
+    border-radius: 22px 22px 22px 6px !important;
+  }
+  .item {
+    background: var(--ink-card);
+    border: 1px solid var(--ink-line);
+  }
+  .item h3::before {
+    content: "✓";
+    color: var(--marigold);
+    margin-right: 0.5rem;
+  }
+
+  /* Dúvidas */
+  .duvidas {
+    max-width: 54rem;
+    display: grid;
+    gap: 2rem;
+  }
+  .faq details {
+    border-bottom: 1px solid var(--ink-line);
+  }
+  .faq summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq summary::after {
+    content: "+";
+    flex: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--marigold);
+    transition: transform 0.2s;
+  }
+  .faq details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq details p {
+    padding-bottom: 1.25rem;
+    color: var(--text-soft);
+    max-width: 44rem;
+  }
+
+  /* Links internos */
+  .mais {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  @media (min-width: 48rem) {
+    .links {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .links a {
+    display: block;
+    color: var(--text);
+    background: var(--ink-card);
+    border: 1px solid var(--ink-line);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+  }
+  .links a:hover {
+    border-color: var(--marigold);
+    color: var(--marigold);
+  }
+  .links-recursos a {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .links-recursos span {
+    color: var(--text-soft);
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+  @media (min-width: 64rem) {
+    .links-recursos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Chamado final */
+  .final {
+    border-top: 1px solid var(--ink-line);
+    padding-block: clamp(4.5rem, 3.5rem + 4vw, 7rem);
+  }
+  .final-inner {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.4rem;
+  }
+  .final-titulo {
+    max-width: 16ch;
+  }
+  .final-inner .lede {
+    max-width: 36rem;
+  }
+  .ver-precos {
+    color: var(--text-soft);
+  }
+  .ver-precos:hover {
+    color: var(--marigold);
+  }
+</style>

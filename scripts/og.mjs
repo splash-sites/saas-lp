@@ -14,7 +14,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
     <text x="80" y="388">entre uma sessão</text>
     <text x="80" y="476">e outra.</text>
   </g>
-  <text x="80" y="560" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#b9cfc9">Agenda, prontuário, financeiro e lembretes. 14 dias grátis, sem cartão.</text>
+  <text x="80" y="560" font-family="Segoe UI, Arial, sans-serif" font-size="26" fill="#b9cfc9">Agenda, prontuário, financeiro e lembretes. 7 dias grátis, sem cartão.</text>
   <g transform="translate(870 120) rotate(6)">
     <rect width="240" height="440" rx="36" fill="#1f4a43"/>
     <rect x="10" y="10" width="220" height="420" rx="28" fill="#f4f7f6"/>

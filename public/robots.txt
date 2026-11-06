@@ -1,4 +1,33 @@
 User-agent: *
 Allow: /
 
+# Buscadores e assistentes de IA: liberados de propósito, para o Gradatim
+# aparecer nas respostas do Google, ChatGPT, Claude e Perplexity.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://gradatim.com.br/sitemap-index.xml

@@ -1,6 +1,7 @@
 ---
 import Logo from "./Logo.astro";
-import { WHATSAPP_EXIBICAO, WHATSAPP_HORARIO, WHATSAPP_URL } from "../consts";
+import { INSTAGRAM_URL, WHATSAPP_EXIBICAO, WHATSAPP_HORARIO, WHATSAPP_URL } from "../consts";
+import { RECURSOS } from "../data/recursos";
 const ano = new Date().getFullYear();
 ---
 
@@ -14,6 +15,11 @@ const ano = new Date().getFullYear();
       <p class="footer-titulo">Fale com a gente</p>
       <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp {WHATSAPP_EXIBICAO}</a>
       <p>Atendimento de {WHATSAPP_HORARIO}</p>
+      <a href={INSTAGRAM_URL} target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-titulo">Recursos</p>
+      {RECURSOS.map((r) => <a href={`/${r.slug}`}>{r.sobre}</a>)}
     </div>
     <div class="footer-col">
       <p class="footer-titulo">Documentos</p>
@@ -40,10 +46,15 @@ const ano = new Date().getFullYear();
     gap: 2.5rem;
     padding-bottom: 3rem;
   }
-  @media (min-width: 52rem) {
+  @media (min-width: 40rem) {
     .footer-grade {
-      grid-template-columns: 1.6fr 1fr 1fr;
-      gap: 3rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .footer-grade {
+      grid-template-columns: 1.3fr 1fr 1.3fr 1fr;
     }
   }
   .footer-marca {
@@ -74,7 +85,8 @@ const ano = new Date().getFullYear();
     justify-content: space-between;
     gap: 0.75rem 2rem;
     padding-block: 1.5rem 2.5rem;
-    border-top: 1px solid var(--ink-line);
+    /* Linha só na largura do conteúdo (a borda pegaria também o recuo lateral do .wrap). */
+    background: linear-gradient(var(--ink-line), var(--ink-line)) top center / calc(100% - 2 * var(--gutter)) 1px no-repeat;
     font-size: 0.9rem;
     color: var(--text-faint);
   }

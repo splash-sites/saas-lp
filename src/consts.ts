@@ -10,7 +10,11 @@ export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURICo
   "Olá! Tenho uma dúvida sobre o Gradatim.",
 )}`;
 
-export const CTA_TEXTO = "Começar teste grátis de 14 dias";
+// Perfis oficiais (vão no "sameAs" dos dados estruturados e no rodapé).
+export const INSTAGRAM_URL = "https://www.instagram.com/usegradatim/";
+export const INSTAGRAM_EXIBICAO = "@usegradatim";
+
+export const CTA_TEXTO = "Começar teste grátis de 7 dias";
 
 export type Ciclo = {
   id: "mensal" | "trimestral" | "semestral";

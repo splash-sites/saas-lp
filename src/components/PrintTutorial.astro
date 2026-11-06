@@ -13,8 +13,10 @@ interface Props {
   etiqueta?: string;
   recorte?: [number, number];
   alt: string;
+  /** Print do primeiro passo: carrega na hora, com prioridade alta, em vez de esperar a rolagem. */
+  prioridade?: boolean;
 }
-const { print, alvos, numerar = false, etiqueta, recorte, alt } = Astro.props;
+const { print, alvos, numerar = false, etiqueta, recorte, alt, prioridade = false } = Astro.props;
 
 const imagens = import.meta.glob<{ default: ImageMetadata }>("../assets/tutoriais/*.png", { eager: true });
 const img = imagens[`../assets/tutoriais/${print}`]?.default;
@@ -120,7 +122,8 @@ const posToque = `left: ${pct(X(p.x + p.w / 2))}; top: ${pct(Y(p.y + p.h / 2))}`
           widths={celular ? [390, 780] : [700, 1100, 1600, 2560]}
           sizes={celular ? "18rem" : `(max-width: 48rem) ${W}px, ${Math.round((760 * W) / Wc)}px`}
           alt={alt}
-          loading="lazy"
+          loading={prioridade ? "eager" : "lazy"}
+          fetchpriority={prioridade ? "high" : "auto"}
         />
       </div>
       <div class="pt-marcas" aria-hidden="true">

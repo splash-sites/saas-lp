@@ -57,7 +57,7 @@ export const TUTORIAIS: Tutorial[] = [
     slug: "criar-conta",
     categoria: "inicio",
     titulo: "Criar sua conta",
-    resumo: "Com Google ou com e-mail e senha. O teste de 14 dias começa na hora.",
+    resumo: "Com Google ou com e-mail e senha. O teste de 7 dias começa na hora.",
     destaque: true,
     passos: [
       {
@@ -79,7 +79,7 @@ export const TUTORIAIS: Tutorial[] = [
       {
         titulo: "Confirme o e-mail",
         texto:
-          "Abra o e-mail de confirmação que chega na sua caixa de entrada e clique no link. Depois é só entrar. O teste grátis de 14 dias começa no cadastro, sem cartão.",
+          "Abra o e-mail de confirmação que chega na sua caixa de entrada e clique no link. Depois é só entrar. O teste grátis de 7 dias começa no cadastro, sem cartão.",
       },
     ],
   },

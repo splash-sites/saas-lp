@@ -12,28 +12,13 @@ import imgFinanceiro from "../assets/prints/financeiro.png";
 import imgLembretes from "../assets/prints/lembretes.png";
 import imgPacientes from "../assets/prints/pacientes.png";
 import imgPacientesPrivado from "../assets/prints/pacientes-privado.png";
-import { APP_LOGIN_URL, CTA_TEXTO, CICLOS, SITE_URL, WHATSAPP_URL } from "../consts";
+import { APP_LOGIN_URL, CTA_TEXTO, CICLOS, INSTAGRAM_URL, SITE_URL, WHATSAPP_URL } from "../consts";
 
-const title = "Gradatim — sistema para consultório de psicologia";
+// SEO: título, descrição, H1 e subtítulos usam "psicólogos e psicólogas" de propósito
+// (é o que as pessoas pesquisam). No resto do texto a página continua falando com "você".
+const title = "Sistema para psicólogos com agenda e prontuário | Gradatim";
 const description =
-  "Agenda, prontuário, financeiro, atendimento online e lembretes num painel só, para quem atende por conta própria. Preço único, tudo incluído. 14 dias grátis, sem cartão.";
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Gradatim",
-  url: SITE_URL,
-  description,
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  inLanguage: "pt-BR",
-  offers: CICLOS.map((c) => ({
-    "@type": "Offer",
-    name: `Plano ${c.nome.toLowerCase()}`,
-    price: c.cobranca.match(/R\$ ([\d.,]+)/)![1].replace(".", "").replace(",", "."),
-    priceCurrency: "BRL",
-  })),
-};
+  "Sistema online para psicólogos e psicólogas que atendem por conta própria: agenda com Google Meet, prontuário eletrônico, financeiro e lembretes. 7 dias grátis, sem cartão.";
 
 const mensagens = [
   {
@@ -92,7 +77,7 @@ const seguranca = [
 const faq = [
   {
     p: "Preciso de cartão para testar?",
-    r: "Não. Os 14 dias grátis começam no cadastro e nada é pedido para pagamento. Se decidir continuar, você escolhe o ciclo e paga por Pix, boleto ou cartão.",
+    r: "Não. Os 7 dias grátis começam no cadastro e nada é pedido para pagamento. Se decidir continuar, você escolhe o ciclo e paga por Pix, boleto ou cartão.",
   },
   {
     p: "E se a assinatura vencer?",
@@ -111,16 +96,79 @@ const faq = [
     r: "Não. Ele recebe o lembrete no WhatsApp, enviado do seu número com um clique seu, e, se autorizou, o convite da consulta por e-mail.",
   },
 ];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organizacao`,
+      name: "Gradatim",
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon-512.png`,
+      sameAs: [INSTAGRAM_URL],
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: WHATSAPP_URL,
+        availableLanguage: "pt-BR",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#site`,
+      name: "Gradatim",
+      url: SITE_URL,
+      inLanguage: "pt-BR",
+      publisher: { "@id": `${SITE_URL}/#organizacao` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "Gradatim",
+      url: SITE_URL,
+      description,
+      applicationCategory: "BusinessApplication",
+      applicationSubCategory: "Sistema de gestão para psicólogos",
+      operatingSystem: "Web",
+      inLanguage: "pt-BR",
+      publisher: { "@id": `${SITE_URL}/#organizacao` },
+      featureList: [
+        "Agenda online com Google Agenda e Google Meet",
+        "Prontuário psicológico eletrônico pensado para a Resolução CFP 01/2009",
+        "Financeiro do consultório",
+        "Lembretes de consulta pelo WhatsApp",
+        "Modo privado para compartilhar a tela",
+      ],
+      offers: CICLOS.map((c) => ({
+        "@type": "Offer",
+        name: `Plano ${c.nome.toLowerCase()}`,
+        price: c.cobranca.match(/R\$ ([\d.,]+)/)![1].replace(".", "").replace(",", "."),
+        priceCurrency: "BRL",
+      })),
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faq.map((item) => ({
+        "@type": "Question",
+        name: item.p,
+        acceptedAnswer: { "@type": "Answer", text: item.r },
+      })),
+    },
+  ],
+};
 ---
 
 <Base title={title} description={description} jsonLd={jsonLd}>
   <!-- Topo -->
   <section class="hero" aria-labelledby="hero-titulo">
     <div class="wrap hero-texto">
-      <h1 id="hero-titulo">Menos burocracia entre uma sessão e outra.</h1>
+      <h1 id="hero-titulo">
+        <span class="hero-sobre">Sistema para psicólogos autônomos</span>
+        <span class="hero-frase">Menos burocracia entre uma sessão e outra.</span>
+      </h1>
       <p class="lede hero-lede">
-        Agenda, prontuário, financeiro e lembretes no celular ou no computador, para quem atende
-        por conta própria. Um preço, tudo incluído.
+        Agenda online, prontuário eletrônico, financeiro e lembretes no celular ou no computador,
+        para quem atende por conta própria. Um preço, tudo incluído.
       </p>
       <div class="hero-cta">
         <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
@@ -158,7 +206,7 @@ const faq = [
     <div class="wrap bloco">
       <div class="cabeca">
         <h2 id="dores-titulo">Mensagens que você já recebeu.</h2>
-        <p class="lede">E o que muda quando o consultório está organizado num lugar só.</p>
+        <p class="lede">E o que muda quando o consultório de psicologia está organizado num lugar só.</p>
       </div>
       <div class="chat">
         {
@@ -180,12 +228,16 @@ const faq = [
   <section id="recursos" class="secao" aria-labelledby="agenda-titulo">
     <div class="wrap bloco">
       <div class="cabeca">
-        <h2 id="agenda-titulo">A semana inteira, com o link do Meet pronto.</h2>
+        <h2 id="agenda-titulo">Agenda online, com o link do Meet pronto.</h2>
         <p class="lede">
           Semana no computador, o dia de hoje no celular. Marcou a consulta como online, o link do
           Google Meet aparece nela, pronto para copiar, e tudo vai sozinho para o seu Google Agenda.
         </p>
         <ul class="pontos">{pontos.agenda.map((p) => <li>{p}</li>)}</ul>
+        <p class="saiba">
+          <a href="/agenda-para-psicologos">Agenda online para psicólogos</a>
+          <a href="/atendimento-online-psicologos">Atendimento online com Google Meet</a>
+        </p>
       </div>
       <div class="agenda-visual">
         <div class="agenda-rolagem">
@@ -219,12 +271,13 @@ const faq = [
   <section class="faixa" aria-labelledby="prontuario-titulo">
     <div class="wrap lado">
       <div class="cabeca">
-        <h2 id="prontuario-titulo">O registro que a CFP pede, sessão a sessão.</h2>
+        <h2 id="prontuario-titulo">Prontuário psicológico no padrão que a CFP pede.</h2>
         <p class="lede">
-          A evolução tem os campos pensados para a Resolução CFP 01/2009, então o registro sai
+          Sessão a sessão, a evolução tem os campos pensados para a Resolução CFP 01/2009, então o registro sai
           completo. Cada paciente tem a sua linha do tempo, e arquivar não apaga.
         </p>
         <ul class="lista-check">{pontos.prontuario.map((p) => <li>{p}</li>)}</ul>
+        <p class="saiba"><a href="/prontuario-psicologico">Como funciona o prontuário psicológico</a></p>
       </div>
       <div class="lado-visual">
         <Navegador url="app.gradatim.com.br/pacientes/evolucoes">
@@ -247,10 +300,11 @@ const faq = [
       <div class="cabeca">
         <h2 id="financeiro-titulo">Quem pagou, quem falta e quanto entrou.</h2>
         <p class="lede">
-          Lance o pagamento da sessão em segundos e marque como pago quando receber. O mês mostra
+          No financeiro do consultório, você lança o pagamento da sessão em segundos e marque como pago quando receber. O mês mostra
           o recebido, o que falta receber e o que está atrasado, com histórico mês a mês.
         </p>
         <ul class="lista-check">{pontos.financeiro.map((p) => <li>{p}</li>)}</ul>
+        <p class="saiba"><a href="/financeiro-para-psicologos">Financeiro para psicólogos</a></p>
       </div>
       <div class="lado-visual">
         <Navegador url="app.gradatim.com.br/financeiro">
@@ -271,13 +325,14 @@ const faq = [
   <section class="faixa" aria-labelledby="lembretes-titulo">
     <div class="wrap lado">
       <div class="cabeca">
-        <h2 id="lembretes-titulo">Um clique e o lembrete já está escrito.</h2>
+        <h2 id="lembretes-titulo">Lembrete de consulta no WhatsApp, em um clique.</h2>
         <p class="lede">
           Todo dia o Gradatim lista as consultas de amanhã. O botão "Enviar no WhatsApp" abre a
           conversa com a mensagem pronta, saindo do seu número. Quem autorizou também recebe o
           convite por e-mail pelo Google Agenda. Sem custo por mensagem.
         </p>
         <ul class="lista-check">{pontos.lembretes.map((p) => <li>{p}</li>)}</ul>
+        <p class="saiba"><a href="/lembrete-de-consulta-whatsapp">Lembrete de consulta pelo WhatsApp</a></p>
       </div>
       <div class="lado-visual">
         <Navegador url="app.gradatim.com.br/lembretes">
@@ -301,6 +356,7 @@ const faq = [
         <div class="cabeca">
           <h2 id="seg-titulo">O sigilo vem antes de qualquer função.</h2>
           <p class="claro-lede">Prontuário é obrigação ética e dado sensível. O Gradatim trata como tal.</p>
+          <p><a href="/seguranca" class="claro-saiba">Segurança, sigilo e LGPD em detalhe →</a></p>
         </div>
         <ul class="seg">
           {
@@ -376,7 +432,7 @@ const faq = [
           valor por mês.
         </p>
         <ul class="condicoes">
-          <li>14 dias grátis, sem cartão</li>
+          <li>7 dias grátis, sem cartão</li>
           <li>Pix, boleto ou cartão</li>
           <li>Cancele quando quiser, sem multa</li>
         </ul>
@@ -431,7 +487,7 @@ const faq = [
       </div>
       <p class="faq-contato">
         Não achou sua resposta?
-        <a href={WHATSAPP_URL} rel="noopener" target="_blank">Fale com a gente pelo WhatsApp</a>.
+        <a href={WHATSAPP_URL} class="link-sublinhado" rel="noopener" target="_blank">Fale com a gente pelo WhatsApp</a>.
       </p>
     </div>
   </section>
@@ -509,6 +565,18 @@ const faq = [
     gap: 1.5rem;
   }
   .hero-texto h1 {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+  }
+  .hero-sobre {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    color: var(--marigold);
+  }
+  .hero-frase {
     max-width: 14ch;
   }
   .hero-lede {
@@ -703,6 +771,21 @@ const faq = [
     left: 0;
     color: var(--marigold);
     font-weight: 700;
+  }
+
+  /* Links para as páginas de recurso */
+  .saiba {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 0.4rem;
+    font-weight: 600;
+  }
+  .saiba a::after {
+    content: " →";
+  }
+  .claro-saiba {
+    font-weight: 600;
   }
 
   /* Segurança (bloco claro) */
