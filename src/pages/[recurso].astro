@@ -5,7 +5,7 @@ import { Picture } from "astro:assets";
 import Navegador from "../components/Navegador.astro";
 import { RECURSOS, type Recurso } from "../data/recursos";
 import { TUTORIAIS } from "../data/tutoriais";
-import { APP_LOGIN_URL, CICLOS, CTA_TEXTO, SITE_URL } from "../consts";
+import { APP_CADASTRO_URL, CICLOS, CTA_TEXTO, SITE_URL } from "../consts";
 
 export function getStaticPaths() {
   return RECURSOS.map((r) => ({ params: { recurso: r.slug }, props: { r } }));
@@ -62,7 +62,7 @@ const jsonLd = {
         </h1>
         <p class="lede">{r.lede}</p>
         <div class="cta">
-          <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+          <a href={APP_CADASTRO_URL} class="btn btn-primary">{CTA_TEXTO}</a>
           <span class="nota">Sem cartão no cadastro</span>
         </div>
       </div>
@@ -117,7 +117,7 @@ const jsonLd = {
         }
       </ul>
       <div>
-        <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+        <a href={APP_CADASTRO_URL} class="btn btn-primary">{CTA_TEXTO}</a>
       </div>
     </div>
   </section>
@@ -183,7 +183,7 @@ const jsonLd = {
         Agenda, prontuário, financeiro, atendimento online e lembretes por R$ {CICLOS[0].porMes} por mês. Teste 7
         dias grátis, sem cartão.
       </p>
-      <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+      <a href={APP_CADASTRO_URL} class="btn btn-primary">{CTA_TEXTO}</a>
       <a href="/#preco" class="ver-precos">Ver os planos</a>
     </div>
   </section>

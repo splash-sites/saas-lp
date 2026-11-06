@@ -12,7 +12,7 @@ import imgFinanceiro from "../assets/prints/financeiro.png";
 import imgLembretes from "../assets/prints/lembretes.png";
 import imgPacientes from "../assets/prints/pacientes.png";
 import imgPacientesPrivado from "../assets/prints/pacientes-privado.png";
-import { APP_LOGIN_URL, CTA_TEXTO, CICLOS, INSTAGRAM_URL, SITE_URL, WHATSAPP_URL } from "../consts";
+import { APP_CADASTRO_URL, CTA_TEXTO, CICLOS, INSTAGRAM_URL, SITE_URL, WHATSAPP_URL } from "../consts";
 
 // SEO: título, descrição, H1 e subtítulos usam "psicólogos e psicólogas" de propósito
 // (é o que as pessoas pesquisam). No resto do texto a página continua falando com "você".
@@ -171,7 +171,7 @@ const jsonLd = {
         para quem atende por conta própria. Um preço, tudo incluído.
       </p>
       <div class="hero-cta">
-        <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+        <a href={APP_CADASTRO_URL} class="btn btn-primary">{CTA_TEXTO}</a>
         <span class="nota">Sem cartão no cadastro</span>
       </div>
     </div>
@@ -466,7 +466,7 @@ const jsonLd = {
           <span class="valor-mes">/mês</span>
         </p>
         <p class="cobranca" id="plano-cobranca">{CICLOS[0].cobranca}</p>
-        <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+        <a href={APP_CADASTRO_URL} class="btn btn-primary">{CTA_TEXTO}</a>
       </div>
     </div>
   </section>
@@ -497,7 +497,7 @@ const jsonLd = {
     <div class="wrap final-inner">
       <h2 id="final-titulo" class="final-titulo">A próxima sessão começa mais leve.</h2>
       <p class="lede">Gradatim é latim para "passo a passo". Comece pelo primeiro.</p>
-      <a href={APP_LOGIN_URL} class="btn btn-primary">{CTA_TEXTO}</a>
+      <a href={APP_CADASTRO_URL} class="btn btn-primary">{CTA_TEXTO}</a>
     </div>
   </section>
 </Base>

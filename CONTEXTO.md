@@ -10,7 +10,7 @@ Sistema online de gestão de consultório para psicólogos que atendem por conta
 
 A aplicação já existe e fica em outro repositório: [splash-sites/saas-psicologia](https://github.com/splash-sites/saas-psicologia). O `CLAUDE.md` de lá é a fonte de verdade do produto (escopo, compliance CFP/LGPD, o que está fora do MVP). Desde 05/11/2026 o teste grátis é de 7 dias (eram 14).
 
-Este repositório ([splash-sites/saas-lp](https://github.com/splash-sites/saas-lp)) é só a landing page pública, publicada em gradatim.com.br. Os botões levam para `https://app.gradatim.com.br/login`, que serve tanto para criar conta quanto para entrar.
+Este repositório ([splash-sites/saas-lp](https://github.com/splash-sites/saas-lp)) é só a landing page pública, publicada em gradatim.com.br. Os botões levam para `https://app.gradatim.com.br/cadastro` (testar grátis, cria a conta direto) e `https://app.gradatim.com.br/login` (Entrar).
 
 ## Onde estamos
 

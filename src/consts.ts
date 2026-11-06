@@ -2,6 +2,7 @@
 
 export const SITE_URL = "https://gradatim.com.br";
 export const APP_LOGIN_URL = "https://app.gradatim.com.br/login";
+export const APP_CADASTRO_URL = "https://app.gradatim.com.br/cadastro";
 
 export const WHATSAPP_NUMERO = "555182135882";
 export const WHATSAPP_EXIBICAO = "(51) 8213-5882";

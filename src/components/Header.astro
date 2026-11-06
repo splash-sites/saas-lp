@@ -1,6 +1,6 @@
 ---
 import Logo from "./Logo.astro";
-import { APP_LOGIN_URL } from "../consts";
+import { APP_CADASTRO_URL, APP_LOGIN_URL } from "../consts";
 const naHome = Astro.url.pathname === "/";
 const ancora = (id: string) => (naHome ? `#${id}` : `/#${id}`);
 ---
@@ -17,7 +17,7 @@ const ancora = (id: string) => (naHome ? `#${id}` : `/#${id}`);
     </nav>
     <div class="header-actions">
       <a href={APP_LOGIN_URL} class="btn header-cta header-entrar">Entrar</a>
-      <a href={APP_LOGIN_URL} class="btn btn-primary header-cta">Teste grátis</a>
+      <a href={APP_CADASTRO_URL} class="btn btn-primary header-cta">Teste grátis</a>
     </div>
   </div>
 </header>
