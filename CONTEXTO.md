@@ -43,7 +43,7 @@ Não reabrir sem motivo novo.
 | Telas | Prints reais do app (conta de teste com dados fictícios), recortados sem a barra lateral, em `src/assets/prints/`. O Astro gera AVIF e WebP com PNG de fallback. Topo: painel no computador + agenda do dia no celular. Agenda: semana inteira + cartão da videochamada. Prontuário, Financeiro, Lembretes e Modo privado (par normal/borrado que alterna com o botão e o Alt+O) ao lado do texto. Para refazer os recortes: `node scripts/recortar-prints.mjs <pasta dos prints>` |
 | Fundadores | Não entram na página por enquanto |
 | Analytics | Vercel Analytics, sem cookies e sem banner. Sem anúncios |
-| Privacidade e Termos | Copiados do app para `/privacidade` e `/termos` na landing |
+| Privacidade e Termos | Só aqui, em `/privacidade` e `/termos` (URLs da tela de consentimento do Google; não mudar). Desde 13/11/2026 o app redireciona `app.gradatim.com.br/privacidade` e `/termos` para cá |
 
 ## O que não pode aparecer na página
 

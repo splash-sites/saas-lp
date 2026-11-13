@@ -1,6 +1,7 @@
 ---
-// Mesmo texto da página de termos do app (splash-sites/saas-psicologia).
-// Manter as duas versões iguais ao alterar.
+// Único lugar do texto: app.gradatim.com.br/termos redireciona para cá.
+// A URL é a cadastrada na tela de consentimento do Google: não mudar sem nova
+// verificação (o conteúdo pode mudar).
 import Legal from "../layouts/Legal.astro";
 import { APP_LOGIN_URL } from "../consts";
 const configuracoes = new URL("/configuracoes", APP_LOGIN_URL).href;
@@ -9,7 +10,7 @@ const EMAIL = "contato@splashsistemas.com.br";
 
 <Legal
   title="Termos de Uso"
-  description="Condições de uso do Gradatim: cadastro, assinatura, teste grátis, somente leitura, cancelamento e integração com o Google Agenda."
+  description="Condições de uso do Gradatim: cadastro, assinatura, teste grátis, cupons, somente leitura, cancelamento e integração com o Google Agenda."
 >
   <section>
     <h2>1. Quem oferece o serviço</h2>
@@ -24,10 +25,10 @@ const EMAIL = "contato@splashsistemas.com.br";
     <h2>2. O que é o serviço</h2>
     <p>
       O Gradatim é uma plataforma de gestão de consultório (agenda, prontuário e evolução,
-      financeiro e assinatura) para psicólogos autônomos que atendem individualmente. Não atende
-      clínicas com vários profissionais. É uma ferramenta de organização e registro: o serviço
-      <strong>não presta atendimento psicológico</strong> e não substitui o julgamento clínico do
-      profissional.
+      financeiro, lembretes e assinatura) para psicólogos autônomos que atendem individualmente.
+      Não atende clínicas com vários profissionais. É uma ferramenta de organização e registro: o
+      serviço <strong>não presta atendimento psicológico</strong> e não substitui o julgamento
+      clínico do profissional.
     </p>
   </section>
 
@@ -36,63 +37,101 @@ const EMAIL = "contato@splashsistemas.com.br";
     <ul>
       <li>Cada conta é de um único psicólogo e não pode ser compartilhada.</li>
       <li>
-        Você é responsável por manter a confidencialidade do seu login e por tudo que acontecer na
-        sua conta.
+        Você é responsável por manter a confidencialidade do seu login, usar uma senha forte (no
+        mínimo 8 caracteres) e por tudo que acontecer na sua conta.
       </li>
       <li>
-        Você é responsável pela exatidão dos dados inseridos (seus e dos seus pacientes) e por obter
-        o consentimento necessário dos pacientes para o tratamento dos dados deles na plataforma,
-        conforme a LGPD e o Código de Ética Profissional do Psicólogo.
+        Você é responsável pela exatidão dos dados inseridos (seus e dos seus pacientes), pela base
+        legal para tratar os dados dos seus pacientes e por registrar o aceite deles antes de
+        enviar lembretes, conforme a LGPD e o Código de Ética Profissional do Psicólogo.
       </li>
     </ul>
   </section>
 
   <section>
-    <h2>4. Assinatura e cobrança</h2>
+    <h2>4. Teste grátis, assinatura e cobrança</h2>
     <ul>
       <li>
-        A plataforma é paga por assinatura, com 7 dias de teste grátis a partir do cadastro. Os
-        planos são mensal, trimestral (10% de desconto) e semestral (15% de desconto), com os
-        valores mostrados na tela de assinatura antes da confirmação.
+        Toda conta começa com <strong>7 dias de teste grátis</strong>, sem cartão. O teste não vira
+        cobrança sozinho: quando ele termina, a conta fica em modo somente leitura até você
+        escolher um plano.
+      </li>
+      <li>
+        Os planos são mensal, trimestral (10% de desconto) e semestral (15% de desconto), cobrados
+        de uma vez a cada ciclo, com os valores mostrados na tela de assinatura antes da
+        confirmação.
       </li>
       <li>
         A cobrança é processada pelo Asaas. Você escolhe a forma de pagamento (Pix, boleto ou
-        cartão) na página hospedada pelo Asaas, e nenhum dado de cartão passa pelos nossos
-        servidores.
+        cartão) na página do Asaas, e nenhum dado de cartão passa pelos nossos servidores. Os
+        avisos de cobrança (fatura em aberto, vencimento próximo) aparecem dentro do sistema; não
+        enviamos cobrança por e-mail ou mensagem.
       </li>
       <li>
-        Com o pagamento em atraso, a conta fica em <strong>modo somente leitura</strong>: você
-        continua vendo e exportando pacientes, agenda, prontuário e financeiro, mas não pode criar
-        nem editar nada até regularizar. O acesso de leitura nunca é bloqueado, para não impedir que
-        você cumpra a obrigação de guarda do prontuário.
+        Se mudarmos o preço, avisamos dentro do sistema com pelo menos <strong>30 dias</strong> de
+        antecedência. O valor novo vale a partir do ciclo seguinte ao aviso; você pode cancelar
+        antes, sem multa.
       </li>
-      <li>Você pode cancelar a assinatura a qualquer momento, pela própria plataforma.</li>
       <li>Ainda não emitimos nota fiscal, porque isso depende da formalização do CNPJ.</li>
     </ul>
   </section>
 
   <section>
-    <h2>5. Seus dados e os dados dos seus pacientes</h2>
+    <h2>5. Modo somente leitura</h2>
+    <p>
+      Nestes casos a conta fica em <strong>modo somente leitura</strong>: o teste grátis terminou
+      sem assinatura; o pagamento está em atraso; a cobrança do período atual foi estornada ou
+      contestada (chargeback); ou a assinatura foi cancelada e o período já pago terminou.
+    </p>
+    <p>
+      Em somente leitura você continua entrando, vendo e exportando pacientes, agenda, prontuário e
+      financeiro, mas não pode criar nem editar nada até regularizar. O acesso de leitura nunca é
+      bloqueado, para não impedir que você cumpra a obrigação de guarda do prontuário.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Cupons</h2>
+    <ul>
+      <li>
+        Cupons do Gradatim dão <strong>dias extras de teste grátis</strong>. Não são desconto, não
+        têm valor em dinheiro e não podem ser trocados.
+      </li>
+      <li>
+        Valem só para contas que ainda não assinaram, e cada conta pode usar um cupom. Com o teste
+        em andamento, os dias são somados ao fim dele; com o teste já encerrado, contam a partir do
+        dia do uso.
+      </li>
+      <li>
+        Cada cupom pode ter validade e limite de usos, e podemos encerrar uma campanha a qualquer
+        momento. Cupons já usados continuam valendo.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>7. Seus dados e os dados dos seus pacientes</h2>
     <p>
       Os dados que você cadastra sobre seus pacientes pertencem a você. Nós apenas os armazenamos e
-      processamos em seu nome, como explica a Política de Privacidade. Você pode exportar ou excluir
-      esses dados a qualquer momento, respeitado o prazo mínimo de 5 anos de guarda do prontuário
-      (Resolução CFP nº 01/2009).
+      processamos em seu nome, como explica a Política de Privacidade. Você pode exportar esses
+      dados a qualquer momento em <a href={configuracoes}>Configurações</a>, respeitado o prazo
+      mínimo de 5 anos de guarda do prontuário (Resolução CFP nº 01/2009).
     </p>
   </section>
 
   <section>
-    <h2>6. Integração com Google Agenda</h2>
+    <h2>8. Integração com Google Agenda</h2>
     <p>
       A integração com o Google Agenda é opcional e de mão única: o sistema cria eventos na sua
-      agenda e não lê o que já está nela. Você pode revogar essa permissão a qualquer momento em
-      <a href={configuracoes}>Configurações</a> ou na sua conta Google, e a plataforma continua
-      funcionando sem a integração.
+      agenda e não lê o que já está nela. Se você ligar o convite, o paciente que aceita lembretes
+      e tem e-mail recebe do Google o convite da consulta. Você pode revogar essa permissão a
+      qualquer momento em <a href={configuracoes}>Configurações</a> ou na sua conta Google, e a
+      plataforma continua funcionando sem a integração.
     </p>
   </section>
 
   <section>
-    <h2>7. Limitação de responsabilidade</h2>
+    <h2>9. Limitação de responsabilidade</h2>
     <p>
       O serviço é fornecido "como está". Fazemos esforço razoável para manter a plataforma
       disponível e os dados seguros, mas não garantimos disponibilidade ininterrupta. A plataforma
@@ -102,27 +141,28 @@ const EMAIL = "contato@splashsistemas.com.br";
   </section>
 
   <section>
-    <h2>8. Cancelamento e encerramento de conta</h2>
+    <h2>10. Cancelamento e encerramento de conta</h2>
     <p>
-      Você pode cancelar a assinatura a qualquer momento, pela própria plataforma. Depois do
-      cancelamento, a conta fica em modo somente leitura: você continua entrando para consultar e
-      exportar seus dados, inclusive o prontuário, que precisa ser guardado por no mínimo 5 anos
-      (Resolução CFP nº 01/2009). Se quiser a exclusão definitiva da conta, fale com a gente pelo
-      contato no fim desta página. Os dados sem guarda obrigatória são apagados, e o prontuário é
-      apagado quando o prazo legal terminar.
+      Você pode cancelar a assinatura a qualquer momento, pela própria plataforma, sem multa. O
+      acesso completo continua até o fim do período já pago. Depois disso, a conta fica em modo
+      somente leitura: você continua entrando para consultar e exportar seus dados, inclusive o
+      prontuário, que precisa ser guardado por no mínimo 5 anos (Resolução CFP nº 01/2009). Se
+      quiser a exclusão definitiva da conta, fale com a gente pelo contato no fim desta página. Os
+      dados sem guarda obrigatória são apagados, e o prontuário é apagado quando o prazo legal
+      terminar.
     </p>
   </section>
 
   <section>
-    <h2>9. Alterações destes termos</h2>
+    <h2>11. Alterações destes termos</h2>
     <p>
-      Estes termos podem mudar com o produto. Avisamos mudanças relevantes por e-mail ou dentro do
-      sistema antes de entrarem em vigor.
+      Estes termos podem mudar com o produto. Avisamos mudanças relevantes dentro do sistema antes
+      de entrarem em vigor.
     </p>
   </section>
 
   <section>
-    <h2>10. Foro</h2>
+    <h2>12. Foro</h2>
     <p>
       Fica eleito o foro da comarca de Torres/RS para dirimir eventuais controvérsias decorrentes
       destes termos.
@@ -130,7 +170,7 @@ const EMAIL = "contato@splashsistemas.com.br";
   </section>
 
   <section>
-    <h2>11. Contato</h2>
+    <h2>13. Contato</h2>
     <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </section>
 </Legal>

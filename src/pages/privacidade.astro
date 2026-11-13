@@ -1,7 +1,7 @@
 ---
-// Mesmo texto da página de privacidade do app (splash-sites/saas-psicologia).
-// Manter as duas versões iguais ao alterar. A seção "Este site" existe só aqui,
-// porque trata da landing (cookies e Vercel Analytics).
+// Único lugar do texto: app.gradatim.com.br/privacidade redireciona para cá.
+// A URL é a cadastrada na tela de consentimento do Google: não mudar sem nova
+// verificação (o conteúdo pode mudar). Manter o parágrafo de Uso Limitado.
 import Legal from "../layouts/Legal.astro";
 import { APP_LOGIN_URL } from "../consts";
 const configuracoes = new URL("/configuracoes", APP_LOGIN_URL).href;
@@ -19,22 +19,26 @@ const EMAIL = "contato@splashsistemas.com.br";
       com sede em Torres/RS. Ainda não temos CNPJ. Quando a empresa for formalizada, esta política
       passa a trazer a razão social.
     </p>
-    <p>Contato: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    <p>
+      <strong>Encarregado pelo tratamento de dados (LGPD, art. 41):</strong> Bernardo Dornelles.
+      Contato para qualquer assunto de privacidade, inclusive pedidos de titulares:
+      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+    </p>
   </section>
 
   <section>
     <h2>2. O que o sistema faz</h2>
     <p>
       O Gradatim é um sistema de gestão de consultório para psicólogos autônomos, com agenda,
-      prontuário e evolução de sessões, financeiro e assinatura. Só o psicólogo usa o sistema.
-      Pacientes não têm login nem acesso direto à plataforma.
+      prontuário e evolução de sessões, financeiro, lembretes de consulta e assinatura. Só o
+      psicólogo usa o sistema. Pacientes não têm login nem acesso direto à plataforma.
     </p>
   </section>
 
   <section>
     <h2>3. Quem é o controlador dos dados do paciente</h2>
     <p>
-      Nos dados de pacientes (cadastro, anamnese, evolução clínica, financeiro), o
+      Nos dados de pacientes (cadastro, anamnese, evolução clínica, agenda, financeiro), o
       <strong>controlador</strong> é o psicólogo que usa a plataforma, nos termos da LGPD, porque é
       ele quem decide coletar e tratar esses dados no exercício da profissão. Nós somos
       <strong>operadores</strong>: armazenamos e processamos esses dados em nome do psicólogo,
@@ -45,35 +49,63 @@ const EMAIL = "contato@splashsistemas.com.br";
   </section>
 
   <section>
-    <h2>4. Dados que coletamos</h2>
+    <h2>4. Dados que tratamos</h2>
     <ul>
       <li>
-        <strong>Cadastro do psicólogo:</strong> nome e e-mail. Quem entra com o Google também
-        compartilha a foto de perfil da conta Google.
+        <strong>Do psicólogo:</strong> nome, e-mail, CRP (opcional) e senha (guardada pelo
+        provedor de login só em forma cifrada, nunca em texto). Quem entra com o Google também
+        compartilha o nome e a foto de perfil da conta Google. Se você cadastrar, também o link
+        fixo de atendimento online.
       </li>
       <li>
-        <strong>Dados de pacientes:</strong> nome, contato (telefone/WhatsApp), status
-        (ativo/inativo/alta), ficha de anamnese e evoluções de sessão. São dados de saúde, categoria
-        sensível pela LGPD (art. 5º, II).
+        <strong>Dos pacientes:</strong> nome, telefone, e-mail, CPF, data de nascimento, endereço,
+        observações, status (ativo, inativo, alta) e se o paciente aceita receber lembretes, com a
+        data em que o aceite foi registrado. Também a ficha de anamnese, as evoluções de sessão e
+        as notas privadas do psicólogo. Os dados de anamnese e evolução são dados de saúde,
+        categoria sensível pela LGPD (art. 5º, II). Só o nome é obrigatório; o resto é preenchido
+        se o psicólogo quiser.
       </li>
       <li>
-        <strong>Agenda:</strong> consultas, horários, recorrência, bloqueios de disponibilidade.
+        <strong>Agenda:</strong> consultas (data, horário, online ou presencial, recorrência,
+        status, confirmação e observações), bloqueios de horário e o registro de lembretes
+        enviados.
       </li>
       <li>
-        <strong>Financeiro:</strong> lançamentos de pagamento por sessão (valor, status, data).
+        <strong>Financeiro:</strong> lançamentos por paciente ou sessão (valor, vencimento, data e
+        forma de pagamento, status e observações).
       </li>
       <li>
-        <strong>Google Agenda:</strong> com sua autorização explícita, criamos eventos na sua Google
-        Agenda pessoal (e o link do Google Meet, quando a consulta é online) e guardamos, de forma
-        cifrada (AES-256-GCM), o token necessário para isso. A via é de mão única: o sistema escreve
-        na sua agenda, mas não lê nem importa nada dela.
+        <strong>Assinatura:</strong> CPF ou CNPJ, plano escolhido e o histórico de cobranças que o
+        Asaas nos informa. Não armazenamos dados de cartão: o pagamento (Pix, boleto ou cartão)
+        acontece inteiramente na página do Asaas.
       </li>
       <li>
-        <strong>Assinatura:</strong> CPF/CNPJ e dados de cobrança necessários para gerar a cobrança
-        no Asaas. Não armazenamos dados de cartão. O pagamento (Pix, boleto ou cartão) acontece
-        inteiramente na página hospedada pelo Asaas.
+        <strong>Registros de segurança:</strong> quando o prontuário de um paciente foi aberto
+        (data, parte aberta e paciente, sem o conteúdo) e quando dados foram exportados. Servem
+        para investigar acessos indevidos.
+      </li>
+      <li>
+        <strong>Google Agenda (opcional):</strong> com a sua autorização, guardamos, de forma
+        cifrada (AES-256-GCM), o token que permite criar eventos na sua Google Agenda.
       </li>
     </ul>
+  </section>
+
+  <section id="google-agenda">
+    <h2>5. Como usamos o Google Agenda</h2>
+    <p>
+      A integração é opcional e é pedida separadamente, depois do login, no painel ou em
+      <a href={configuracoes}>Configurações</a>. A via é de mão única: o sistema cria, atualiza e
+      cancela na sua agenda principal os eventos das consultas marcadas no Gradatim, com o link do
+      Google Meet nas consultas online. Não lê, não importa e não altera nenhum outro evento.
+    </p>
+    <p>
+      O evento leva o título <em>“Consulta — primeiro nome e inicial do sobrenome do paciente”</em>
+      (por exemplo, “Consulta — Maria S.”), o horário e o link do Meet. Se o paciente aceita
+      lembretes, tem e-mail cadastrado e o convite está ligado nas suas configurações, o e-mail
+      dele entra como convidado, e o Google envia a ele o convite, as remarcações e os
+      cancelamentos. Nada clínico vai para o Google, nem as observações da consulta.
+    </p>
     <p>
       O uso e a transferência, para qualquer outro aplicativo, de informações recebidas das APIs do
       Google seguem a
@@ -84,43 +116,88 @@ const EMAIL = "contato@splashsistemas.com.br";
       os lê, exceto com o seu consentimento, quando a lei exigir ou para investigar um problema de
       segurança.
     </p>
+    <p>
+      Você pode revogar a permissão a qualquer momento em
+      <a href={configuracoes}>Configurações</a> ou direto na sua conta Google. O sistema continua
+      funcionando sem a integração.
+    </p>
   </section>
 
   <section>
-    <h2>5. Por que tratamos esses dados (base legal)</h2>
+    <h2>6. Por que tratamos esses dados (base legal)</h2>
     <ul>
       <li>
-        <strong>Execução de contrato</strong> (LGPD art. 7º, V): para fornecer a plataforma de
-        gestão que você contratou.
+        <strong>Dados do psicólogo e da assinatura:</strong> execução do contrato (LGPD art. 7º, V)
+        e cumprimento de obrigações legais, como as fiscais (art. 7º, II).
       </li>
       <li>
-        <strong>Consentimento</strong> (LGPD art. 11, I): para o tratamento de dados de saúde de
-        pacientes, consentimento que o psicólogo obtém do próprio paciente, e para o acesso à sua
-        Google Agenda (permissão pedida explicitamente no login, que você pode revogar a qualquer
-        momento em <a href={configuracoes}>Configurações</a> ou direto na sua conta Google).
+        <strong>Dados dos pacientes:</strong> a base legal é definida pelo psicólogo, como
+        controlador. No atendimento psicológico, em geral são a tutela da saúde, em procedimento
+        realizado por profissional de saúde (art. 11, II, “f”), e o cumprimento da obrigação legal
+        de manter o registro documental (art. 11, II, “a”, Resolução CFP nº 01/2009). Os lembretes
+        de consulta dependem do aceite do paciente, registrado no cadastro dele.
+      </li>
+      <li>
+        <strong>Google Agenda:</strong> o seu consentimento (art. 7º, I), que você pode revogar a
+        qualquer momento.
+      </li>
+      <li>
+        <strong>Registros de segurança:</strong> legítimo interesse em proteger a conta e os dados
+        (art. 7º, IX) e o dever de segurança do art. 46.
       </li>
     </ul>
   </section>
 
   <section>
-    <h2>6. Com quem compartilhamos</h2>
+    <h2>7. Com quem compartilhamos</h2>
     <ul>
-      <li><strong>Supabase:</strong> banco de dados e autenticação.</li>
       <li>
-        <strong>Google:</strong> eventos na sua agenda e links do Meet (Google Calendar API), só com
-        a sua autorização.
+        <strong>Supabase:</strong> banco de dados e login. Os dados ficam em servidores na região
+        de São Paulo.
       </li>
       <li>
-        <strong>Asaas:</strong> cobrança da sua assinatura. Os pagamentos que seus pacientes fazem a
-        você ficam só no nosso banco (lançamento manual, sem gateway).
+        <strong>Vercel:</strong> hospedagem da aplicação. O processamento das páginas pode ocorrer
+        em servidores fora do Brasil.
       </li>
-      <li><strong>Vercel:</strong> hospedagem da aplicação.</li>
+      <li>
+        <strong>Google:</strong> eventos na sua agenda e links do Meet, só com a sua autorização,
+        como descrito na seção 5.
+      </li>
+      <li>
+        <strong>Asaas:</strong> cobrança da sua assinatura (recebe seu nome, e-mail e CPF ou CNPJ).
+        Os pagamentos que seus pacientes fazem a você ficam só no nosso banco (lançamento manual,
+        sem gateway).
+      </li>
+      <li>
+        <strong>Resend:</strong> envio dos e-mails de login (confirmação de cadastro e troca de
+        senha). Recebe só o seu e-mail.
+      </li>
+      <li>
+        <strong>WhatsApp:</strong> o lembrete de consulta é enviado por você, do seu próprio
+        WhatsApp. O Gradatim só monta o link com a mensagem preenchida, sem nenhum dado clínico.
+      </li>
     </ul>
-    <p>Não vendemos nem alugamos dados a terceiros.</p>
+    <p>
+      Quando um desses serviços processa dados fora do Brasil, a transferência segue o art. 33 da
+      LGPD, com as garantias contratuais oferecidas por eles. Não vendemos nem alugamos dados a
+      terceiros.
+    </p>
   </section>
 
   <section>
-    <h2>7. Guarda e segurança</h2>
+    <h2>8. O que a nossa equipe vê</h2>
+    <p>
+      Para administrar o serviço, vemos dados da sua conta e do uso dela: nome, e-mail, data de
+      cadastro e do último acesso, situação da assinatura e plano, fim do teste grátis, cupom usado
+      e a quantidade de pacientes, consultas e evoluções cadastradas.
+      <strong>Não vemos o conteúdo clínico</strong> (anamnese, evolução, notas) nem os dados dos
+      seus pacientes pelo painel de administração. Acesso técnico ao banco só acontece para
+      resolver um problema que você nos relatar, com a sua autorização, ou quando a lei exigir.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Guarda e segurança</h2>
     <ul>
       <li>
         Registros de evolução e prontuário são mantidos por no mínimo <strong>5 anos</strong>, como
@@ -128,37 +205,59 @@ const EMAIL = "contato@splashsistemas.com.br";
         apagado fisicamente antes desse prazo.
       </li>
       <li>
-        Os dados armazenados são protegidos pela criptografia nativa do banco e por controle de
-        acesso (Row Level Security), que limita cada psicólogo aos dados da própria conta.
+        Os dados ficam protegidos pela criptografia nativa do banco e por controle de acesso no
+        próprio banco (Row Level Security), que limita cada psicólogo aos dados da própria conta.
       </li>
       <li>
         O token de acesso à sua Google Agenda tem uma camada extra de cifra, feita na própria
         aplicação (AES-256-GCM).
       </li>
-      <li>Toda comunicação com o sistema usa HTTPS.</li>
+      <li>
+        Toda comunicação com o sistema usa HTTPS. Senhas têm no mínimo 8 caracteres, e o sistema
+        registra cada abertura de prontuário e cada exportação.
+      </li>
+      <li>
+        Se acontecer um incidente de segurança que possa causar risco ou dano relevante, avisamos
+        você e a Autoridade Nacional de Proteção de Dados (ANPD), como manda o art. 48 da LGPD.
+      </li>
     </ul>
   </section>
 
   <section>
-    <h2>8. Seus direitos (titular dos dados)</h2>
+    <h2>10. Cookies e armazenamento no navegador</h2>
     <p>
-      Você pode pedir acesso, correção, portabilidade ou exclusão dos seus dados e revogar
-      consentimentos a qualquer momento, pela própria plataforma (quando houver a opção) ou pelo
-      contato no topo desta página. Dados com guarda obrigatória por lei, como o prontuário (5
-      anos), não podem ser excluídos antes do prazo, mesmo a pedido.
+      O sistema usa apenas cookies essenciais para manter você conectado, além da preferência
+      “Lembrar de mim”. No próprio navegador, guarda só preferências de tela (como o modo privado,
+      que borra nomes e valores). Não usamos cookies de publicidade nem de rastreamento.
     </p>
   </section>
 
   <section>
-    <h2>9. Alterações desta política</h2>
+    <h2>11. Seus direitos (titular dos dados)</h2>
+    <p>
+      Você pode pedir confirmação e acesso, correção, portabilidade ou exclusão dos seus dados e
+      revogar consentimentos a qualquer momento, pela própria plataforma (por exemplo, editar o
+      cadastro ou exportar todos os dados em Configurações) ou pelo contato do encarregado, na
+      seção 1. Dados com guarda obrigatória por lei, como o prontuário (5 anos), não podem ser
+      excluídos antes do prazo, mesmo a pedido.
+    </p>
+    <p>
+      Se você é paciente de um psicólogo que usa o Gradatim, o responsável pelos seus dados é o
+      próprio psicólogo: fale primeiro com ele. Se escrever para nós, encaminhamos o pedido a ele e
+      ajudamos no que for preciso.
+    </p>
+  </section>
+
+  <section>
+    <h2>12. Alterações desta política</h2>
     <p>
       Esta política pode mudar com o produto, por exemplo quando a empresa tiver CNPJ. Avisamos
-      mudanças relevantes por e-mail ou dentro do próprio sistema.
+      mudanças relevantes dentro do sistema antes de entrarem em vigor.
     </p>
   </section>
 
   <section>
-    <h2>10. Este site</h2>
+    <h2>13. Este site</h2>
     <p>
       O site gradatim.com.br não usa cookies. Medimos visitas com o Vercel Analytics, que gera
       estatísticas agregadas sem identificar quem visita.
